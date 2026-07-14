@@ -1,0 +1,45 @@
+.vok-popup{
+
+    border-radius:18px !important;
+
+    box-shadow:0 20px 45px rgba(15,23,42,.15) !important;
+
+}
+
+.vok-title{
+
+    color:#111827 !important;
+
+    font-size:28px !important;
+
+}
+
+.vok-text{
+
+    color:#6B7280 !important;
+
+}
+
+.vok-confirm{
+
+    background:#006A4E !important;
+
+    border-radius:10px !important;
+
+    padding:10px 24px !important;
+
+    font-weight:600 !important;
+
+}
+
+.vok-confirm:hover{
+
+    background:#00543F !important;
+
+}
+
+.vok-cancel{
+
+    border-radius:10px !important;
+
+}

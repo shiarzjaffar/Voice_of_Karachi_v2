@@ -18,6 +18,13 @@ export const ForgetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailExists, setEmailExists] = useState(null);
 
+
+const swalTheme = {
+  background: "#FFFFFF",
+  color: "#111827",
+  confirmButtonColor: "#006A4E",
+};
+
   const handleSendOTP = async (e) => {
     e.preventDefault();
     setError("");
@@ -50,9 +57,7 @@ export const ForgetPassword = () => {
           title: "🎉 Success!",
           text: "Message sent successfully!",
           confirmButtonText: "OK",
-          confirmButtonColor: "#00e6b8",
-          background: "linear-gradient(135deg, #001f1f, #004d4d)",
-          color: "white",
+          ...swalTheme,
           timer: 3000,
           timerProgressBar: true,
         });
@@ -63,9 +68,7 @@ export const ForgetPassword = () => {
         icon: "error",
         title: "Error",
         text: err.response?.data?.error || "Failed to send OTP. Try again.",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
+        ...swalTheme,
       });
     } finally {
       setLoading(false);
@@ -106,9 +109,7 @@ export const ForgetPassword = () => {
         icon: "success",
         title: "OTP Verified",
         text: "Please enter your new password.",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
+        ...swalTheme,
       });
     } catch (err) {
       setError(err.response?.data?.error || "Invalid OTP. Please try again.");
@@ -116,9 +117,7 @@ export const ForgetPassword = () => {
         icon: "error",
         title: "Error",
         text: err.response?.data?.error || "Invalid OTP. Please try again.",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
+        ...swalTheme,
       });
     } finally {
       setLoading(false);
@@ -143,9 +142,7 @@ export const ForgetPassword = () => {
           icon: "success",
           title: "Password Reset",
           text: "Your password has been reset successfully!",
-          background: "linear-gradient(135deg, #001f1f, #004d4d)",
-          color: "white",
-          confirmButtonColor: "#00b894",
+          ...swalTheme,
         }).then(() => {
           navigate("/login");
         });
@@ -156,9 +153,7 @@ export const ForgetPassword = () => {
         icon: "error",
         title: "Error",
         text: err.response?.data?.error || "Failed to reset password. Try again.",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
+        ...swalTheme,
       });
     } finally {
       setLoading(false);
@@ -178,7 +173,7 @@ export const ForgetPassword = () => {
           step === 1 ? handleSendOTP : step === 2 ? handleVerifyOTP : handleResetPassword
         }
       >
-        {error && <p className={ForgetPasswordcss.errorText}>{error}</p>}
+        {error && <p className={ForgetPasswordcss.warningText}>{error}</p>}
         {success && <p className={ForgetPasswordcss.successText}>{success}</p>}
 
         {step === 1 && (
@@ -228,7 +223,7 @@ export const ForgetPassword = () => {
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className={ForgetPasswordcss.pwdbtn}
+              className={ForgetPasswordcss.toggleButton}
               style={{
                 position: "absolute",
                 right: "0.75rem",

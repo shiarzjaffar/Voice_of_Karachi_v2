@@ -1,26 +1,26 @@
-/* 🌌 Fullscreen Background with Animated Glow */
+/* 🌌 Fullscreen Background with Animated Navy Glow */
 .contactContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: radial-gradient(circle, #001f1f, #00b3b3);
-  color: white;
+  background: radial-gradient(circle, #3D6582, #0E2A43); /* logo-inspired gradient */
+  color: #F4F8F9;
   text-align: center;
   padding: 20px;
   overflow: hidden;
-  position: relative; /* Ensures child elements stay contained */
+  position: relative;
   animation: fadeIn 1.2s ease-in-out;
 }
 
-/* 🌟 Floating Background Glow */
+/* 🌟 Floating Navy Glow Background */
 .contactContainer::before {
   content: "";
   position: absolute;
   width: 400px;
   height: 400px;
-  background: rgba(0, 255, 204, 0.2);
+  background: rgba(14, 42, 67, 0.25); /* light navy glow */
   filter: blur(120px);
   border-radius: 50%;
   top: -10%;
@@ -30,255 +30,185 @@
 }
 
 @keyframes floatingGlow {
-  from { transform: translateX(-50%) translateY(0); }
-  to { transform: translateX(-50%) translateY(30px); }
+  from { transform: translateY(0); }
+  to { transform: translateY(30px); }
 }
 
 /* ✨ Title & Subtitle */
 .title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 10px;
-  color: #00ffcc;
+  color: #F4F8F9;
   opacity: 1;
   animation: fadeInUp 1s ease-in-out 0.5s forwards;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 20px;
-  color: #a0e7e5;
+  color: #C4D0D6;
   opacity: 1;
   animation: fadeInUp 1s ease-in-out 0.7s forwards;
 }
 
 /* ✨ Glassmorphic Contact Form */
 .contactFormContainer {
-  background: rgba(0, 77, 77, 0.3);
-  backdrop-filter: blur(10px);
+  background: rgba(14, 42, 67, 0.50); /* transparent navy glass */
+  backdrop-filter: blur(12px);
   border-radius: 15px;
-  padding: 2.5rem;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-  width: 400px;
-  max-width: 90%;
-  opacity: 1;
-  transform: translateY(30px);
+  padding: 2rem;
+  width: 90%;
+  max-width: 380px;
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.4); /* sky blue glow */
   animation: fadeInUp 1s ease-in-out 1s forwards;
   transition: all 0.3s ease;
 }
 
 .contactFormContainer:hover {
-  box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.6);
 }
 
 /* 🏷️ Input Fields */
 .inputGroup {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 1.2rem;
+  padding: 10px;
+  margin-bottom: 1rem;
   border: 1px solid transparent;
   transition: all 0.3s ease;
 }
 
 .inputGroup:hover {
-  border: 1px solid #00ffcc;
+  border: 1px solid #5BA0BC; /* sky blue */
 }
 
 .input {
   border: none;
   background: none;
   outline: none;
-  padding: 12px;
+  padding: 10px;
   flex: 1;
   font-size: 1rem;
-  color: white;
+  color: #F4F8F9;
 }
 
 .input::placeholder {
-  color: #a0e7e5;
+  color: #C4D0D6;
+}
+
+textarea {
+  resize: none;
 }
 
 /* 🌀 Icon Effects */
 .icon {
-  color: #00ffcc;
-  margin-right: 10px;
-  font-size: 1.3rem;
-  transition: transform 0.3s ease-in-out;
+  color: #F4F8F9;
+  margin-right: 8px;
+  font-size: 1.2rem;
 }
 
-.inputGroup:hover .icon {
-  transform: scale(1.1);
+.phone {
+  transform: rotate(90deg);
 }
 
 /* 🎭 Submit Button */
 .submitButton {
-  background: linear-gradient(135deg, #00b3b3, #00ffcc);
-  color: white;
+  background: linear-gradient(135deg, #5BA0BC, #0E2A43); /* sky → navy */
+  color: #F4F8F9;
   border: none;
-  padding: 14px;
+  padding: 12px;
   border-radius: 10px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   width: 100%;
-  cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
+  position: relative;
   overflow: hidden;
 }
 
 .submitButton:hover {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #6EB8D4, #0E2A43); /* brighter hover */
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.7);
 }
 
-/* 📱 Fully Responsive Design */
-@media screen and (max-width: 1024px) {
-  .title {
-    font-size: 2.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .contactFormContainer {
-    width: 90%;
-    padding: 2rem;
-    margin-bottom: 10px;
-  }
+.submitButton:active {
+  transform: scale(0.95);
 }
 
-/* Tablets & Small Laptops */
-@media screen and (max-width: 768px) {
-  .contactContainer {
-    padding: 20px 10px;
-  }
-  
-  .contactContainer::before {
-    width: 250px;
-    height: 250px;
-    filter: blur(80px);
-    top: -5%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .title {
-    font-size: 2.2rem;
-    opacity: 1;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    margin-bottom: 15px;
-    opacity: 1;
-  }
-
-  .contactFormContainer {
-    width: 95%;
-    padding: 1.8rem;
-    opacity: 1;
-  }
-
-  .inputGroup {
-    padding: 10px;
-  }
-
-  .input {
-    font-size: 0.9rem;
-  }
-
-  .icon {
-    font-size: 1rem;
-    margin-right: 8px;
-  }
-
-  .submitButton {
-    font-size: 1.1rem;
-    padding: 12px;
-  }
+.submitButton::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
 }
 
-/* 📱 Mobile & Extra Small Screens */
-@media screen and (max-width: 480px) {
-  .title {
-    font-size: 1.8rem;
-    opacity: 1;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-    opacity: 1;
-  }
-
-  .contactFormContainer {
-    width: 100%;
-    padding: 1.5rem;
-    opacity: 1;
-  }
-
-  .inputGroup {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px;
-  }
-
-  .icon {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  .submitButton {
-    font-size: 1rem;
-    padding: 10px;
-  }
+.submitButton:active::after {
+  opacity: 1;
+  animation: ripple 0.6s ease-out;
 }
 
-/* Ultra Small Devices */
-@media screen and (max-width: 360px) {
-  .title {
-    font-size: 1.6rem;
-    opacity: 1;
-  }
-
-  .subtitle {
-    font-size: 0.8rem;
-    opacity: 1;
-  }
-
-  .contactFormContainer {
-    padding: 1.2rem;
-    opacity: 1;
-  }
-
-  .input {
-    font-size: 0.85rem;
-  }
-
-  .submitButton {
-    font-size: 0.9rem;
-  }
+@keyframes ripple {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(3); opacity: 0; }
 }
 
-.phone{
-  rotate: 90deg;
+/* Error & Animations */
+.shake {
+  animation: shakeAnim 0.4s;
 }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.errorText {
+  color: #C4D0D6;
 }
 
-.fadeIn {
-  animation: fadeSlideIn 0.8s ease-out;
+@keyframes shakeAnim {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* Toggle Button */
+.toggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #F4F8F9;
+  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.toggleButton:hover {
+  transform: scale(1.1);
+  color: #C4D0D6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .title { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+  .contactFormContainer { padding: 1.5rem; }
+  .inputGroup { padding: 8px; }
+  .submitButton { font-size: 1rem; padding: 10px; }
+  .toggleButton { position: absolute; right: 10%; }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -1,0 +1,21 @@
+.hero{
+    margin-bottom:30px;
+}
+
+.breadcrumb{
+    color:#006A4E;
+    font-size:14px;
+    font-weight:600;
+}
+
+.hero h1{
+    margin:12px 0;
+    font-size:42px;
+    color:#111827;
+}
+
+.hero p{
+    max-width:700px;
+    color:#6B7280;
+    line-height:1.7;
+}

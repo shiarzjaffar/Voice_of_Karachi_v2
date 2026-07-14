@@ -14,6 +14,14 @@ export const Contact = () => {
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // 🎨 UrbanFix Brand SweetAlert Theme
+const swalTheme = {
+  background: "#FFFFFF",
+  color: "#111827",
+  confirmButtonColor: "#006A4E",
+};
 
   useEffect(() => {
     setAnimate(true);
@@ -23,9 +31,7 @@ export const Contact = () => {
     const { name, value } = e.target;
     if (name === "phone") {
       const numericValue = value.replace(/[^0-9]/g, "");
-      if (numericValue.length <= 11) {
-        setFormData({ ...formData, [name]: numericValue });
-      }
+      if (numericValue.length <= 11) setFormData({ ...formData, [name]: numericValue });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -33,21 +39,22 @@ export const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
     const { name, email, message } = formData;
 
     if (!name || !email || !message) {
       setError("⚠️ Name, Email, and Message are required!");
       triggerShake();
+      setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/submit", {
+      const response = await fetch("http://localhost:5000/api/contact/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -55,23 +62,43 @@ export const Contact = () => {
 
       if (response.ok) {
         setFormData({ name: "", email: "", phone: "", message: "" });
-        Swal.fire({
+        await Swal.fire({
           icon: "success",
           title: "🎉 Success!",
           text: data.message || "Message sent successfully!",
-          confirmButtonText: "OK",
-          confirmButtonColor: "#00e6b8",
-          background: "linear-gradient(135deg, #001f1f, #004d4d)",
-          color: "white",
+          ...swalTheme,
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false
         });
       } else {
         setError("❌ " + (data.message || "Error sending message. Please try again."));
         triggerShake();
+        await Swal.fire({
+          icon: "error",
+          title: "❌ Failed!",
+          text: data.message || "Error sending message. Please try again.",
+          ...swalTheme,
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        });
       }
     } catch (err) {
       console.error("Error:", err);
       setError("❌ Error sending message. Please try again.");
       triggerShake();
+      await Swal.fire({
+        icon: "error",
+        title: "❌ Failed!",
+        text: "Error sending message. Please try again.",
+        ...swalTheme,
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,8 +109,8 @@ export const Contact = () => {
 
   return (
     <div className={`${contactstylecss.contactContainer} ${animate ? contactstylecss.fadeIn : ""}`}>
-      <h1 className={contactstylecss.title}>📬 Contact Us</h1>
-      <p className={contactstylecss.subtitle}>💬 We’d love to hear from you. Reach out to us anytime!</p>
+      <h1 className={contactstylecss.title}>Contact Us</h1>
+      <p className={contactstylecss.subtitle}>We’d love to hear from you. Reach out anytime!</p>
 
       <div className={`${contactstylecss.contactFormContainer} ${shake ? contactstylecss.shake : ""}`}>
         {error && <p className={contactstylecss.errorText}>{error}</p>}
@@ -98,6 +125,8 @@ export const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               className={contactstylecss.input}
+              autoComplete="off"
+              required
             />
           </div>
 
@@ -110,6 +139,8 @@ export const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               className={contactstylecss.input}
+              autoComplete="off"
+              required
             />
           </div>
 
@@ -122,6 +153,7 @@ export const Contact = () => {
               value={formData.phone}
               onChange={handleChange}
               className={contactstylecss.input}
+              autoComplete="off"
               maxLength="11"
             />
           </div>
@@ -135,12 +167,13 @@ export const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               className={contactstylecss.input}
+              autoComplete="off"
+              required
             />
           </div>
 
-          <button type="submit" className={contactstylecss.submitButton}>
-            <FaPlaneDeparture />
-            Send Message ✈️
+          <button type="submit" className={contactstylecss.submitButton} disabled={loading}>
+            {loading ? "⏳ Sending..." : "Send Message"}
           </button>
         </form>
       </div>

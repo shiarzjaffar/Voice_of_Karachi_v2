@@ -1,0 +1,151 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* MAIN CONTAINER */
+.helpContainer {
+  width: 65%;
+  margin: 60px auto;
+  background: var(--dark-navy-blue);
+  padding: 40px 30px;
+  border-radius: 20px;
+  color: var(--white-light);
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.45);
+  font-family: "Poppins", sans-serif;
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--white-light);
+  text-shadow: 0 0 15px var(--bright-sky-blue);
+}
+
+.subText {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--light-gray-blue);
+}
+
+/* GRID */
+.grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(91, 160, 188, 0.3);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.4);
+}
+
+/* CARD TITLE */
+.cardTitle {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--bright-sky-blue);
+  text-shadow: 0 0 8px rgba(91, 160, 188, 0.6);
+}
+
+/* LIST */
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+  color: var(--white-light);
+}
+
+.list li::before {
+  content: "•";
+  color: var(--bright-sky-blue);
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+}
+
+/* CONTACT SECTION */
+.contactSection {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.contactTitle {
+  font-size: 26px;
+  color: var(--bright-sky-blue);
+  text-shadow: 0 0 10px rgba(91, 160, 188, 0.5);
+}
+
+.contactText {
+  margin-top: 8px;
+  color: var(--light-gray-blue);
+  font-size: 16px;
+}
+
+.contactButton {
+  background: var(--bright-sky-blue);
+  color: var(--white-light);
+  margin: 20px 0 0 0;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.contactButton:hover {
+  background: var(--white-light);
+  color: var(--dark-navy-blue);   /* Show text on hover */
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .helpContainer {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .helpContainer {
+    padding: 25px 20px;
+  }
+
+  .card {
+    padding: 20px 15px;
+  }
+}

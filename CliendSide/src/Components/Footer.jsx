@@ -1,46 +1,105 @@
 import React from "react";
-import loginstylecss from "./Footer.module.css";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import styles from "./Footer.module.css";
 
 export const Footer = () => {
   return (
-    <footer className={loginstylecss.footer}>
-      <div className={loginstylecss.container}>
-        {/* Left Section - Company Info */}
-        <div className={loginstylecss.companyInfo}>
-          <h2>EventSphere</h2>
-          <p>Bringing expos to life with seamless organization and connectivity.</p>
+    <footer className={styles.footer}>
+
+      <div className={styles.container}>
+
+        {/* Brand */}
+
+        <div className={styles.brand}>
+
+          <h2>Voice of Karachi</h2>
+
+          <p className={styles.subtitle}>
+            Digital Civic Engagement Platform
+          </p>
+
+          <p className={styles.description}>
+            Empowering citizens to report civic issues, track complaint
+            progress and contribute towards a cleaner, safer and smarter
+            Karachi.
+          </p>
+
         </div>
 
-        {/* Middle Section - Quick Links */}
-        <div className={loginstylecss.quickLinks}>
-          <h3>Quick Links</h3>
+        {/* Platform */}
+
+        <div>
+
+          <h3>Platform</h3>
+
           <ul>
+
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/expos">Expos</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/attendee">Attendee Dashboard</Link></li>
-            <li><Link to="/exhibitor-dashboard">Exhibitor Dashboard</Link></li>
+
+            <li><Link to="/">About</Link></li>
+
+            <li><Link to="/report-submit">Report Issue</Link></li>
+
+            <li><Link to="/report-tracking">Track Complaint</Link></li>
+
           </ul>
+
         </div>
 
-        {/* Right Section - Social Media */}
-        <div className={loginstylecss.socialMedia}>
-          <h3>Follow Us</h3>
-          <div className={loginstylecss.icons}>
-            <a href="#" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
-            <a href="#" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
-            <a href="#" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-            <a href="#" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-          </div>
+        {/* Departments */}
+
+        <div>
+
+          <h3>Departments</h3>
+
+          <ul>
+
+            <li>Road Maintenance</li>
+
+            <li>Water Supply</li>
+
+            <li>Waste Management</li>
+
+            <li>Street Lighting</li>
+
+          </ul>
+
         </div>
+
+        {/* Contact */}
+
+        <div>
+
+          <h3>Contact</h3>
+
+          <ul>
+
+            <li>Karachi, Pakistan</li>
+
+            <li>support@voiceofkarachi.pk</li>
+
+            <li>Available 24/7</li>
+
+          </ul>
+
+        </div>
+
       </div>
 
-      {/* Bottom Section */}
-      <div className={loginstylecss.bottomBar}>
-        <p>&copy; {new Date().getFullYear()} EventSphere. All Rights Reserved.</p>
+      <div className={styles.bottomBar}>
+
+        <p>
+          © {new Date().getFullYear()} Voice of Karachi
+        </p>
+
+        <p>
+          Developed for academic demonstration purposes.
+        </p>
+
       </div>
+
     </footer>
   );
 };
+
+export default Footer;

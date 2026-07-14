@@ -1,0 +1,95 @@
+.mission{
+    padding:100px 0;
+    background:#F7FAF8;
+}
+
+.container{
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+}
+
+.heading{
+    text-align:center;
+    max-width:850px;
+    margin:0 auto 70px;
+}
+
+.badge{
+    display:inline-block;
+    padding:10px 22px;
+    background:#E8F5EE;
+    color:#006A4E;
+    border-radius:40px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.heading h2{
+    font-size:48px;
+    color:#1F2937;
+    line-height:1.2;
+    margin-bottom:25px;
+}
+
+.heading p{
+    font-size:18px;
+    line-height:1.8;
+    color:#6B7280;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#fff;
+    padding:35px;
+    border-radius:18px;
+    border:1px solid #E4ECE7;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 45px rgba(0,0,0,.08);
+}
+
+.number{
+    width:60px;
+    height:60px;
+    background:#006A4E;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.card h3{
+    color:#1F2937;
+    margin-bottom:15px;
+    font-size:24px;
+}
+
+.card p{
+    color:#6B7280;
+    line-height:1.7;
+}
+
+@media(max-width:768px){
+
+.heading h2{
+    font-size:36px;
+}
+
+.heading p{
+    font-size:16px;
+}
+
+}

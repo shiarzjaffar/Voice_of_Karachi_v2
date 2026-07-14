@@ -15,6 +15,21 @@ export const Login = () => {
   const [emailStatus, setEmailStatus] = useState("");
   const [emailChecked, setEmailChecked] = useState(false);
 
+  // 🎨 UrbanFix Brand SweetAlert Theme
+const swalTheme = {
+  background: "#FFFFFF",
+  color: "#111827",
+
+  confirmButtonColor: "#006A4E",
+  cancelButtonColor: "#DC2626",
+
+  iconColor: "#006A4E",
+
+  customClass: {
+    popup: "animate__animated animate__fadeInDown",
+  },
+};
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -45,7 +60,7 @@ export const Login = () => {
           setEmailStatus("");
           setEmailChecked(true);
         } else {
-          setEmailStatus("📭 Email not registered.");
+          setEmailStatus("Email not registered.");
           setEmailChecked(false);
         }
       } catch (err) {
@@ -73,7 +88,7 @@ export const Login = () => {
     setError("");
 
     if (!formData.email || !formData.password) {
-      setError("❗ All fields are required!");
+      setError("⚠️ All fields are required!");
       triggerShake();
       return;
     }
@@ -97,7 +112,6 @@ export const Login = () => {
       });
 
       const { message } = response.data;
-
       setFormData({ email: "", password: "" });
       setError("");
 
@@ -106,12 +120,11 @@ export const Login = () => {
         title: "🎉 Success!",
         text: message || "Logged in successfully!",
         confirmButtonText: "Continue",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
+        ...swalTheme,
+        timer: 2000
       });
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       if (err.response?.data?.error === "Email not found!") {
         setError("📭 Email not registered.");
@@ -119,7 +132,16 @@ export const Login = () => {
       } else {
         setError(err.response?.data?.error || "⚠️ An unexpected error occurred.");
       }
+
       triggerShake();
+
+      await Swal.fire({
+        icon: "error",
+        title: "❌ Login Failed",
+        text: err.response?.data?.error || "Something went wrong. Please try again.",
+        ...swalTheme,
+      });
+
       setFormData({ email: "", password: "" });
     } finally {
       setLoading(false);
@@ -137,8 +159,12 @@ export const Login = () => {
 
   return (
     <div className={loginstylecss.loginContainer}>
-      <h1>👋 Welcome Back</h1>
-      <p>🔑 Log in to continue your journey!</p>
+      <h1 className={loginstylecss.title}>VOICE OF KARACHI</h1>
+
+<p className={loginstylecss.subtitle}>
+  Access your citizen account to report civic issues and
+  track complaint progress.
+</p>
 
       <form
         className={`${loginstylecss.loginForm} ${shake ? loginstylecss.shake : ""}`}
@@ -149,20 +175,21 @@ export const Login = () => {
           <input
             type="email"
             name="email"
-            placeholder="📧 Your Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
 
         {emailStatus && (
-          <p className={loginstylecss.errorText} aria-live="assertive">
+          <p className={loginstylecss.warningText} aria-live="assertive">
             {emailStatus}
           </p>
         )}
         {emailChecked && !emailStatus && (
-          <p className={loginstylecss.successText}>✅ Email is registered</p>
+          <p className={loginstylecss.successText}>Email is registered</p>
         )}
 
         <div className={loginstylecss.inputGroup}>
@@ -170,9 +197,10 @@ export const Login = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="🔒 Your Password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           <button
@@ -196,14 +224,20 @@ export const Login = () => {
           className={loginstylecss.submitButton}
           disabled={loading || !emailChecked}
         >
-          <FaSignInAlt /> {loading ? "⏳ Processing..." : "🚀 Login"}
+          {loading ? "Signing In..." : "Sign In"}
         </button>
 
         <div className={loginstylecss.forgotPasswordContainer}>
           <a href="/forgot-password" className={loginstylecss.forgotPasswordLink}>
-            🔑 Forgot Password?
+            Forgot Password?
           </a>
         </div>
+        <div className={loginstylecss.signupLink}>
+  Don't have an account?
+  <a href="/signup"> Create Account</a>
+</div>
+
+
       </form>
     </div>
   );

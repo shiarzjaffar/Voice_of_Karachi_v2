@@ -1,0 +1,58 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* Featured Expos Container */
+.featuredExpos {
+  background: rgba(14, 42, 67, 0.5);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  width: 1300px;
+  margin: 40px auto;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.4);
+  animation: fadeInUp 1s ease-in-out 0.4s forwards;
+}
+
+/* Grid */
+.expoPreviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Individual Cards */
+.expoPreviewCard {
+  background: rgba(14, 42, 67, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  color: var(--light-gray-blue);
+  text-align: center;
+
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.3);
+  transition: 0.3s ease;
+}
+
+.expoPreviewCard:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.6);
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

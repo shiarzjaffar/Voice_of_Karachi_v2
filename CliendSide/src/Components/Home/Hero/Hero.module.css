@@ -1,0 +1,239 @@
+.hero{
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(0,76,54,.82),
+            rgba(0,58,41,.88)
+        ),
+        url("/hero-karachi.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.12);
+}
+
+.content{
+    position:relative;
+    z-index:2;
+
+    width:90%;
+    max-width:1300px;
+
+    text-align:center;
+
+    color:white;
+}
+
+.badge{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.15);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    padding:10px 22px;
+
+    border-radius:40px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    backdrop-filter:blur(8px);
+
+    margin-bottom:30px;
+}
+
+.title{
+
+    font-size:72px;
+
+    font-weight:800;
+
+    line-height:1.1;
+
+    margin-bottom:25px;
+}
+
+.title span{
+
+    color:#7FE2A8;
+}
+
+.subtitle{
+
+    max-width:850px;
+
+    margin:0 auto;
+
+    font-size:21px;
+
+    line-height:1.8;
+
+    color:#EEF7F2;
+}
+
+.actions{
+
+    margin-top:45px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.primaryButton{
+
+    background:#ffffff;
+
+    color:#006A4E;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    padding:16px 34px;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.primaryButton:hover{
+
+    transform:translateY(-3px);
+
+    background:#f1f1f1;
+}
+
+.secondaryButton{
+
+    border:2px solid white;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    padding:16px 34px;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.secondaryButton:hover{
+
+    background:white;
+
+    color:#006A4E;
+}
+
+.statistics{
+
+    margin-top:80px;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+}
+
+.statCard{
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:18px;
+
+    padding:28px;
+
+    backdrop-filter:blur(10px);
+}
+
+.statCard h2{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+    color:white;
+}
+
+.statCard p{
+
+    color:#e6f4ec;
+
+    font-size:17px;
+}
+
+@media(max-width:992px){
+
+.title{
+
+font-size:52px;
+}
+
+.subtitle{
+
+font-size:18px;
+}
+
+.statistics{
+
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+
+padding:80px 0;
+}
+
+.title{
+
+font-size:40px;
+}
+
+.statistics{
+
+grid-template-columns:1fr;
+}
+
+.actions{
+
+flex-direction:column;
+align-items:center;
+}
+
+.primaryButton,
+.secondaryButton{
+
+width:260px;
+text-align:center;
+}
+
+}

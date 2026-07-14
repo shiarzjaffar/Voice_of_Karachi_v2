@@ -1,0 +1,52 @@
+/* ==========================================
+   REPORT TIMELINE
+========================================== */
+
+.page{
+    min-height:100vh;
+    background:#F5F7FA;
+    padding:45px 25px 80px;
+    color:#111827;
+}
+
+.container{
+    max-width:1200px;
+    margin:0 auto;
+}
+
+.backButton{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:25px;
+    color:#006A4E;
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+}
+
+.backButton:hover{
+    text-decoration:underline;
+}
+
+.card{
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+}
+
+.title{
+    margin:0;
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
+}
+
+.description{
+    margin-top:18px;
+    color:#6B7280;
+    font-size:16px;
+    line-height:1.8;
+}

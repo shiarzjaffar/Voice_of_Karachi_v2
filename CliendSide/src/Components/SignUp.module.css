@@ -1,288 +1,220 @@
-/* 🌌 Fullscreen Background with Animated Glow */
+/* =========================================================
+   Voice of Karachi
+   Citizen Registration
+========================================================= */
+
 .signUpContainer {
+  min-height: calc(100vh - 88px);
+  background: #f5f8f6;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: radial-gradient(circle, #001f1f, #00b3b3);
-  color: white;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #006a4e;
+  margin-bottom: 12px;
   text-align: center;
-  padding: 20px;
-  overflow: hidden;
-  animation: fadeIn 1.2s ease-in-out;
-  position: relative;
+  letter-spacing: 0.5px;
 }
 
-/* 🌟 Floating Background Glow */
-.signUpContainer::before {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 255, 204, 0.2);
-  filter: blur(120px);
-  border-radius: 50%;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: floatingGlow 6s infinite alternate ease-in-out;
+.subtitle {
+  max-width: 700px;
+  text-align: center;
+  color: #64748b;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 40px;
 }
 
-@keyframes floatingGlow {
-  from { transform: translateY(0); }
-  to { transform: translateY(30px); }
-}
-
-/* ✨ Title & Subtitle Animations */
-h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  color: #00ffcc;
-  animation: fadeInUp 1s ease-in-out 0.5s forwards;
-  opacity: 1;
-}
-
-p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #a0e7e5;
-  animation: fadeInUp 1s ease-in-out 0.7s forwards;
-  opacity: 1;
-}
-
-/* ✨ Glassmorphic Sign-Up Form */
 .signUpForm {
-  background: rgba(0, 77, 77, 0.3);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-  width: 90%;
-  max-width: 380px;
-  animation: fadeInUp 1s ease-in-out 1s forwards;
-  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #dbe7df;
+  padding: 40px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
-.signUpForm:hover {
-  box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
-}
-
-/* 🏷️ Input Fields with Glow Effect */
 .inputGroup {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
+  height: 58px;
+  background: #ffffff;
+  border: 1px solid #d6e3dc;
+  border-radius: 12px;
+  padding: 0 18px;
+  margin-bottom: 18px;
+  transition: 0.25s;
 }
 
-/* Hide arrows in WebKit browsers */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+.inputGroup:focus-within {
+  border-color: #006a4e;
+  box-shadow: 0 0 0 4px rgba(0, 106, 78, 0.08);
 }
 
-
-.inputGroup:hover {
-  border: 1px solid #00ffcc;
+.icon {
+  color: #006a4e;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .inputGroup input {
-  border: none;
-  background: none;
-  outline: none;
-  padding: 10px;
   flex: 1;
-  font-size: 1rem;
-  color: white;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left: 14px;
+  font-size: 15px;
+  color: #1f2937;
 }
 
 .inputGroup input::placeholder {
-  color: #a0e7e5;
+  color: #9ca3af;
 }
 
-/* 🌀 Floating Icon Effect */
-.icon {
-  color: #00ffcc;
-  margin-right: 8px;
-  font-size: 1.2rem;
-}
-
-/* 🔄 Rotated Phone Icon */
-.phone {
-  rotate: 90deg;
-}
-
-/* 🎭 Submit Button with Ripple Effect */
-.submitButton {
-  background: linear-gradient(135deg, #00b3b3, #00ffcc);
-  color: white;
+.toggleButton {
+  background: transparent;
   border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  width: 100%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  color: #6b7280;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-}
-
-.submitButton:hover {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
-}
-
-.submitButton:active {
-  transform: scale(0.95);
-}
-
-/* 🔵 Ripple Effect on Click */
-.submitButton::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
-}
-
-.submitButton:active::after {
-  opacity: 1;
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  from { transform: scale(0); opacity: 1; }
-  to { transform: scale(3); opacity: 0; }
-}
-
-/* 🔘 Toggle Button */
-.toggleButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #00ffcc;
-  transition: transform 0.2s ease-in-out;
+  font-size: 17px;
 }
 
 .toggleButton:hover {
-  transform: scale(1.1);
+  color: #006a4e;
 }
 
-/* 📱 Responsive Styles */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
+.warningText {
+  color: #d97706;
+  font-size: 14px;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+.errorText {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.submitButton {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 12px;
+  background: #006a4e;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submitButton:hover {
+  background: #0b3d2e;
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loginLink {
+  margin-top: 28px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.loginLink a {
+  color: #006a4e;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.loginLink a:hover {
+  text-decoration: underline;
+}
+
+.shake {
+  animation: shake 0.35s;
+}
+
+.fadeIn {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
   }
 
-  p {
-    font-size: 1rem;
+  25% {
+    transform: translateX(-6px);
   }
 
-  .signUpForm {
-    padding: 1.5rem;
+  50% {
+    transform: translateX(6px);
   }
 
-  .inputGroup {
-    padding: 8px;
+  75% {
+    transform: translateX(-6px);
   }
 
-  .submitButton {
-    font-size: 1rem;
-    padding: 10px;
-  }
-
-  .toggleButton {
-    position: absolute;
-    right: 10%;
+  100% {
+    transform: translateX(0);
   }
 }
 
-@keyframes fadeSlideIn {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.fadeIn {
-  animation: fadeSlideIn 0.8s ease-out;
-}
+@media (max-width: 768px) {
+  .signUpContainer {
+    padding: 30px 16px;
+  }
 
-.popupOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  animation: fadeIn 0.4s ease-in-out;
-}
+  .title {
+    font-size: 2.2rem;
+  }
 
-.popupBox {
-  background: rgba(0, 77, 77, 0.9);
-  border: 2px solid #00ffcc;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  color: #a0e7e5;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
-  animation: fadeInUp 0.5s ease;
-}
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
 
-.closePopupButton {
-  background: linear-gradient(135deg, #00b3b3, #00ffcc);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 1rem;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+  .signUpForm {
+    padding: 28px 22px;
+  }
 
-.closePopupButton:hover {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  transform: scale(1.05);
-}
+  .inputGroup {
+    height: 54px;
+  }
 
-/* 🎞️ Animations */
-@keyframes popupFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slidePopupUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.warningText {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #a0e7e5;
-  opacity: 1;
-  animation: fadeInUp 0.5s ease-in-out;
+  .submitButton {
+    height: 54px;
+  }
 }

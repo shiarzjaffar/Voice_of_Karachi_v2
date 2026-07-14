@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import signupcss from "./SignUp.module.css";
-import { FaUser, FaEnvelope, FaLock, FaPhone, FaPaperPlane, FaEye,FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaPhone, FaPaperPlane, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ export const SignUp = () => {
     fullname: "",
     email: "",
     phone: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
@@ -23,6 +23,13 @@ export const SignUp = () => {
 
   const emailTimer = useRef(null);
   const phoneTimer = useRef(null);
+
+  // 🌌 Urban Navy + Orange Glow SweetAlert Theme
+const swalTheme = {
+  background: "#FFFFFF",
+  color: "#111827",
+  confirmButtonColor: "#006A4E",
+};
 
   useEffect(() => {
     setAnimate(true);
@@ -51,9 +58,7 @@ export const SignUp = () => {
     emailTimer.current = setTimeout(() => {
       axios
         .post("http://localhost:5000/api/auth/check-email", { email })
-        .then((res) =>
-          setEmailStatus(res.data.exists ? "📧 Email Already Taken" : "")
-        )
+        .then((res) => setEmailStatus(res.data.exists ? "Email Already Taken" : ""))
         .catch(() => setEmailStatus(""));
     }, 400);
   };
@@ -67,9 +72,7 @@ export const SignUp = () => {
     phoneTimer.current = setTimeout(() => {
       axios
         .post("http://localhost:5000/api/auth/check-phone", { phone })
-        .then((res) =>
-          setPhoneStatus(res.data.exists ? "📞 Phone No Already Taken" : "")
-        )
+        .then((res) => setPhoneStatus(res.data.exists ? "Phone No Already Taken" : ""))
         .catch(() => setPhoneStatus(""));
     }, 400);
   };
@@ -116,12 +119,12 @@ export const SignUp = () => {
       await Swal.fire({
         icon: "success",
         title: "🎉 Success!",
-        text: response.data || "You have signed up successfully!",
+        text: response.message || "You have signed up successfully!",
         confirmButtonText: "Continue",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-        confirmButtonColor: "#00b894",
-        timer: 2000
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        ...swalTheme
       });
 
       navigate("/login");
@@ -147,30 +150,41 @@ export const SignUp = () => {
   };
 
   return (
-    <div className={`${signupcss.signUpContainer} ${animate ? signupcss.fadeIn : ""}`}>
-      <h1>📝 Join Us</h1>
-      <p>✨ Sign up now and explore amazing features!</p>
-      <form className={`${signupcss.signUpForm} ${shake ? signupcss.shake : ""}`} onSubmit={handleSubmit}>
+  <div className={`${signupcss.signUpContainer} ${animate ? signupcss.fadeIn : ""}`}>
+
+    <h1 className={signupcss.title}>VOICE OF KARACHI</h1>
+
+<p className={signupcss.subtitle}>
+  Create your citizen account to report civic issues and
+  track complaint progress.
+</p>
+
+    <form
+      className={`${signupcss.signUpForm} ${shake ? signupcss.shake : ""}`}
+      onSubmit={handleSubmit}
+    >
         <div className={signupcss.inputGroup}>
           <FaUser className={signupcss.icon} />
           <input
             type="text"
             name="fullname"
-            placeholder="Your Name"
+            placeholder="Full Name"
             value={formData.fullname}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
-        </div>
+          </div>
 
         <div className={signupcss.inputGroup}>
           <FaPhone className={`${signupcss.icon} ${signupcss.phone}`} />
           <input
             type="text"
             name="phone"
-            placeholder="Your Phone Number"
+            placeholder="Phone Number"
             value={formData.phone}
             onChange={handleChange}
+            autoComplete="off"
             required
             maxLength="11"
           />
@@ -182,9 +196,10 @@ export const SignUp = () => {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
         </div>
@@ -195,9 +210,10 @@ export const SignUp = () => {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="Your Password"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            autoComplete="off"
             required
           />
           <button
@@ -205,7 +221,7 @@ export const SignUp = () => {
             className={signupcss.toggleButton}
             onClick={togglePasswordVisibility}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            title={showPassword ? "Hide password 🙈" : "Show password 👁️"}
+            title={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -214,9 +230,15 @@ export const SignUp = () => {
         {error && <p className={signupcss.errorText}>{error}</p>}
 
         <button type="submit" className={signupcss.submitButton} disabled={loading}>
-          <FaPaperPlane /> {loading ? "⏳ Processing..." : "Sign Up"}
+          {loading ? "Creating Account..." : "Create Account"}
         </button>
-      </form>
-    </div>
+     </form>
+
+<div className={signupcss.loginLink}>
+  Already have an account?
+  <a href="/login"> Sign In</a>
+</div>
+
+</div>
   );
 };

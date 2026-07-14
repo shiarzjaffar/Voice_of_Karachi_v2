@@ -1,0 +1,85 @@
+.card{
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    padding:32px;
+    margin-bottom:30px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+}
+
+.cardHeader{
+    margin-bottom:30px;
+}
+
+.cardHeader h2{
+    margin:0;
+    font-size:28px;
+    color:#111827;
+}
+
+.cardHeader p{
+    margin-top:10px;
+    color:#6B7280;
+    line-height:1.7;
+}
+
+.section{
+    margin-bottom:28px;
+}
+
+.label{
+    display:block;
+    margin-bottom:12px;
+    font-weight:600;
+    color:#374151;
+}
+
+.textarea{
+    width:100%;
+    min-height:220px;
+    resize:vertical;
+    padding:18px;
+    border:1px solid #D9E2E8;
+    border-radius:14px;
+    font-size:15px;
+    line-height:1.8;
+    transition:.25s;
+    font-family:inherit;
+}
+
+.textarea:focus{
+    outline:none;
+    border-color:#006A4E;
+    box-shadow:0 0 0 4px rgba(0,106,78,.08);
+}
+
+.counter{
+    margin-top:10px;
+    text-align:right;
+    color:#6B7280;
+    font-size:13px;
+}
+
+.tipCard{
+    background:#F8FAFC;
+    border-left:5px solid #006A4E;
+    border-radius:16px;
+    padding:22px;
+    border:1px solid #E5E7EB;
+}
+
+.tipCard h3{
+    margin:0 0 16px;
+    color:#006A4E;
+}
+
+.tipCard ul{
+    margin:0;
+    padding-left:20px;
+}
+
+.tipCard li{
+    margin-bottom:10px;
+    color:#374151;
+    line-height:1.6;
+}

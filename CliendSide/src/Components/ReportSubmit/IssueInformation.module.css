@@ -1,0 +1,231 @@
+/* ==========================================
+   Issue Information Card
+========================================== */
+
+.card{
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    padding:32px;
+    margin-bottom:30px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.cardHeader{
+    margin-bottom:30px;
+}
+
+.cardHeader h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#111827;
+}
+
+.cardHeader p{
+    margin-top:10px;
+    color:#6B7280;
+    line-height:1.7;
+    max-width:700px;
+}
+
+/* ==========================================
+   Sections
+========================================== */
+
+.section{
+    margin-bottom:28px;
+}
+
+.label{
+    display:block;
+    margin-bottom:10px;
+    font-size:15px;
+    font-weight:600;
+    color:#374151;
+}
+
+/* ==========================================
+   Input
+========================================== */
+
+.inputBox input{
+    width:100%;
+    height:58px;
+    padding:0 18px;
+    border:1px solid #D9E2E8;
+    border-radius:14px;
+    font-size:15px;
+    transition:.25s;
+    background:#FFFFFF;
+}
+
+.inputBox input:focus{
+    outline:none;
+    border-color:#006A4E;
+    box-shadow:0 0 0 4px rgba(0,106,78,.08);
+}
+
+/* ==========================================
+   Custom Select
+========================================== */
+
+.selectBox{
+    position:relative;
+}
+
+.selected{
+    height:58px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 18px;
+    border:1px solid #D9E2E8;
+    border-radius:14px;
+    background:#FFFFFF;
+    cursor:pointer;
+    transition:.25s;
+    color:#111827;      /* ADD */
+    font-weight:500;    /* ADD */
+}
+
+.selected:hover{
+    border-color:#006A4E;
+}
+
+.arrow{
+    transition:.25s;
+    color:#6B7280;
+}
+
+.open .arrow{
+    transform:rotate(180deg);
+}
+
+.option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    transition:.2s;
+    color:#111827;      /* ADD */
+    background:#FFFFFF; /* ADD */
+    font-weight:500;
+}
+
+.option:hover{
+    background:#ECFDF5;
+    color:#006A4E;
+}
+
+/* ==========================================
+   Assignment Card
+========================================== */
+
+.assignmentCard{
+    margin-top:30px;
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+    border-left:5px solid #006A4E;
+    border-radius:16px;
+    padding:24px;
+}
+
+.assignmentCard h3{
+    margin:0 0 20px;
+    font-size:20px;
+    color:#006A4E;
+}
+
+.assignmentItem{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:16px 0;
+    border-bottom:1px solid #E5E7EB;
+}
+
+.assignmentItem:last-child{
+    border-bottom:none;
+}
+
+.assignmentItem strong{
+    color:#374151;
+    min-width:180px;
+}
+
+.assignmentItem span{
+    color:#111827;
+    text-align:right;
+    flex:1;
+    font-weight:600;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px){
+
+    .card{
+        padding:22px;
+    }
+
+    .cardHeader h2{
+        font-size:24px;
+    }
+
+    .assignmentItem{
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .assignmentItem span{
+        text-align:left;
+    }
+
+}
+
+.assignmentText{
+    margin:12px 0 22px;
+    color:#6B7280;
+    line-height:1.7;
+}
+
+.categoryIcon{
+    margin-right:10px;
+    font-size:18px;
+}
+
+.selectBox{
+    position:relative;
+}
+
+.options{
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    margin-top:8px;
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:14px;
+    max-height:320px;
+    overflow-y:auto;
+    z-index:999;
+    box-shadow:0 12px 30px rgba(0,0,0,.10);
+}
+
+.options::-webkit-scrollbar{
+    width:8px;
+}
+
+.options::-webkit-scrollbar-thumb{
+    background:#C7D2D9;
+    border-radius:10px;
+}

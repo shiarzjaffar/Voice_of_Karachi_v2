@@ -1,71 +1,116 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import navbarstylecss from "./Navbar.module.css";
-import logo from "/logo.jpg";
+import styles from "./Navbar.module.css";
+import logo from "/logo.png";
 
 export const Navbar = () => {
+  const location = useLocation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const [lastScroll, setLastScroll] = useState(0);
 
-  // 🚀 Scroll-based hide/show logic
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const current = window.scrollY;
 
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setShowNavbar(false); // scroll down → hide
+      if (current > lastScroll && current > 80) {
+        setShowNavbar(false);
       } else {
-        setShowNavbar(true); // scroll up → show
+        setShowNavbar(true);
       }
 
-      setLastScrollY(currentScrollY);
+      setLastScroll(current);
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScroll]);
+
+  const navItems = [
+    { title: "Home", path: "/" },
+    { title: "Departments", path: "/" },
+    { title: "About", path: "/" },
+    { title: "Report Issue", path: "/report-submit" },
+    { title: "Track Complaint", path: "/report-tracking" },
+    { title: "Login", path: "/login" }
+  ];
 
   return (
-    <nav className={`${navbarstylecss.navbar} ${showNavbar ? navbarstylecss.show : navbarstylecss.hide}`}>
-      <div className={navbarstylecss.logoContainer}>
-        <img src={logo} alt="EventSphere Logo" className={navbarstylecss.logoImage} />
-        <Link to="/" className={navbarstylecss.logoText}>EventSphere</Link>
-      </div>
+    <nav
+      className={`${styles.navbar} ${
+        showNavbar ? styles.show : styles.hide
+      }`}
+    >
+      {/* Logo */}
+
+      <Link to="/" className={styles.logoContainer}>
+
+        <img
+          src={logo}
+          alt="Voice of Karachi"
+          className={styles.logoImage}
+        />
+
+        <div className={styles.logoText}>
+
+  <h1 className={styles.logoTitle}>
+    Voice of Karachi
+  </h1>
+
+  <span className={styles.logoSub}>
+    Government of Sindh 
+  </span>
+
+  <span className={styles.logoTag}>
+    Digital Civic Engagement Platform
+  </span>
+
+</div>
+
+      </Link>
+
+      {/* Mobile */}
 
       <div
-        className={`${navbarstylecss.hamburger} ${isOpen ? navbarstylecss.active : ""}`}
+        className={styles.hamburger}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className={navbarstylecss.bar}></div>
-        <div className={navbarstylecss.bar}></div>
-        <div className={navbarstylecss.bar}></div>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
       </div>
 
-      <ul className={`${navbarstylecss.navLinks} ${isOpen ? navbarstylecss.active : ""}`}>
-        {[
-          ["Home", "/"],
-          ["Expos", "/expos"],
-          ["Exhibitor", "/exhibitor-dashboard"],
-          ["Attendee", "/attendee"],
-          ["Contact", "/contact"],
-          ["Sign Up", "/signup"],
-          ["Login", "/login"],
-          ["Profile", "/profile"]
-        ].map(([label, path]) => (
-          <li key={label}>
+      {/* Navigation */}
+
+      <ul
+        className={`${styles.navLinks} ${
+          isOpen ? styles.active : ""
+        }`}
+      >
+        {navItems.map((item) => (
+
+          <li key={item.title}>
+
             <Link
-              to={path}
+              to={item.path}
               onClick={() => setIsOpen(false)}
-              className={`${navbarstylecss.navLink} ${currentPath === path ? navbarstylecss.activeLink : ""}`}
+              className={`${styles.navLink} ${
+                location.pathname === item.path
+                  ? styles.activeLink
+                  : ""
+              }`}
             >
-              {label}
+              {item.title}
             </Link>
+
           </li>
+
         ))}
       </ul>
     </nav>
   );
 };
+
+export default Navbar;

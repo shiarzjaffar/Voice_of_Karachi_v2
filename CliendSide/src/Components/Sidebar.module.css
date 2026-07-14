@@ -1,0 +1,274 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* 🌟 Logo */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 30px 20px;
+  border-bottom: 1px solid rgba(244, 248, 249, 0.1);
+  margin: 25px 0;
+}
+
+.logoImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--bright-sky-blue);
+  transition: transform 0.3s ease-in-out;
+}
+
+.logoImage:hover {
+  transform: scale(1.1);
+}
+
+.logoText {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--white-light);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.logoText:hover {
+  color: var(--bright-sky-blue);
+}
+
+/* 🌌 Sidebar Container */
+.sidebarContainer {
+  position: relative;
+  z-index: 10;
+}
+
+/* 🔘 Toggle Button */
+.toggleButton {
+  position: fixed;
+  left: 10px;
+  top: 15px;
+  background: var(--dark-navy-blue);
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 7px;
+  color: var(--white-light);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.5);
+  transition: all 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.toggleButton:hover {
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.7);
+}
+
+/* 📂 Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: var(--dark-navy-blue);
+  backdrop-filter: blur(15px);
+  color: var(--white-light);
+  padding: 25px;
+  box-shadow: 4px 0 15px rgba(91, 160, 188, 0.3);
+  transition: all 0.5s ease-in-out;
+  overflow-y: auto;
+  z-index: 998;
+}
+
+.closed {
+  transform: translateX(-100%);
+}
+
+/* 🔹 Sidebar Title */
+.sidebarTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--bright-sky-blue);
+  margin: 30px 0;
+  text-align: center;
+  box-shadow: none;
+}
+
+/* 🗂 Sidebar Menu */
+.sidebarMenu {
+  list-style: none;
+  padding: 0;
+}
+
+/* 📌 Sidebar Items */
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin: 12px 0;
+  background: rgba(91, 160, 188, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.2);
+  position: relative;
+  text-decoration: none;
+  color: var(--white-light);
+}
+
+.sidebarItem:hover {
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.5);
+  background: rgba(91, 160, 188, 0.2);
+}
+
+/* 📌 Sidebar Labels & Links */
+.sidebarLabel {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--white-light);
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease-in-out;
+}
+
+.sidebarLink:hover {
+  background: rgba(91, 160, 188, 0.3);
+}
+
+/* 🔽 Dropdown */
+.dropdown {
+  cursor: pointer;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: rgba(91, 160, 188, 0.1);
+  transition: background 0.3s ease;
+}
+
+.dropdownHeader:hover {
+  background: rgba(91, 160, 188, 0.25);
+}
+
+.dropdownMenu {
+  padding-left: 20px;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80vw;
+    max-width: 250px;
+  }
+
+  .toggleButton {
+    top: 12px;
+    left: 12px;
+  }
+
+  .sidebarTitle {
+    font-size: 1rem;
+  }
+
+  .sidebarItem {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .sidebarLabel {
+    font-size: 1rem;
+  }
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(14, 42, 67, 0.6);
+  z-index: 997;
+  display: none;
+}
+
+.overlay.open {
+  display: block;
+}
+
+/* Dashboard Button */
+.dashboardButtonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.dashboardButton {
+  display: flex;
+  align-items: center;
+  background: var(--bright-sky-blue);
+  border: none;
+  color: var(--white-light);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboardButton:hover {
+  background: var(--medium-blue-gray);
+  transform: translateY(-2px);
+}
+
+/* Profile Items */
+.profileItem {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: rgba(91, 160, 188, 0.1);
+  border: 1px solid rgba(91, 160, 188, 0.3);
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  color: var(--white-light);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  gap: 10px;
+  transition: color 0.3s ease;
+}
+
+.profileLink:hover {
+  color: var(--bright-sky-blue);
+}
