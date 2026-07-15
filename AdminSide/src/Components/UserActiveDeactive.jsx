@@ -24,43 +24,55 @@ export const UserActiveDeactive = ({ isSidebarOpen }) => {
 
   const handleToggleStatus = async (userId, currentStatus) => {
     const newStatus = currentStatus === 1 ? 0 : 1;
-
+    
     const result = await Swal.fire({
       title: `Are you sure?`,
       text: `Do you really want to ${newStatus === 1 ? "activate" : "deactivate"} this user?`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#00e6b8",
-      cancelButtonColor: "#d33",
-      confirmButtonText: newStatus === 1 ? "Activate" : "Deactivate",
-      background: "linear-gradient(135deg, #001f1f, #004d4d)",
-      color: "white",
-    });
     
+      // ⭐ Using your exact hex colors
+      background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+      color: "#F4F8F9",
+    
+      confirmButtonColor: "#5BA0BC",
+      cancelButtonColor: "#C4D0D6",
+    
+      confirmButtonText: newStatus === 1 ? "Activate" : "Deactivate",
+    });
+  
     if (result.isConfirmed) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/admin/user-status/${userId}`);
-
+        const response = await axios.put(
+          `http://localhost:5000/api/admin/user-status/${userId}`
+        );
+      
         Swal.fire({
           title: "Success!",
           text: response.data.message,
           icon: "success",
-          confirmButtonColor: "#00e6b8",
-          background: "linear-gradient(135deg, #001f1f, #004d4d)",
-          color: "white",
+        
+          // ⭐ Theme colors again
+          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+          color: "#F4F8F9",
+          confirmButtonColor: "#5BA0BC",
         });
-
-        setUsers(users.map(user =>
-          user._id === userId ? { ...user, userstatus: newStatus } : user
-        ));
+      
+        setUsers(
+          users.map((user) =>
+            user._id === userId ? { ...user, userstatus: newStatus } : user
+          )
+        );
       } catch (error) {
         Swal.fire({
           title: "Error!",
           text: error.response?.data?.message || "Failed to update status.",
           icon: "error",
-          confirmButtonColor: "#00e6b8",
-          background: "linear-gradient(135deg, #001f1f, #004d4d)",
-          color: "white",
+        
+          // ⭐ Same blue theme
+          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+          color: "#F4F8F9",
+          confirmButtonColor: "#5BA0BC",
         });
       }
     }

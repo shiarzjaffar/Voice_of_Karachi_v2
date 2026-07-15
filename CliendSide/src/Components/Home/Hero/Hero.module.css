@@ -1,6 +1,6 @@
 .hero{
     position: relative;
-    min-height: 90vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,7 +8,7 @@
 
     background:
         linear-gradient(
-            rgba(0,76,54,.82),
+            rgba(0,106,78,.86),
             rgba(0,58,41,.88)
         ),
         url("/hero-karachi.jpg");
@@ -44,7 +44,8 @@
 
     border:1px solid rgba(255,255,255,.25);
 
-    padding:10px 22px;
+    padding:8px 18px;
+    font-size:14px;
 
     border-radius:40px;
 
@@ -59,7 +60,7 @@
 
 .title{
 
-    font-size:72px;
+    font-size:64px;
 
     font-weight:800;
 
@@ -75,7 +76,7 @@
 
 .subtitle{
 
-    max-width:850px;
+    max-width:720px;
 
     margin:0 auto;
 
@@ -149,7 +150,7 @@
 
 .statistics{
 
-    margin-top:80px;
+    margin-top:60px;
 
     display:grid;
 
@@ -166,7 +167,7 @@
 
     border-radius:18px;
 
-    padding:28px;
+    padding:22px;
 
     backdrop-filter:blur(10px);
 }

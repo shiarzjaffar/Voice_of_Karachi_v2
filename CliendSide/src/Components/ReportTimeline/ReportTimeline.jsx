@@ -19,8 +19,10 @@ const ReportTimeline = () => {
         const res = await axios.get(
           `http://localhost:5000/api/report/${id}`
         );
+        console.log(res.data);
 
         setReport(res.data);
+        console.log(report);
 
       } catch (err) {
 
@@ -59,21 +61,172 @@ return (
         ← Back to Tracking
       </Link>
 
-      <div className={styles.card}>
+      <div className={styles.header}>
+
+    <div>
 
         <h1 className={styles.title}>
-          {report.title}
+            {report.title}
         </h1>
 
-        <p className={styles.description}>
-          {report.description}
+        <p className={styles.trackingId}>
+            Tracking ID:
+            {" "}
+            VOK-{report._id.slice(-8).toUpperCase()}
         </p>
+
+    </div>
+
+    <span
+        className={`${styles.status} ${
+            styles[
+                report.status
+                    ?.replace(/\s/g, "")
+                    .toLowerCase()
+            ]
+        }`}
+    >
+        {report.status}
+    </span>
+
+</div>
+
+      <div className={styles.card}>
+<div className={styles.overviewCard}>
+
+    <h2>Complaint Overview</h2>
+
+    <div className={styles.overviewGrid}>
+
+        <div className={styles.overviewItem}>
+            <span>Category</span>
+            <strong>{report.category}</strong>
+        </div>
+
+        <div className={styles.overviewItem}>
+            <span>Department</span>
+            <strong>
+                {report.department || "To Be Assigned"}
+            </strong>
+        </div>
+
+        <div className={styles.overviewItem}>
+            <span>Submitted</span>
+            <strong>
+                {new Date(report.createdAt).toLocaleDateString()}
+            </strong>
+        </div>
+
+        <div className={styles.overviewItem}>
+            <span>Location</span>
+            <strong>{report.location}</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<div className={styles.descriptionCard}>
+
+    <h2>Complaint Description</h2>
+
+    <p className={styles.description}>
+        {report.description}
+    </p>
+
+    <div className={styles.timelineCard}>
+
+    <h2>Complaint Timeline</h2>
+
+    <div className={styles.timeline}>
+
+        <div className={styles.timelineItem}>
+            <div className={`${styles.timelineIcon} ${styles.completed}`}>
+                ✓
+            </div>
+
+            <div>
+                <h4>Complaint Submitted</h4>
+                <p>
+                    {new Date(report.createdAt).toLocaleString()}
+                </p>
+            </div>
+        </div>
+
+        <div className={styles.timelineItem}>
+            <div
+                className={`${styles.timelineIcon} ${
+                    report.department
+                        ? styles.completed
+                        : styles.pendingStep
+                }`}
+            >
+                {report.department ? "✓" : "2"}
+            </div>
+
+            <div>
+                <h4>Assigned to Department</h4>
+                <p>
+                    {report.department || "Awaiting assignment"}
+                </p>
+            </div>
+        </div>
+
+        <div className={styles.timelineItem}>
+            <div
+                className={`${styles.timelineIcon} ${
+                    report.status === "In Progress"
+                        ? styles.active
+                        : report.status === "Resolved"
+                        ? styles.completed
+                        : styles.pendingStep
+                }`}
+            >
+                {report.status === "Resolved" ? "✓" : "3"}
+            </div>
+
+            <div>
+                <h4>Work in Progress</h4>
+                <p>{report.status}</p>
+            </div>
+        </div>
+
+        <div className={styles.timelineItem}>
+            <div
+                className={`${styles.timelineIcon} ${
+                    report.status === "Resolved"
+                        ? styles.completed
+                        : styles.pendingStep
+                }`}
+            >
+                {report.status === "Resolved" ? "✓" : "4"}
+            </div>
+
+            <div>
+                <h4>Complaint Resolved</h4>
+                <p>
+                    {report.status === "Resolved"
+                        ? "Completed"
+                        : "Pending"}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
 
       </div>
 
     </div>
 
   </div>
+
+
 
 );
 

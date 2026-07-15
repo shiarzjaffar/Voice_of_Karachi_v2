@@ -1,9 +1,17 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
 /* 🌌 Container */
 .container {
   padding: 20px;
-  background: linear-gradient(135deg, #001f1f, #004d4d);
+  background: linear-gradient(135deg, var(--dark-navy-blue), var(--medium-blue-gray));
   min-height: 100vh;
-  color: white;
+  color: var(--white-light);
   transition: all 0.3s ease-in-out;
   width: 100%;
 }
@@ -15,8 +23,8 @@ h2 {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #00ffcc;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+  color: var(--bright-sky-blue);
+  text-shadow: 0 0 12px var(--bright-sky-blue), 0 0 20px rgba(91, 160, 188, 0.4);
   margin-bottom: 20px;
 }
 
@@ -29,11 +37,11 @@ h2 {
   border-radius: 8px;
   border: none;
   outline: none;
-  margin: 0 0 20px 20%;
+  margin: 0 0 20px 0;
   text-align: left;
-  background: rgba(0, 77, 77, 0.5);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 255, 204, 0.4);
+  background: rgba(14, 42, 67, 0.5); 
+  color: var(--white-light);
+  box-shadow: 0 4px 10px rgba(91, 160, 188, 0.4);
   transition: all 0.3s ease-in-out;
 }
 
@@ -42,39 +50,36 @@ h2 {
 }
 
 .searchInput:focus {
-  background: rgba(0, 77, 77, 0.7);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+  background: rgba(14, 42, 67, 0.7);
+  box-shadow: 0 0 15px var(--bright-sky-blue);
 }
 
 /* 🗂 Table Container */
 .tableWrapper {
-  margin: 20px 0 0 20%;
+  margin: 20px 0 0 0;
   overflow-x: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.2);
   border-radius: 10px;
-  width: 80%;
-  max-width: 1200px;
+  width: 100%;
 }
 
 /* 📋 Table Styling */
 .messageTable {
   width: 100%;
-  min-width: 600px;
   border-collapse: collapse;
   border-radius: 10px;
-  overflow: hidden;
 }
 
 .messageTable th,
 .messageTable td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(91, 160, 188, 0.3);
 }
 
 .messageTable th {
-  background: rgba(0, 255, 204, 0.2);
-  color: white;
+  background: rgba(91, 160, 188, 0.2);
+  color: var(--white-light);
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: 600;
@@ -85,16 +90,17 @@ h2 {
 }
 
 .messageTable tr:hover {
-  background: rgba(0, 255, 204, 0.2);
+  background: rgba(91, 160, 188, 0.15);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.5);
 }
 
 .messageTable tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: rgba(91, 160, 188, 0.05);
 }
 
 /* 🛑 Error Message */
 .error {
-  color: red;
+  color: #ff4d4d;
   text-align: center;
   padding: 20px 0;
 }
@@ -102,7 +108,7 @@ h2 {
 /* 🔄 Loading Text */
 .loadingText {
   text-align: center;
-  color: #00ffcc;
+  color: var(--bright-sky-blue);
   font-size: 1.2rem;
   margin-top: 20px;
 }
@@ -117,8 +123,8 @@ h2 {
 }
 
 .pagination button {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  color: white;
+  background: linear-gradient(135deg, var(--medium-blue-gray), var(--bright-sky-blue));
+  color: var(--white-light);
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
@@ -126,24 +132,24 @@ h2 {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.5);
 }
 
 .pagination button:disabled {
-  background: rgba(0, 255, 204, 0.3);
+  background: rgba(91, 160, 188, 0.3);
   cursor: not-allowed;
   box-shadow: none;
 }
 
 .pagination button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #006666, #00cc99);
+  background: linear-gradient(135deg, var(--light-gray-blue), var(--bright-sky-blue));
   transform: scale(1.1);
 }
 
 .pagination span {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #00ffcc;
+  color: var(--bright-sky-blue);
 }
 
 /* 🌟 Responsive */
@@ -155,7 +161,7 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .h2 {
+  h2 {
     font-size: 1rem;
   }
 
@@ -173,8 +179,6 @@ h2 {
     gap: 10px;
   }
 
-  .deleteButton,
-  .approveButton,
   .pagination button {
     padding: 6px 10px;
     font-size: 0.9rem;
@@ -192,13 +196,29 @@ h2 {
     font-size: 0.85rem;
   }
 
-  .deleteButton,
-  .approveButton {
-    padding: 5px 8px;
-    font-size: 0.85rem;
-  }
-
   h2 {
     font-size: 1.3rem;
   }
+}
+
+/* 🖱 Scrollbar - Sky Blue Theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(14, 42, 67, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bright-sky-blue);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.6);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--light-gray-blue);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.9);
 }

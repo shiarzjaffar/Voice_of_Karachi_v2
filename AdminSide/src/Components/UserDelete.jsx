@@ -23,42 +23,51 @@ export const UserDelete = ({ isSidebarOpen }) => {
   }, []);
 
   const handleDelete = async (userId) => {
-  const result = await Swal.fire({
-    title: "Are you sure?",
-    text: "Do you really want to delete this user?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#00e6b8",
-    confirmButtonText: "Yes, delete it!",
-    background: "linear-gradient(135deg, #001f1f, #004d4d)",
-    color: "white",
-  });
-
-  if (result.isConfirmed) {
-    try {
-      const response = await axios.delete(`http://localhost:5000/api/admin/user-delete/${userId}`);
-      Swal.fire({
-        title: "Deleted!",
-        text: response.data.message,
-        icon: "success",
-        confirmButtonColor: "#00e6b8",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-      });
-      setUsers(users.filter((user) => user._id !== userId));
-    } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "Failed to delete user.",
-        icon: "error",
-        confirmButtonColor: "#00e6b8",
-        background: "linear-gradient(135deg, #001f1f, #004d4d)",
-        color: "white",
-      });
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this user?",
+      icon: "warning",
+      showCancelButton: true,
+    
+      // ⭐ Apply your actual color codes here
+      background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+      color: "#F4F8F9",
+    
+      confirmButtonColor: "#5BA0BC",
+      cancelButtonColor: "#C4D0D6",
+      confirmButtonText: "Yes, delete it!",
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:5000/api/admin/user-delete/${userId}`
+        );
+      
+        Swal.fire({
+          title: "Deleted!",
+          text: response.data.message,
+          icon: "success",
+        
+          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+          color: "#F4F8F9",
+          confirmButtonColor: "#5BA0BC",
+        });
+      
+        setUsers(users.filter((user) => user._id !== userId));
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to delete user.",
+          icon: "error",
+        
+          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
+          color: "#F4F8F9",
+          confirmButtonColor: "#5BA0BC",
+        });
+      }
     }
-  }
-};
+  };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -86,7 +95,7 @@ export const UserDelete = ({ isSidebarOpen }) => {
 
   return (
     <div className={Userdeletecss.userContainer}>
-      <h2>🗑 User List</h2>
+      <h2 className={Userdeletecss.h2}>🗑 User List</h2>
 
       <input
         type="text"

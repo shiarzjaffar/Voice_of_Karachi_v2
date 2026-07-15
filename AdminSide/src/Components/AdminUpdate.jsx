@@ -7,9 +7,6 @@ import {
   FaUserShield,
   FaEnvelope,
   FaPhoneAlt,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +17,10 @@ export const AdminUpdate = () => {
     fullname: "",
     email: "",
     phone: "",
-    password: "",
   });
 
   const [originalEmail, setOriginalEmail] = useState("");
   const [originalPhone, setOriginalPhone] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
 
@@ -36,8 +31,8 @@ export const AdminUpdate = () => {
         const res = await axios.get("http://localhost:5000/api/admin/profile/me", {
           withCredentials: true,
         });
-        const { fullname, email, phone, password } = res.data;
-        setAdmin({ fullname, email, phone, password });
+        const { fullname, email, phone } = res.data;
+        setAdmin({ fullname, email, phone });
         setOriginalEmail(email);
         setOriginalPhone(phone);
       } catch (err) {
@@ -85,39 +80,45 @@ export const AdminUpdate = () => {
   };
 
   // 🔐 Submit update
+  // Inside handleSubmit()
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (emailError || phoneError) {
       Swal.fire({
         icon: "error",
         title: "Fix validation errors first",
-        background: "#001f1f",
-        color: "#00ffcc",
+        background: "#0E2A43",  // dark-navy-blue
+        color: "#5BA0BC",       // bright-sky-blue
       });
       return;
     }
-
+  
     try {
-      await axios.put("http://localhost:5000/api/admin/update-profile", admin, {
-        withCredentials: true,
-      });
+      await axios.put(
+        "http://localhost:5000/api/admin/update-profile",
+        admin,
+        { withCredentials: true }
+      );
+    
       Swal.fire({
         icon: "success",
         title: "Updated!",
         text: "Admin profile updated successfully.",
-        background: "#001f1f",
-        color: "#00ffcc",
+        background: "#0E2A43",  // dark-navy-blue
+        color: "#F4F8F9",       // white-light
       }).then(() => {
         navigate("/profile");
       });
+    
     } catch (err) {
       console.error("Update failed", err);
       Swal.fire({
         icon: "error",
         title: "Update failed",
         text: "Please try again later.",
-        background: "#001f1f",
-        color: "#00ffcc",
+        background: "#0E2A43",  // dark-navy-blue
+        color: "#5BA0BC",       // bright-sky-blue
       });
     }
   };
@@ -164,28 +165,11 @@ export const AdminUpdate = () => {
             placeholder="Phone Number"
             value={admin.phone}
             onChange={handleChange}
+            maxLength={11}
             required
           />
         </div>
         {phoneError && <p className={AdminUpdatecss.errorText}>{phoneError}</p>}
-
-        <div className={AdminUpdatecss.inputGroup}>
-          <FaLock className={AdminUpdatecss.icon} />
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="New Password"
-            value={admin.password}
-            onChange={handleChange}
-            required
-          />
-          <span
-            className={AdminUpdatecss.eyeIcon}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
 
         <button type="submit" className={AdminUpdatecss.submitBtn}>
           Update

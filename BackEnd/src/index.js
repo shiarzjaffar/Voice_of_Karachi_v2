@@ -4,54 +4,49 @@ import cors from "cors";
 import session from "express-session";
 import dotenv from "dotenv";
 
-import './Models/conn.js'; // Import database connection
+import './Models/conn.js';
 
-// Import route files
 import { authRouter } from './Routes/authRoute.js';
-import { attendeeRouter } from './Routes/attendeeRoute.js';
-import { eventRouter } from './Routes/eventRoute.js';
 import { contactRouter } from './Routes/contactRoute.js';
 import { adminRouter } from './Routes/adminRoute.js';
+import { reportRouter } from './Routes/reportRoute.js';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
-// Middleware
 app.use(bodyParser.json());
 
-// Replace with the exact origin of your frontend
 app.use(cors({
-  origin: ["http://localhost:5173","http://localhost:5174"], // Adjust as needed
-  credentials: true               // Allow cookies/session
+  origin: ["http://localhost:5173","http://localhost:5174"],
+  credentials: true
 }));
 
 
 app.use(
   session({
-    secret: "your_secret_key", // use a strong secret in production
+    secret: "RSI_Session_Key",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      httpOnly: true,           // helps prevent XSS
-      secure: false,            // set to true in production with HTTPS
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      httpOnly: true,
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
 
 app.get("/", (req, res) =>{
-  res.send("Welcome to EventSphere API");
+  res.send("Welcome to RSI API");
 })
 
 // Use routes
 app.use('/api/auth', authRouter);
-app.use('/api/attendees', attendeeRouter);
-app.use('/api/events', eventRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api/admin', adminRouter);
-
+app.use('/api/report', reportRouter);
+app.use("/uploads", express.static("uploads"));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

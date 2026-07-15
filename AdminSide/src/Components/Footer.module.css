@@ -1,10 +1,17 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
 /* 📌 Admin Panel Footer */
 .footer {
-  background: linear-gradient(135deg, #1b1b1b, #2c3e50);
-  color: white;
+  background: linear-gradient(135deg, var(--dark-navy-blue), var(--medium-blue-gray));
+  color: var(--white-light);
   padding: 25px 30px;
   font-family: "Arial", sans-serif;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
   position: relative;
   bottom: 0;
   left: 0;
@@ -36,15 +43,14 @@
 
 .brand h2 {
   font-size: 1.6rem;
-  color: #00ffcc;
+  color: var(--bright-sky-blue);
   margin-bottom: 8px;
   margin-top: 5px;
-  text-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
 }
 
 .brand p {
   font-size: 0.9rem;
-  color: #cce6e6;
+  color: var(--light-gray-blue);
   margin: 0;
 }
 
@@ -70,14 +76,14 @@
 }
 
 .links a {
-  color: #00e6b8;
+  color: var(--bright-sky-blue);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease-in-out;
 }
 
 .links a:hover {
-  color: white;
+  color: var(--white-light);
 }
 
 /* 📞 Support & Contact */
@@ -93,12 +99,12 @@
 }
 
 .contact a {
-  color: #00e6b8;
+  color: var(--bright-sky-blue);
   text-decoration: none;
 }
 
 .contact a:hover {
-  color: white;
+  color: var(--white-light);
 }
 
 /* 📱 Responsive Layout */

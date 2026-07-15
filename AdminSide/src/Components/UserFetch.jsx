@@ -48,7 +48,7 @@ export const UserFetch = () => {
 
   return (
     <div className={Userfetchcss.userContainer}>
-      <h2>📋 User List</h2>
+      <h2 className={Userfetchcss.h2}>📋 User List</h2>
 
       <input
         type="text"

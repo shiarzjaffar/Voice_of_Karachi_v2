@@ -43,7 +43,7 @@ const departments = [
 
 export const Departments = () => {
   return (
-    <section className={styles.section}>
+    <section id="departments" className={styles.section}>
       <div className={styles.container}>
 
         <div className={styles.heading}>
@@ -53,12 +53,11 @@ export const Departments = () => {
           </span>
 
           <h2>
-            Public Services
+            Government Departments
           </h2>
 
           <p>
-            Complaints are automatically routed to the relevant
-            department for review and resolution.
+            Every complaint is automatically assigned to the responsible government department, ensuring transparent tracking and timely resolution.
           </p>
 
         </div>

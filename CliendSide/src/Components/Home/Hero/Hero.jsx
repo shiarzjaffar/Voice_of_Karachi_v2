@@ -4,13 +4,13 @@ import styles from "./Hero.module.css";
 
 export const Hero = () => {
   return (
-    <section className={styles.hero}>
+    <section id="home" className={styles.hero}>
       <div className={styles.overlay}></div>
 
       <div className={styles.content}>
 
         <span className={styles.badge}>
-          Government of Sindh • Digital Civic Platform
+          Citizen Complaint Management System
         </span>
 
         <h1 className={styles.title}>

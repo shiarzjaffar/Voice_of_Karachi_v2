@@ -4,30 +4,30 @@ import styles from "./Mission.module.css";
 export const Mission = () => {
   const values = [
     {
-      title: "Transparency",
+      title: "🔍 Transparency",
       text: "Track every complaint from submission to resolution."
     },
     {
-      title: "Accountability",
+      title: "🛡 Accountability",
       text: "Departments remain responsible for every assigned issue."
     },
     {
-      title: "Citizen First",
+      title: "👥 Citizen First",
       text: "A simple platform designed around the needs of Karachi's citizens."
     },
     {
-      title: "Digital Governance",
+      title: "🏛 Digital Governance",
       text: "Modern technology that improves communication and public services."
     }
   ];
 
   return (
-    <section className={styles.mission}>
+    <section id="about" className={styles.mission}>
       <div className={styles.container}>
 
         <div className={styles.heading}>
           <span className={styles.badge}>
-            OUR MISSION
+            OUR PURPOSE
           </span>
 
           <h2>

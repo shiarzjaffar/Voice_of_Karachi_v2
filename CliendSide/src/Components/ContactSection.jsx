@@ -8,7 +8,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 export const ContactSection = () => {
   return (
-    <section className={styles.contactSection}>
+    <section id="contact" className={styles.section}>
 
       <div className={styles.container}>
 

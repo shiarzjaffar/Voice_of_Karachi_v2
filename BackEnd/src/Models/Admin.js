@@ -5,6 +5,7 @@ const adminSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true, select: false },
+  role: { type: String, default: "Admin"}
 });
 
 export const Admin = mongoose.model('admins', adminSchema);

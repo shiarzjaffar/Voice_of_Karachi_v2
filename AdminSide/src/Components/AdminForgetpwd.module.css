@@ -1,0 +1,95 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* 🌌 Forget Password Container */
+.forgetContainer {
+  background: linear-gradient(135deg, var(--dark-navy-blue), var(--medium-blue-gray));
+  min-height: 100vh;
+  color: var(--white-light);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+p {
+  text-align: center;
+  color: var(--white-light);
+}
+
+/* 🧊 Form Container */
+.forgetForm {
+  background: rgba(91, 160, 188, 0.1); /* subtle sky-blue tint */
+  border: 1px solid var(--bright-sky-blue);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.4);
+  transition: all 0.3s ease;
+}
+
+.forgetForm:hover {
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.6);
+}
+
+.forgetForm input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--bright-sky-blue);
+  border-radius: 8px;
+  background: rgba(14, 42, 67, 0.25); /* dark navy-light */
+  color: var(--white-light);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.forgetForm input::placeholder {
+  color: var(--light-gray-blue);
+}
+
+/* Buttons */
+.forgetForm button,
+.resendBtn {
+  background: var(--bright-sky-blue);
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  color: var(--white-light);
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 0 12px rgba(91, 160, 188, 0.5);
+  transition: all 0.3s ease;
+}
+
+.forgetForm button:hover,
+.resendBtn:hover {
+  box-shadow: 0 0 25px rgba(91, 160, 188, 0.7);
+  transform: scale(1.03);
+}
+
+.forgetForm button:active,
+.resendBtn:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+/* ⚠️ Feedback Messages */
+.error {
+  color: #ff5c5c; /* soft red for contrast */
+}
+
+.success {
+  color: var(--bright-sky-blue); /* success matches theme */
+}

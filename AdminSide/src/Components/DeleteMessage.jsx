@@ -21,50 +21,58 @@ export const DeleteMessage = () => {
       console.error("Error fetching messages:", error);
     }
   };
-
+  
   const handleDelete = async (id) => {
-  const result = await Swal.fire({
-    title: "Are you sure?",
-    text: "This message will be permanently deleted.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#00ffcc",
-    cancelButtonColor: "#ff4d4d",
-    background: "#001f1f",
-    color: "#ffffff",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "Cancel",
-    customClass: {
-      popup: "swal2-dark-glass",
-    },
-  });
-
-  if (result.isConfirmed) {
-    try {
-      await axios.delete(`http://localhost:5000/api/contact/delete/${id}`);
-      setMessages((prev) => prev.filter((msg) => msg._id !== id));
-
-      Swal.fire({
-        title: "Deleted!",
-        text: "The message has been deleted.",
-        icon: "success",
-        confirmButtonColor: "#00ffcc",
-        background: "#001f1f",
-        color: "#ffffff",
-      });
-    } catch (error) {
-      console.error("Error deleting message:", error);
-      Swal.fire({
-        title: "Error!",
-        text: "Failed to delete the message.",
-        icon: "error",
-        confirmButtonColor: "#ff4d4d",
-        background: "#001f1f",
-        color: "#ffffff",
-      });
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This message will be permanently deleted.",
+      icon: "warning",
+      showCancelButton: true,
+    
+      // Buttons
+      confirmButtonColor: "#5BA0BC", // bright-sky-blue
+      cancelButtonColor: "#C4D0D6",  // light-gray-blue
+    
+      // Background theme
+      background: "#0E2A43", // dark-navy-blue
+      color: "#F4F8F9",      // white-light
+    
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    
+      customClass: {
+        popup: "swal2-dark-glass",
+      },
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/contact/delete/${id}`);
+        setMessages((prev) => prev.filter((msg) => msg._id !== id));
+      
+        Swal.fire({
+          title: "Deleted!",
+          text: "The message has been deleted.",
+          icon: "success",
+          confirmButtonColor: "#5BA0BC", // blue highlight
+          background: "#0E2A43",
+          color: "#F4F8F9",
+        });
+      
+      } catch (error) {
+        console.error("Error deleting message:", error);
+      
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to delete the message.",
+          icon: "error",
+          confirmButtonColor: "#3D6582", // medium-blue-gray
+          background: "#0E2A43",
+          color: "#F4F8F9",
+        });
+      }
     }
-  }
-};
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);

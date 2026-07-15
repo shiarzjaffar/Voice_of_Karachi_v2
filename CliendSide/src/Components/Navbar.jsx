@@ -28,14 +28,14 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScroll]);
 
-  const navItems = [
-    { title: "Home", path: "/" },
-    { title: "Departments", path: "/" },
-    { title: "About", path: "/" },
-    { title: "Report Issue", path: "/report-submit" },
-    { title: "Track Complaint", path: "/report-tracking" },
-    { title: "Login", path: "/login" }
-  ];
+const navItems = [
+  { title: "Home", id: "home" },
+  { title: "Departments", id: "departments" },
+  { title: "About", id: "about" },
+  { title: "Report Issue", path: "/report-submit" },
+  { title: "Track Complaint", path: "/report-tracking" },
+  { title: "Login", path: "/login" },
+];
 
   return (
     <nav
@@ -89,25 +89,39 @@ export const Navbar = () => {
           isOpen ? styles.active : ""
         }`}
       >
-        {navItems.map((item) => (
+{navItems.map((item) => (
 
-          <li key={item.title}>
+  <li key={item.title}>
 
-            <Link
-              to={item.path}
-              onClick={() => setIsOpen(false)}
-              className={`${styles.navLink} ${
-                location.pathname === item.path
-                  ? styles.activeLink
-                  : ""
-              }`}
-            >
-              {item.title}
-            </Link>
+    {item.id ? (
 
-          </li>
+      <a
+        href={`#${item.id}`}
+        className={styles.navLink}
+        onClick={() => setIsOpen(false)}
+      >
+        {item.title}
+      </a>
 
-        ))}
+    ) : (
+
+      <Link
+        to={item.path}
+        className={`${styles.navLink} ${
+          location.pathname === item.path
+            ? styles.activeLink
+            : ""
+        }`}
+        onClick={() => setIsOpen(false)}
+      >
+        {item.title}
+      </Link>
+
+    )}
+
+  </li>
+
+))}
       </ul>
     </nav>
   );

@@ -1,8 +1,65 @@
-# React + Vite
+# Voice of Karachi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web-based Civic Complaint Management System developed to help citizens report public issues and track their resolution through a transparent digital platform.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Citizen Registration & Login
+- Report Civic Issues
+- GPS Location Detection
+- Location Search
+- Image Upload
+- Complaint Tracking
+- Complaint Timeline
+- Department Assignment
+- Admin Dashboard
+- Complaint Status Management
+- Responsive Design
+
+## Technology Stack
+
+### Frontend
+- React
+- Vite
+- React Router
+- CSS Modules
+- Axios
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Multer
+
+## Project Structure
+
+```
+ClientSide/
+AdminSide/
+BackEnd/
+```
+
+## Installation
+
+### Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+### Backend
+
+```bash
+npm install
+npm start
+```
+
+## Author
+
+Muhammad Shiraz Jaffar
+
+Final Year Project
+
+Voice of Karachi

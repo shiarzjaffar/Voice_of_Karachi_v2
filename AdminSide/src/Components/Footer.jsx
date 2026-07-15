@@ -7,28 +7,30 @@ export const Footer = () => {
     <footer className={footercss.footer}>
       <div className={footercss.container}>
         
-        {/* 🏢 Company Branding */}
+        {/* 🏢 Branding */}
         <div className={footercss.brand}>
-          <h2>EventSphere</h2>
-          <p>Manage & Monitor with Ease</p>
+          <h2>RSI</h2>
+          <p>Smart Reporting & Issue Management</p>
         </div>
 
-        {/* 📌 Quick Navigation Links */}
+        {/* 🔗 Navigation */}
         <div className={footercss.links}>
           <ul>
-            <li><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/user-fetch">Users</Link></li>
-            <li><Link to="/user-fetch">Settings</Link></li>
-            <li><Link to="/user-fetch">Support</Link></li>
+            <li><Link to="/dashboard">Admin Dashboard</Link></li>
+            <li><Link to="/report-fetch">All Reports</Link></li>
+            <li><Link to="/profile">My Profile</Link></li>
           </ul>
         </div>
 
-        {/* 📞 Support & Admin Contact */}
+        {/* 📞 Contact Section */}
         <div className={footercss.contact}>
-          <p>Support: <a href="mailto:support@eventsphere.com">support@eventsphere.com</a></p>
-          <p>&copy; {new Date().getFullYear()} EventSphere. All Rights Reserved.</p>
+          <p>
+            Support:{" "}
+            <a href="mailto:rsi.support@gmail.com">rsi.support@gmail.com</a>
+          </p>
+          <p>&copy; {new Date().getFullYear()} RSI System. All Rights Reserved.</p>
         </div>
-        
+
       </div>
     </footer>
   );

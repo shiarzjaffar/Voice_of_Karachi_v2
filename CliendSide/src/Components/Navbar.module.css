@@ -232,3 +232,7 @@ display:none;
 
     color:#6B7280;
 }
+
+html{
+    scroll-behavior:smooth;
+}

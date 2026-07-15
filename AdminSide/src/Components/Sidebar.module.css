@@ -1,25 +1,44 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* 🌟 Logo */
 .logoContainer {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px 20px 30px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(244, 248, 249, 0.1);
   margin: 25px 0;
 }
 
 .logoImage {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+  border: 2px solid var(--bright-sky-blue);
+  transition: transform 0.3s ease-in-out;
+}
+
+.logoImage:hover {
+  transform: scale(1.1);
 }
 
 .logoText {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #00ffcc;
-  text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+  color: var(--white-light);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.logoText:hover {
+  color: var(--bright-sky-blue);
 }
 
 /* 🌌 Sidebar Container */
@@ -33,20 +52,19 @@
   position: fixed;
   left: 10px;
   top: 15px;
-  background: linear-gradient(135deg, #00b3b3, #00ffcc);
+  background: var(--dark-navy-blue);
   border: none;
   cursor: pointer;
   border-radius: 50%;
   padding: 7px;
-  color: white;
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+  color: var(--white-light);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.5);
   transition: all 0.3s ease-in-out;
   z-index: 999;
 }
 
 .toggleButton:hover {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.7);
 }
 
 /* 📂 Sidebar */
@@ -56,11 +74,11 @@
   left: 0;
   width: 260px;
   height: 100vh;
-  background: linear-gradient(135deg, #001f1f, #004d4d);
+  background: var(--dark-navy-blue);
   backdrop-filter: blur(15px);
-  color: white;
+  color: var(--white-light);
   padding: 25px;
-  box-shadow: 4px 0 15px rgba(0, 255, 204, 0.3);
+  box-shadow: 4px 0 15px rgba(91, 160, 188, 0.3);
   transition: all 0.5s ease-in-out;
   overflow-y: auto;
   z-index: 998;
@@ -74,11 +92,10 @@
 .sidebarTitle {
   font-size: 1rem;
   font-weight: bold;
-  color: #00ffcc;
-  margin: 25px 0;
-  text-align: center;
-  text-shadow: 0 0 12px rgba(0, 255, 204, 0.9);
+  color: var(--bright-sky-blue);
   margin: 30px 0;
+  text-align: center;
+  box-shadow: none;
 }
 
 /* 🗂 Sidebar Menu */
@@ -94,51 +111,34 @@
   gap: 14px;
   padding: 14px;
   margin: 12px 0;
-  background: rgba(0, 255, 204, 0.15);
+  background: rgba(91, 160, 188, 0.1);
   border-radius: 12px;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.2);
   position: relative;
-  opacity: 1;
   text-decoration: none;
-}
-
-.sidebarItem::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0, 255, 204, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 12px;
-}
-
-.sidebarItem:hover::before {
-  opacity: 1;
+  color: var(--white-light);
 }
 
 .sidebarItem:hover {
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
-  background: rgba(0, 255, 204, 0.3);
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.5);
+  background: rgba(91, 160, 188, 0.2);
 }
 
-/* 📌 Sidebar Labels */
+/* 📌 Sidebar Labels & Links */
 .sidebarLabel {
   font-size: 1.3rem;
   font-weight: 600;
-  color: white;
 }
 
-/* 📌 Sidebar Links */
 .sidebarLink {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: var(--white-light);
   width: 100%;
   padding: 10px;
   border-radius: 8px;
@@ -146,7 +146,7 @@
 }
 
 .sidebarLink:hover {
-  background: rgba(0, 255, 204, 0.35);
+  background: rgba(91, 160, 188, 0.3);
 }
 
 /* 🔽 Dropdown */
@@ -163,23 +163,18 @@
   font-size: 1.2rem;
   font-weight: 600;
   border-radius: 8px;
-  background: rgba(0, 255, 204, 0.15);
-  transition: background 0.3s;
+  background: rgba(91, 160, 188, 0.1);
+  transition: background 0.3s ease;
 }
 
 .dropdownHeader:hover {
-  background: rgba(0, 255, 204, 0.35);
+  background: rgba(91, 160, 188, 0.25);
 }
 
 .dropdownMenu {
   padding-left: 20px;
   list-style: none;
   transition: all 0.3s ease-in-out;
-}
-
-.rotate {
-  transform: rotate(180deg);
-  transition: transform 0.3s ease-in-out;
 }
 
 /* 📱 Responsive */
@@ -215,7 +210,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 31, 31, 0.6);
+  background: rgba(14, 42, 67, 0.6);
   z-index: 997;
   display: none;
 }
@@ -224,6 +219,7 @@
   display: block;
 }
 
+/* Dashboard Button */
 .dashboardButtonWrapper {
   display: flex;
   justify-content: center;
@@ -233,41 +229,39 @@
 .dashboardButton {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #00b3b3, #00ffcc);
+  background: var(--bright-sky-blue);
   border: none;
-  color: white;
+  color: var(--white-light);
   padding: 10px 16px;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
 }
 
 .dashboardButton:hover {
+  background: var(--medium-blue-gray);
   transform: translateY(-2px);
-  box-shadow: 0 0 14px rgba(0, 255, 204, 0.8);
-}.profileItem {
+}
+
+/* Profile Items */
+.profileItem {
   margin-top: 15px;
   padding: 12px 20px;
   border-radius: 12px;
-  background: rgba(0, 255, 204, 0.1);
-  border: 1px solid rgba(0, 255, 204, 0.4);
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+  background: rgba(91, 160, 188, 0.1);
+  border: 1px solid rgba(91, 160, 188, 0.3);
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
-.profileItem:hover {
-  background: rgba(0, 255, 204, 0.2);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
-  transform: scale(1.03);
-}
+
 
 .profileLink {
   display: flex;
   align-items: center;
-  color: #00ffcc;
+  color: var(--white-light);
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
@@ -276,5 +270,5 @@
 }
 
 .profileLink:hover {
-  color: #ffffff;
+  color: var(--bright-sky-blue);
 }

@@ -1,0 +1,156 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
+/* Container */
+.userContainer {
+  padding: 20px;
+  background: linear-gradient(135deg, var(--dark-navy-blue), var(--medium-blue-gray));
+  min-height: 100vh;
+  color: var(--white-light);
+  width: 100%;
+}
+
+.h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--bright-sky-blue);
+  text-shadow: 0 0 10px rgba(91, 160, 188, 0.8);
+}
+
+/* Table */
+.tableContainer {
+  margin: 20px 0;
+  overflow-x: auto;
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.2);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.userTable th,
+.userTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.userTable th {
+  background: rgba(91, 160, 188, 0.2);
+  color: var(--white-light);
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.userTable tr {
+  transition: all 0.3s ease-in-out;
+}
+
+.userTable tr:hover {
+  background: rgba(91, 160, 188, 0.15);
+}
+
+/* Update Button */
+.updateButton {
+  background: linear-gradient(var(--dark-navy-blue), var(--bright-sky-blue), var(--medium-blue-gray));
+  color: var(--white-light);
+  border: none;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px var(--bright-sky-blue), 0 0 20px var(--dark-navy-blue);
+}
+
+.updateButton:hover:enabled {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--medium-blue-gray), 0 0 25px var(--dark-navy-blue);
+}
+
+.updateButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Loader */
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle, var(--dark-navy-blue), var(--medium-blue-gray));
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--bright-sky-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite, glow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 10px var(--bright-sky-blue), 0 0 20px var(--bright-sky-blue); }
+  100% { box-shadow: 0 0 20px var(--dark-navy-blue), 0 0 40px var(--dark-navy-blue), 0 0 60px var(--medium-blue-gray); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .userTable th,
+  .userTable td {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .updateButton {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Search Input */
+.searchInput {
+  width: 60%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  margin: 20px 0;
+  display: block;
+  background: rgba(14, 42, 67, 0.5);
+  color: var(--white-light);
+  box-shadow: 0 4px 10px rgba(91, 160, 188, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.searchInput::placeholder {
+  color: rgba(196, 208, 214, 0.7);
+}
+
+.searchInput:focus {
+  background: rgba(14, 42, 67, 0.7);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.7);
+}

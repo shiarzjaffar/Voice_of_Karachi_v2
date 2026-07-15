@@ -3,12 +3,14 @@ import nodemailer from "nodemailer";
 import { User } from "../Models/User.js";
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Now resolve the logo path reliably
-const logoPath = resolve(__dirname, "../images/logo.jpg"); // Adjust path as needed
+const logoPath = resolve(__dirname, "../images/logo.png");
 
 export const authRouter = express.Router();
 
@@ -18,31 +20,95 @@ const verifiedEmails = new Set();
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
 authRouter.post("/signup", async (req, res) => {
-  const { email, phone } = req.body;
-  const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
+  try {
+    const { email, phone, password } = req.body;
 
-  if (existingUser) {
-    return res.status(400).json({
-      error: existingUser.email === email
-        ? "Email already taken!" : "Phone number already taken!"
+    // Check if email or phone already exists
+    const existingUser = await User.findOne({ 
+      $or: [{ email }, { phone }] 
     });
-  }
 
-  await User.create(req.body);
-  res.send("Sign Up Successfully!");
+    if (existingUser) {
+      return res.status(400).json({
+        error:
+          existingUser.email === email
+            ? "Email already taken!"
+            : "Phone number already taken!"
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = await User.create({
+      ...req.body,
+      password: hashedPassword,
+    });
+
+    res.status(201).json({
+      message: "Sign Up Successfully!",
+      userId: newUser._id,
+    });
+
+  } catch (err) {
+    console.error("Signup Error:", err);
+    res.status(500).json({ error: "Server error during signup." });
+  }
 });
 
 authRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email }).select("+password");
-  if (!user || user.password !== password)
-    return res.status(400).json({ error: "Invalid email or password!" });
+  try {
+    let { email, password } = req.body;
 
-  if (user.userstatus === 0)
-    return res.status(403).json({ error: "Account deactivated." });
+    email = email.trim().toLowerCase();
+    password = password.trim();
 
-  req.session.userId = user._id;
-  res.json({ message: "Login successful!", userId: user._id, email });
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password!" });
+    }
+
+    let isMatch = false;
+
+    const isHashed =
+      user.password.startsWith("$2a$") ||
+      user.password.startsWith("$2b$") ||
+      user.password.startsWith("$2y$") ||
+      user.password.startsWith("$2");
+
+    if (isHashed) {
+      isMatch = await bcrypt.compare(password, user.password);
+    } else {
+      if (password === user.password) {
+        isMatch = true;
+
+        // Migrate plaintext to bcrypt
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
+      }
+    }
+
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid email or password!" });
+    }
+
+    if (user.userstatus === 0) {
+      return res.status(403).json({ error: "Account deactivated." });
+    }
+
+    req.session.userId = user._id;
+
+    res.json({
+      message: "Login successful!",
+      userId: user._id,
+      email: user.email,
+    });
+
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).json({ error: "Server error during login." });
+  }
 });
 
 authRouter.get("/check-session", (req, res) => {
@@ -83,47 +149,54 @@ authRouter.post("/forgot-password/send", async (req, res) => {
   subject: "🔐 Your OTP Code - Action Required",
   text: `Your OTP is: ${otp}. It is valid for 10 minutes.`,
   html: `
-  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #001f1f; padding: 30px;">
-    <div style="max-width: 550px; margin: auto; background: rgba(0, 255, 204, 0.2); border-radius: 12px; padding: 35px; color: white; box-shadow: 0 0 20px rgba(0, 255, 204, 0.3); border: 1px solid #00ffcc;">
-      
-      <div style="text-align: center; margin-bottom: 20px;">
-        <img src="cid:eventsphereLogo" alt="EventSphere Logo" style="height: 80px; margin-bottom: 10px;" />
-        <h1 style="margin: 0; font-size: 28px; border-radius: 10px; border: 2px solid white; background: linear-gradient(to right, #00ffcc, #00bfa6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          🔐 Verify Your Email
-        </h1>
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0E2A43; padding: 30px;">
+      <div style="max-width: 550px; margin: auto; background: #3D6582; border-radius: 12px; padding: 35px; color: #F4F8F9; 
+                  box-shadow: 0 0 20px rgba(91, 160, 188, 0.3); border: 1px solid #C4D0D6;">
+
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="cid:Logo" alt="Urban Fixed Logo" style="height: 80px; margin-bottom: 10px;" />
+          <h1 style="margin: 0; font-size: 28px; color: #5BA0BC;">
+            🔐 Verify Your Email
+          </h1>
+        </div>
+
+        <p style="font-size: 16px; line-height: 1.6; color: #F4F8F9;">
+          Hello there,
+        </p>
+
+        <p style="font-size: 16px; line-height: 1.6; color: #C4D0D6;">
+          We're excited to help you verify your account. Please use the following One-Time Password (OTP) to complete your email verification:
+        </p>
+
+        <div style="text-align: center; margin: 35px 0;">
+          <span style="display: inline-block; font-size: 32px; font-weight: 600; 
+                       background: #5BA0BC; color: #0E2A43; padding: 14px 28px; 
+                       border-radius: 10px; letter-spacing: 3px; 
+                       box-shadow: 0 0 12px rgba(91, 160, 188, 0.7);">
+            ${otp}
+          </span>
+        </div>
+
+        <p style="font-size: 15px; color: #C4D0D6;">
+          ⚠️ This code will expire in <strong>10 minutes</strong>. Do not share this OTP with anyone, including our team.
+        </p>
+
+        <p style="font-size: 15px; color: #C4D0D6;">
+          If you did not request this verification, feel free to ignore this email — no action is needed.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #C4D0D6; margin: 35px 0;">
+
+        <p style="font-size: 14px; text-align: center; color: #5BA0BC;">
+          Thanks for being with us!<br><strong>— Urban Fix Team</strong>
+        </p>
+
       </div>
-
-      <p style="font-size: 16px; line-height: 1.6; color: #e0ffff;">
-        Hello there,
-      </p>
-      <p style="font-size: 16px; line-height: 1.6; color: #ccf2f2;">
-        We're excited to help you verify your account. Please use the following One-Time Password (OTP) to complete your email verification:
-      </p>
-
-      <div style="text-align: center; margin: 35px 0;">
-        <span style="display: inline-block; font-size: 32px; font-weight: 600; background: #00ffcc; color: #001f1f; padding: 14px 28px; border-radius: 10px; letter-spacing: 3px; box-shadow: 0 0 12px #00ffcc;">
-          ${otp}
-        </span>
-      </div>
-
-      <p style="font-size: 15px; color: #b2fefa;">
-        ⚠️ This code will expire in <strong>10 minutes</strong>. Do not share this OTP with anyone, including our team.
-      </p>
-
-      <p style="font-size: 15px; color: #b2fefa;">
-        If you did not request this verification, feel free to ignore this email — no action is needed.
-      </p>
-
-      <hr style="border: none; border-top: 1px solid #00ffcc; margin: 35px 0;">
-
-      <p style="font-size: 14px; text-align: center; color: #00ffcc;">Thanks for being with us!<br><strong>— EventSphere Team</strong></p>
-    </div>
-  </div>
-  `,
+    </div>`,
   attachments: [{
-    filename: 'logo.jpg',
+    filename: 'logo.png',
     path: logoPath,
-    cid: 'eventsphereLogo'
+    cid: 'Logo'
   }]
 });
   res.json({ message: "OTP sent" });
@@ -141,17 +214,38 @@ authRouter.post("/forgot-password/verify", (req, res) => {
 });
 
 authRouter.post("/forgot-password/reset", async (req, res) => {
-  const { email, newPassword } = req.body;
-  if (!verifiedEmails.has(email))
-    return res.status(403).json({ error: "OTP not verified or expired" });
+  try {
+    const { email, newPassword } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ error: "User not found" });
+    // Check if OTP verified
+    if (!verifiedEmails.has(email)) {
+      return res.status(403).json({ error: "OTP not verified or expired" });
+    }
 
-  user.password = newPassword;
-  await user.save();
-  verifiedEmails.delete(email);
-  res.json({ message: "Password reset successful" });
+    // Try to find user in User collection first, then Admin
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Hash the new password before saving
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Save hashed password
+    user.password = hashedPassword;
+    await user.save();
+
+    // Remove email from verified set
+    verifiedEmails.delete(email);
+
+    res.json({ message: "Password reset successful" });
+
+  } catch (error) {
+    console.error("Reset Password Error:", error);
+    res.status(500).json({ error: "Server error while resetting password" });
+  }
 });
 
 // server.js or routes/auth.js (wherever you handle auth)
@@ -231,5 +325,53 @@ authRouter.delete("/profile/delete/:id", async (req, res) => {
   } catch (error) {
     console.error("Delete error:", error);
     res.status(500).json({ message: "Error deleting user." });
+  }
+});
+
+authRouter.post("/password/check", async (req, res) => {
+  try {
+    const { userId, oldPassword } = req.body;
+
+    const user = await User.findById(userId).select("+password");
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Compare old password with hashed password
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ error: "Old password is incorrect!" });
+    }
+
+    res.json({ message: "Password verified" });
+
+  } catch (error) {
+    console.error("Password check error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+authRouter.put("/password/update", async (req, res) => {
+  try {
+    const { userId, newPassword } = req.body;
+
+    const user = await User.findById(userId).select("+password");
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully!" });
+
+  } catch (error) {
+    console.error("Password update error:", error);
+    res.status(500).json({ error: "Server error" });
   }
 });

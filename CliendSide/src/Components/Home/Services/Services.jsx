@@ -35,7 +35,7 @@ const services = [
 
 export const Services = () => {
   return (
-    <section className={styles.section}>
+    <section id="services" className={styles.section}>
       <div className={styles.container}>
 
         <div className={styles.heading}>

@@ -8,16 +8,12 @@ import {
   FaEnvelope,
   FaPhoneAlt,
   FaIdBadge,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
 } from "react-icons/fa";
 
 export const AdminProfile = () => {
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,10 +35,10 @@ export const AdminProfile = () => {
             title: "Login Required",
             text: "Please login first to view the admin profile.",
             icon: "warning",
-            background: "#005b5b",
-            color: "#ffffff",
+            background: "#0E2A43",
+            color: "#F4F8F9",
             confirmButtonText: "Go to Login",
-            confirmButtonColor: "#00ffcc",
+            confirmButtonColor: "#5BA0BC",
           }).then(() => {
             navigate("/");
           });
@@ -104,29 +100,24 @@ export const AdminProfile = () => {
             <span>Admin</span>
           </div>
 
-          <div className={AdminProfilecss.infoRow}>
-              <FaLock className={AdminProfilecss.icon} />
-              <div className={AdminProfilecss.passwordField}>
-                <span className={AdminProfilecss.passwordText}>
-                  {showPassword ? admin.password : "*".repeat(admin.password?.length || 8)}
-                </span>
+          <div className={AdminProfilecss.updatecontainer}>
+              <div className={AdminProfilecss.updatecontainer}>
                 <button
-                  onClick={() => setShowPassword(!showPassword)}
-                  className={AdminProfilecss.toggleBtn}
-                  title={showPassword ? "Hide Password" : "Show Password"}
+                  className={AdminProfilecss.updateBtn}
+                  onClick={() => navigate("/profile-update")}
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  Update Profile
+                </button>
+
+                <button
+                  className={AdminProfilecss.updateBtn}
+                  onClick={() => navigate("/change-password")} // You can set your route here
+                >
+                  Change Password
                 </button>
               </div>
-          </div>
-          <div className={AdminProfilecss.updatecontainer}>
-              <button
-                className={AdminProfilecss.updateBtn}
-                onClick={() => navigate("/profile-update")} // update path if different
-              >
-                Update Profile
-              </button>
             </div>
+            
         </motion.div>
       )}
     </motion.div>

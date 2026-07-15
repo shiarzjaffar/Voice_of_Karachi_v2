@@ -1,9 +1,17 @@
+:root {
+  --light-gray-blue: #C4D0D6;
+  --dark-navy-blue: #0E2A43;
+  --bright-sky-blue: #5BA0BC;
+  --white-light: #F4F8F9;
+  --medium-blue-gray: #3D6582;
+}
+
 /* 🌌 User Container */
 .userContainer {
   padding: 20px;
-  background: linear-gradient(135deg, #001f1f, #004d4d);
+  background: linear-gradient(135deg, var(--dark-navy-blue), var(--medium-blue-gray));
   min-height: 100vh;
-  color: white;
+  color: var(--white-light);
   transition: all 0.3s ease-in-out;
   width: 100%;
 }
@@ -15,17 +23,17 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #00ffcc;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+  color: var(--bright-sky-blue);
+  text-shadow: 0 0 10px rgba(91, 160, 188, 0.8);
 }
 
 /* 🗂 Table Container */
 .tableContainer {
-  margin: 20px 0 0 20%;
+  margin: 20px 0 0 0;
   overflow-x: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 20px rgba(91, 160, 188, 0.2);
   border-radius: 10px;
-  width: 80%;
+  width: 100%;
 }
 
 /* 📋 Table Styling */
@@ -40,13 +48,13 @@
 .userTable td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* 🏷 Table Header */
 .userTable th {
-  background: rgba(0, 255, 204, 0.2);
-  color: white;
+  background: rgba(91, 160, 188, 0.2);
+  color: var(--white-light);
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: 600;
@@ -58,7 +66,7 @@
 }
 
 .userTable tr:hover {
-  background: rgba(0, 255, 204, 0.2);
+  background: rgba(91, 160, 188, 0.12);
 }
 
 /* 🔍 Search Input */
@@ -70,27 +78,27 @@
   border-radius: 8px;
   border: none;
   outline: none;
-  margin: 0 0 20px 20%;
+  margin: 0 0 20px 0;
   text-align: left;
-  background: rgba(0, 77, 77, 0.5);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 255, 204, 0.4);
+  color: var(--white-light);
+  background: rgba(14, 42, 67, 0.6);
+  box-shadow: 0 4px 10px rgba(91, 160, 188, 0.4);
   transition: all 0.3s ease-in-out;
 }
 
 .searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(196, 208, 214, 0.7);
 }
 
 .searchInput:focus {
-  background: rgba(0, 77, 77, 0.7);
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+  background: rgba(14, 42, 67, 0.8);
+  box-shadow: 0 0 15px rgba(91, 160, 188, 0.8);
 }
 
-/* 🚫 Deactivate Button - Neon Blue Theme */
+/* 🚫 Deactivate Button */
 .deactivateButton {
-  background: linear-gradient(#004d4d, #008080, #00cc99);
-  color: white;
+  background: linear-gradient(var(--medium-blue-gray), var(--bright-sky-blue), var(--light-gray-blue));
+  color: var(--white-light);
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
@@ -98,14 +106,13 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 15px #008080, 0 0 25px #004d4d;
+  box-shadow: 0 0 15px var(--bright-sky-blue), 0 0 25px var(--dark-navy-blue);
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
 }
 
-/* 🌟 Glow Effect */
 .deactivateButton::before {
   content: "";
   position: absolute;
@@ -113,31 +120,23 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, #004d4d, transparent);
-  transition: all 0.4s ease-in-out;
+  background: linear-gradient(120deg, transparent, var(--medium-blue-gray), transparent);
+  transition: 0.4s;
 }
 
-/* 💡 Hover Effect */
 .deactivateButton:hover {
-  background: linear-gradient(#004d4d, #008080, #00cc99);
-  box-shadow: 0 0 25px #00ffcc, 0 0 40px #001f1f;
   transform: scale(1.08);
+  box-shadow: 0 0 25px var(--light-gray-blue), 0 0 40px var(--dark-navy-blue);
 }
 
 .deactivateButton:hover::before {
   left: 100%;
 }
 
-/* 🎯 Press (Active) Effect */
-.deactivateButton:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 10px #00ffcc;
-}
-
-/* 🚫 activate Button */
+/* 🚀 Activate Button */
 .activateButton {
-  background: linear-gradient(#004d4d, #008080, #00cc99);
-  color: white;
+  background: linear-gradient(var(--medium-blue-gray), var(--bright-sky-blue), var(--light-gray-blue));
+  color: var(--white-light);
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
@@ -145,14 +144,13 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 15px #008080, 0 0 25px #004d4d;
+  box-shadow: 0 0 15px var(--bright-sky-blue), 0 0 25px var(--dark-navy-blue);
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
 }
 
-/* 🌟 Glow Effect */
 .activateButton::before {
   content: "";
   position: absolute;
@@ -160,25 +158,17 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, transparent, #004d4d, transparent);
-  transition: all 0.4s ease-in-out;
+  background: linear-gradient(120deg, transparent, var(--medium-blue-gray), transparent);
+  transition: 0.4s;
 }
 
-/* 💡 Hover Effect */
 .activateButton:hover {
-  background: linear-gradient(#004d4d, #008080, #00cc99);
-  box-shadow: 0 0 25px #00ffcc, 0 0 40px #001f1f;
   transform: scale(1.08);
+  box-shadow: 0 0 25px var(--light-gray-blue), 0 0 40px var(--dark-navy-blue);
 }
 
 .activateButton:hover::before {
   left: 100%;
-}
-
-/* 🎯 Press (Active) Effect */
-.activateButton:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 10px #00ffcc;
 }
 
 /* 🔄 Pagination */
@@ -191,40 +181,35 @@
 }
 
 .pagination button {
-  background: linear-gradient(135deg, #008080, #00e6b8);
-  color: white;
+  background: linear-gradient(135deg, var(--medium-blue-gray), var(--bright-sky-blue));
+  color: var(--white-light);
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(91, 160, 188, 0.5);
 }
 
 .pagination button:disabled {
-  background: rgba(0, 255, 204, 0.3);
+  background: rgba(91, 160, 188, 0.3);
   cursor: not-allowed;
   box-shadow: none;
-}
-
-.pagination button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #006666, #00cc99);
-  transform: scale(1.1);
 }
 
 .pagination span {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #00ffcc;
+  color: var(--bright-sky-blue);
 }
 
 /* 🌟 Responsive */
 @media (max-width: 768px) {
   .h2 {
     font-size: 1rem;
-    margin: 2.5rem; 
+    margin: 2.5rem;
   }
 
   .userTable th,
@@ -237,8 +222,9 @@
     padding: 6px 10px;
     font-size: 0.9rem;
   }
+
   .searchInput {
-  width: 90%;
-  margin: auto 5%;
-}
+    width: 90%;
+    margin: auto 5%;
+  }
 }
