@@ -1,164 +1,287 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2"; // ✅ Import SweetAlert2
-import UserActiveDeactivecss from "./UserActiveDeactive.module.css";
+import Swal from "sweetalert2";
 
-export const UserActiveDeactive = ({ isSidebarOpen }) => {
+import PageHeader from "./admin/ui/PageHeader/PageHeader";
+import DataCard from "./admin/ui/DataCard/DataCard";
+import StatusBadge from "./admin/common/StatusBadge";
+import IconActionButton from "./admin/common/IconActionButton";
+
+import {
+  Users,
+  UserCheck,
+  UserX,
+  RefreshCw,
+} from "lucide-react";
+
+import styles from "./UserActiveDeactive.module.css";
+
+export const UserActiveDeactive = () => {
   const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
+  const [loading, setLoading] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/admin/users");
-        setUsers(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+  const usersPerPage = 10;
 
-    fetchUsers();
-  }, []);
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
 
-  const handleToggleStatus = async (userId, currentStatus) => {
-    const newStatus = currentStatus === 1 ? 0 : 1;
-    
-    const result = await Swal.fire({
-      title: `Are you sure?`,
-      text: `Do you really want to ${newStatus === 1 ? "activate" : "deactivate"} this user?`,
-      icon: "warning",
-      showCancelButton: true,
-    
-      // ⭐ Using your exact hex colors
-      background: "linear-gradient(135deg, #0E2A43, #3D6582)",
-      color: "#F4F8F9",
-    
-      confirmButtonColor: "#5BA0BC",
-      cancelButtonColor: "#C4D0D6",
-    
-      confirmButtonText: newStatus === 1 ? "Activate" : "Deactivate",
-    });
-  
-    if (result.isConfirmed) {
-      try {
-        const response = await axios.put(
-          `http://localhost:5000/api/admin/user-status/${userId}`
-        );
-      
-        Swal.fire({
-          title: "Success!",
-          text: response.data.message,
-          icon: "success",
-        
-          // ⭐ Theme colors again
-          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
-          color: "#F4F8F9",
-          confirmButtonColor: "#5BA0BC",
-        });
-      
-        setUsers(
-          users.map((user) =>
-            user._id === userId ? { ...user, userstatus: newStatus } : user
-          )
-        );
-      } catch (error) {
-        Swal.fire({
-          title: "Error!",
-          text: error.response?.data?.message || "Failed to update status.",
-          icon: "error",
-        
-          // ⭐ Same blue theme
-          background: "linear-gradient(135deg, #0E2A43, #3D6582)",
-          color: "#F4F8F9",
-          confirmButtonColor: "#5BA0BC",
-        });
-      }
+      const response = await axios.get(
+        "http://localhost:5000/api/admin/users"
+      );
+
+      setUsers(response.data);
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to load users.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-    setCurrentPage(1);
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const handleToggleStatus = async (user) => {
+    const activate = user.userstatus !== 1;
+
+    const result = await Swal.fire({
+      title: activate
+        ? "Activate User?"
+        : "Deactivate User?",
+      text: activate
+        ? "This account will become active."
+        : "This account will be disabled.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#114232",
+      cancelButtonColor: "#6B7280",
+      confirmButtonText: activate
+        ? "Activate"
+        : "Deactivate",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await axios.put(
+        `http://localhost:5000/api/admin/user-status/${user._id}`
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Updated",
+        text: activate
+          ? "User activated successfully."
+          : "User deactivated successfully.",
+        timer: 1400,
+        showConfirmButton: false,
+      });
+
+      loadUsers();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text:
+          error.response?.data?.message ||
+          "Unable to update user status.",
+      });
+    }
   };
 
-  const filteredUsers = users.filter((user) =>
-    user._id.includes(searchQuery) ||
-    user.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.phone.includes(searchQuery)
+  const filteredUsers = useMemo(() => {
+    const query = searchQuery.toLowerCase();
+
+    return users.filter((user) => {
+      return (
+        user._id.toLowerCase().includes(query) ||
+        user.fullname.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query) ||
+        user.phone.includes(searchQuery)
+      );
+    });
+  }, [users, searchQuery]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredUsers.length / usersPerPage)
   );
 
-  const totalPages = Math.max(1, Math.ceil(filteredUsers.length / usersPerPage));
-  const startIndex = (currentPage - 1) * usersPerPage;
-  const paginatedUsers = filteredUsers.slice(startIndex, startIndex + usersPerPage);
+  const currentUsers = filteredUsers.slice(
+    (currentPage - 1) * usersPerPage,
+    currentPage * usersPerPage
+  );
 
-  const nextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
+  const totalUsers = users.length;
 
-  const prevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
+  const activeUsers = users.filter(
+    (u) => u.userstatus === 1
+  ).length;
 
-  return (
-    <div className={`${UserActiveDeactivecss.userContainer} ${isSidebarOpen ? UserActiveDeactivecss.sidebarOpen : UserActiveDeactivecss.sidebarClosed}`}>
-      <h2 className={`${UserActiveDeactivecss.h2}`}>✅ Active User List & ⛔ Deactive User List</h2>
+  const inactiveUsers = totalUsers - activeUsers;
 
-      <input
-        type="text"
-        placeholder="Search by ID, name, email, or phone..."
-        value={searchQuery}
-        onChange={handleSearchChange}
-        className={UserActiveDeactivecss.searchInput}
+    return (
+    <div className={styles.container}>
+      <PageHeader
+        title="Manage Users"
+        subtitle="Activate or deactivate registered citizen accounts"
       />
 
-      <div className={UserActiveDeactivecss.tableContainer}>
-        <table className={UserActiveDeactivecss.userTable}>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedUsers.length > 0 ? (
-              paginatedUsers.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.fullname}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.userstatus === 1 ? "Active" : "Inactive"}</td>
-                  <td>
-                    <button
-                      onClick={() => handleToggleStatus(user._id, user.userstatus)}
-                      className={user.userstatus === 1 ? UserActiveDeactivecss.deactivateButton : UserActiveDeactivecss.activateButton}
-                    >
-                      {user.userstatus === 1 ? "Deactivate" : "Activate"}
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">No users found</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <div className={styles.iconBlue}>
+            <Users size={24} />
+          </div>
+
+          <div>
+            <span>Total Users</span>
+            <h2>{totalUsers}</h2>
+          </div>
+        </div>
+
+        <div className={styles.statCard}>
+          <div className={styles.iconGreen}>
+            <UserCheck size={24} />
+          </div>
+
+          <div>
+            <span>Active Users</span>
+            <h2>{activeUsers}</h2>
+          </div>
+        </div>
+
+        <div className={styles.statCard}>
+          <div className={styles.iconRed}>
+            <UserX size={24} />
+          </div>
+
+          <div>
+            <span>Inactive Users</span>
+            <h2>{inactiveUsers}</h2>
+          </div>
+        </div>
       </div>
 
-      <div className={UserActiveDeactivecss.pagination}>
-        <button onClick={prevPage} disabled={currentPage === 1}>⬅ Previous</button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>Next ➡</button>
-      </div>
+      <DataCard
+        title="Filters"
+        subtitle="Search users"
+      >
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="Search by ID, Name, Email or Phone..."
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+      </DataCard>
+
+      <DataCard
+        title="User Management"
+        subtitle={`Total Users: ${users.length}`}
+      >
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th width="170">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {currentUsers.length > 0 ? (
+                currentUsers.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user._id}</td>
+
+                    <td>{user.fullname}</td>
+
+                    <td>{user.email}</td>
+
+                    <td>{user.phone}</td>
+
+                    <td>
+                      <StatusBadge
+                        status={user.userstatus}
+                      />
+                    </td>
+
+                    <td className={styles.actions}>
+                      <IconActionButton
+                        icon={<RefreshCw size={16} />}
+                        title={
+                          user.userstatus === 1
+                            ? "Deactivate User"
+                            : "Activate User"
+                        }
+                        variant="warning"
+                        onClick={() =>
+                          handleToggleStatus(user)
+                        }
+                        disabled={loading}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className={styles.emptyState}
+                  >
+                    No users found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        <div className={styles.pagination}>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) =>
+                Math.max(prev - 1, 1)
+              )
+            }
+            disabled={currentPage === 1}
+          >
+            ← Previous
+          </button>
+
+          <div className={styles.pageInfo}>
+            Page {currentPage} of {totalPages}
+          </div>
+
+          <button
+            onClick={() =>
+              setCurrentPage((prev) =>
+                Math.min(prev + 1, totalPages)
+              )
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next →
+          </button>
+        </div>
+      </DataCard>
     </div>
   );
 };

@@ -162,7 +162,20 @@ const swalTheme = {
 
   return (
     <div className={ForgetPasswordcss.forgetPasswordContainer}>
-      <h1>Forgot Password?</h1>
+      <>
+<p
+    style={{
+        color:"#006A4E",
+        fontWeight:"700",
+        letterSpacing:"1px",
+        marginBottom:"10px"
+    }}
+>
+    VOICE OF KARACHI
+</p>
+
+<h1>Forgot Password</h1>
+</>
       {step === 1 && <p>Enter your email to receive a reset code.</p>}
       {step === 2 && <p>Enter the OTP sent to your email.</p>}
       {step === 3 && <p>Enter your new password.</p>}

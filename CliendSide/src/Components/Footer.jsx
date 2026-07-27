@@ -15,13 +15,11 @@ export const Footer = () => {
           <h2>Voice of Karachi</h2>
 
           <p className={styles.subtitle}>
-            Digital Civic Engagement Platform
+            Citizen Complaint Management System
           </p>
 
           <p className={styles.description}>
-            Empowering citizens to report civic issues, track complaint
-            progress and contribute towards a cleaner, safer and smarter
-            Karachi.
+            Voice of Karachi enables citizens to report civic issues, monitor complaint progress, and improve public service delivery through a transparent digital platform.
           </p>
 
         </div>
@@ -30,7 +28,7 @@ export const Footer = () => {
 
         <div>
 
-          <h3>Platform</h3>
+          <h3>Quick Links</h3>
 
           <ul>
 
@@ -50,7 +48,7 @@ export const Footer = () => {
 
         <div>
 
-          <h3>Departments</h3>
+          <h3>Government Departments</h3>
 
           <ul>
 
@@ -93,7 +91,7 @@ export const Footer = () => {
         </p>
 
         <p>
-          Developed for academic demonstration purposes.
+          Final Year Project • Department of Computer Science
         </p>
 
       </div>

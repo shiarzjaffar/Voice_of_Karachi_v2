@@ -4,9 +4,12 @@ import { FaEnvelope, FaLock, FaSignInAlt, FaEye, FaEyeSlash } from "react-icons/
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
@@ -15,7 +18,7 @@ export const Login = () => {
   const [emailStatus, setEmailStatus] = useState("");
   const [emailChecked, setEmailChecked] = useState(false);
 
-  // 🎨 UrbanFix Brand SweetAlert Theme
+  // Voice of Karachi SweetAlert Theme
 const swalTheme = {
   background: "#FFFFFF",
   color: "#111827",
@@ -33,9 +36,12 @@ const swalTheme = {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/check-auth", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+  "http://localhost:5000/api/auth/check-session",
+  {
+    withCredentials: true,
+  }
+);
         if (response.data.loggedIn) navigate("/dashboard");
       } catch (err) {
         console.error("Error checking authentication:", err);
@@ -124,7 +130,10 @@ const swalTheme = {
         timer: 2000
       });
 
+      await login();
+
       navigate("/dashboard");
+
     } catch (err) {
       if (err.response?.data?.error === "Email not found!") {
         setError("📭 Email not registered.");
@@ -159,11 +168,10 @@ const swalTheme = {
 
   return (
     <div className={loginstylecss.loginContainer}>
-      <h1 className={loginstylecss.title}>VOICE OF KARACHI</h1>
+      <h1 className={loginstylecss.title}>Citizen Login</h1>
 
 <p className={loginstylecss.subtitle}>
-  Access your citizen account to report civic issues and
-  track complaint progress.
+  Sign in to submit civic complaints, monitor progress, and manage your citizen profile.
 </p>
 
       <form
@@ -224,17 +232,17 @@ const swalTheme = {
           className={loginstylecss.submitButton}
           disabled={loading || !emailChecked}
         >
-          {loading ? "Signing In..." : "Sign In"}
+          {loading ? "Signing In..." : "Login"}
         </button>
 
         <div className={loginstylecss.forgotPasswordContainer}>
-          <a href="/forgot-password" className={loginstylecss.forgotPasswordLink}>
+          <Link to="/forgot-password" className={loginstylecss.forgotPasswordLink}>
             Forgot Password?
-          </a>
+          </Link>
         </div>
         <div className={loginstylecss.signupLink}>
-  Don't have an account?
-  <a href="/signup"> Create Account</a>
+  New to Voice of Karachi?
+  <Link to="/signup"> Create a Citizen Account</Link>
 </div>
 
 

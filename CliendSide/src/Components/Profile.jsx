@@ -147,12 +147,37 @@ const swalTheme = {
     navigate("/change-password");
   };
 
-  if (loading) return <p>⏳ Loading profile...</p>;
-  if (error) return <p>❌ {error}</p>;
+  if (loading) {
+    return (
+        <div className={profilecss.loading}>
+            Loading Profile...
+        </div>
+    );
+}
+  if (error) {
+    return (
+        <div className={profilecss.error}>
+            {error}
+        </div>
+    );
+}
 
   return (
     <div className={profilecss.profileContainer}>
-      <h1 className={profilecss.profileHeading}>My Profile</h1>
+
+<p className={profilecss.badge}>
+    VOICE OF KARACHI
+</p>
+
+<h1 className={profilecss.profileHeading}>
+    Citizen Profile
+</h1>
+
+<p className={profilecss.subtitle}>
+    View and manage your citizen account information.
+</p>
+
+
 
       <div className={profilecss.profileCard}>
         <img src={profileImage} alt="Profile" className={profilecss.profileImage} />
@@ -166,20 +191,32 @@ const swalTheme = {
 
         {/* ====== ICON BUTTONS (New) ====== */}
         <div className={profilecss.iconButtonRow}>
-          <button className={profilecss.iconButton} data-tip="Update Profile" onClick={handleUpdate}>
-            <FaEdit />
+          <button className={profilecss.iconButton}  onClick={handleUpdate}>
+            <>
+    <FaEdit />
+    Update
+</>
           </button>
           
-          <button className={profilecss.iconButton} data-tip="Delete Profile" onClick={handleDelete}>
-            <FaTrash />
+          <button className={profilecss.iconButton}  onClick={handleDelete}>
+            <>
+    <FaTrash />
+    Delete
+</>
           </button>
           
-          <button className={profilecss.iconButton} data-tip="Logout" onClick={logout}>
-            <FaSignOutAlt />
+          <button className={profilecss.iconButton}  onClick={logout}>
+            <>
+    <FaSignOutAlt />
+    Logout
+</>
           </button>
           
-          <button className={profilecss.iconButton} data-tip="Change Password" onClick={ChangePassword}>
-            <FaKey />
+          <button className={profilecss.iconButton}  onClick={ChangePassword}>
+            <>
+    <FaKey />
+    Password
+</>
           </button>
         </div>
 

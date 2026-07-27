@@ -116,7 +116,7 @@ adminRouter.post("/forgot-password/reset", async (req, res) => {
   }
 
   try {
-    admin.password = await bcrypt.hash(dev, 10);
+    admin.password = await bcrypt.hash(newPassword, 10);
     await admin.save();
     verifiedEmails.delete(email);
 
@@ -307,10 +307,92 @@ adminRouter.put("/change-password", async (req, res) => {
   }
 });
 
+adminRouter.get("/employees", async (req, res) => {
+  try {
+const employees = await User.find({
+  role: "Employee",
+})
+  .select(
+    "employeeId fullname email phone department approved userstatus role createdAt"
+  )
+  .sort({ createdAt: -1 });
+
+    res.json(employees);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Failed to load employees.",
+    });
+  }
+});
+
+adminRouter.patch("/employees/:id/approve", async (req, res) => {
+  try {
+    const employee = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        approved: true,
+        userstatus: 1,
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!employee) {
+      return res.status(404).json({
+        error: "Employee not found.",
+      });
+    }
+
+    res.json({
+      message: "Employee approved successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Server error.",
+    });
+  }
+});
+
+adminRouter.patch("/employees/:id/reject", async (req, res) => {
+  try {
+    const employee = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        approved: false,
+        userstatus: 0,
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!employee) {
+      return res.status(404).json({
+        error: "Employee not found.",
+      });
+    }
+
+    res.json({
+      message: "Employee rejected successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Server error.",
+    });
+  }
+});
+
 (async () => {
   try {
-    const defaultEmail = "urbanfix18@gmail.com";
-    const defaultPassword = "Urbanfix18";
+    const defaultEmail = "admin@voiceofkarachi.com";
+    const defaultPassword = "Voice@2026";
 
     const existingAdmin = await Admin.findOne({ email: defaultEmail });
     if (!existingAdmin) {
@@ -318,7 +400,7 @@ adminRouter.put("/change-password", async (req, res) => {
       await Admin.create({
         email: defaultEmail,
         password: hashedPassword,
-        fullname: "Urban Fix",
+        fullname: "Voice of Karachi Administrator",
         phone: "03102030405",
       });
       console.log("✅ Default admin created.");

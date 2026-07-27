@@ -26,12 +26,12 @@
 
 .loginForm{
     width:100%;
-    max-width:520px;
+    max-width:500px;
     background:#fff;
     border-radius:18px;
     border:1px solid #DDE8E2;
-    padding:40px;
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    padding:32px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
 }
 
 .inputGroup{
@@ -130,7 +130,7 @@
 
 .forgotPasswordContainer{
     margin-top:20px;
-    text-align:right;
+    text-align:center;
 }
 
 .forgotPasswordLink{

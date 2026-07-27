@@ -1,16 +1,12 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
-
+import { AdminLayout } from "./Components/admin/layout/AdminLayout";
 import { AdminLogin } from "./Components/AdminLogin";
-import { Sidebar } from "./Components/Sidebar";
-import { Footer } from "./Components/Footer";
-import { UserFetch } from "./Components/UserFetch";
-import { UserDelete } from "./Components/UserDelete";
-import { UserActiveDeactive } from "./Components/UserActiveDeactive";
-import { ViewMessage } from "./Components/ViewMessage";
-import { DeleteMessage } from "./Components/DeleteMessage";
-import { AdminDashboard } from "./Components/AdminDashboard";
+import Users from "./pages/users/Users";
+
+import Dashboard from "./pages/dashboard/Dashboard";
 import { AdminProfile } from "./Components/AdminProfile";
 import { AdminUpdate } from "./Components/AdminUpdate";
 import { AdminChangePassword } from "./Components/AdminChangePassword";
@@ -20,10 +16,11 @@ import { AdminResetPassword } from "./Components/AdminResetPassword";
 import { ReportFetch } from "./Components/ReportFetch";
 import { ReportClosed } from "./Components/ReportClosed";
 import { ReportStatus } from "./Components/ReportStatus";
+import Reports from "./pages/reports/Reports";
+import Employees from "./pages/Employees/Employees";
+
 
 function App() {
-  const location = useLocation();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [loading, setLoading] = useState(true);
 
   // Show loader on initial page load
@@ -32,13 +29,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Hide Sidebar + Footer on special pages
-  const hideLayout =
-    location.pathname === "/" ||
-    location.pathname === "/profile-update" ||
-    location.pathname === "/verify-otp" ||
-    location.pathname === "/reset-password" ||
-    location.pathname === "/forget-password";
+
 
   // Loader HTML
   if (loading) {
@@ -51,33 +42,45 @@ function App() {
 
   return (
     <>
-      {!hideLayout && (
-        <Sidebar
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
-      )}
 
-      <Routes>
-        <Route path="/" element={<AdminLogin />} />
-        <Route path="/user-fetch" element={<UserFetch />} />
-        <Route path="/user-delete" element={<UserDelete />} />
-        <Route path="/user-activedeactive" element={<UserActiveDeactive />} />
-        <Route path="/View-Message" element={<ViewMessage />} />
-        <Route path="/Delete-Message" element={<DeleteMessage />} />
-        <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/profile" element={<AdminProfile />} />
-        <Route path="/profile-update" element={<AdminUpdate />} />
-        <Route path="/change-password" element={<AdminChangePassword />} />
-        <Route path="/forget-password" element={<AdminForgetpwd />} />
-        <Route path="/verify-otp" element={<AdminVerifyOTP />} />
-        <Route path="/reset-password" element={<AdminResetPassword />} />
-        <Route path="/report-fetch" element={<ReportFetch />} />
-        <Route path="/report-closed" element={<ReportClosed />} />
-        <Route path="/report-update" element={<ReportStatus />} />
-      </Routes>
+<Routes>
 
-      {!hideLayout && <Footer />}
+  {/* Login */}
+  <Route path="/" element={<AdminLogin />} />
+
+  <Route path="/profile-update" element={<AdminUpdate />} />
+  <Route path="/forget-password" element={<AdminForgetpwd />} />
+  <Route path="/verify-otp" element={<AdminVerifyOTP />} />
+  <Route path="/reset-password" element={<AdminResetPassword />} />
+
+  {/* Admin Layout */}
+    <Route element={<AdminLayout />}>
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/users" element={<Users />} />
+    <Route path="/employees" element={<Employees />} />
+    <Route path="/reports" element={<Reports />} />
+
+    <Route path="/profile" element={<AdminProfile />} />
+    <Route path="/change-password" element={<AdminChangePassword />} />
+
+<Route path="/user-fetch" element={<Navigate to="/users" replace />} />
+
+<Route path="/user-delete" element={<Navigate to="/users" replace />} />
+
+<Route path="/user-activedeactive" element={<Navigate to="/users" replace />} />
+
+
+    <Route path="/report-fetch" element={<ReportFetch />} />
+    <Route path="/report-closed" element={<ReportClosed />} />
+    <Route path="/report-update" element={<ReportStatus />} />
+    
+
+    
+
+  </Route>
+
+</Routes>
+
     </>
   );
 }

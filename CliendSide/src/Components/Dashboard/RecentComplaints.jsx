@@ -2,8 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 
-const RecentComplaints = ({ complaints }) => {
+const RecentComplaints = ({ complaints = [] }) => {
   const navigate = useNavigate();
+
+  const formatDate = (date) =>
+    new Date(date).toLocaleDateString();
 
   return (
     <section className={styles.recentSection}>
@@ -18,6 +21,7 @@ const RecentComplaints = ({ complaints }) => {
         <table className={styles.complaintTable}>
 
           <thead>
+
             <tr>
               <th>ID</th>
               <th>Department</th>
@@ -26,52 +30,76 @@ const RecentComplaints = ({ complaints }) => {
               <th>Date</th>
               <th></th>
             </tr>
+
           </thead>
 
           <tbody>
 
-            {complaints.map((complaint) => (
+            {complaints.length === 0 ? (
 
-              <tr key={complaint.id}>
-
-                <td>{complaint.id}</td>
-
-                <td>{complaint.department}</td>
-
-                <td>{complaint.location}</td>
-
-                <td>
-
-                  <span
-                    className={`${styles.statusBadge} ${
-                      complaint.status === "Pending"
-                        ? styles.pending
-                        : complaint.status === "In Progress"
-                        ? styles.progress
-                        : styles.resolved
-                    }`}
-                  >
-                    {complaint.status}
-                  </span>
-
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center" }}>
+                  No recent complaints found.
                 </td>
-
-                <td>{complaint.date}</td>
-
-                <td>
-
-                  <button
-                    className={styles.viewButton}
-                    onClick={() => navigate("/report-tracking")}
-                  >
-                    View
-                  </button>
-
-                </td>
-
               </tr>
 
-            ))}
+            ) : (
+
+              complaints.map((complaint) => (
+
+                <tr key={complaint._id}>
+
+                  <td>
+                    #{complaint._id.slice(-8).toUpperCase()}
+                  </td>
+
+                  <td>{complaint.department}</td>
+
+                  <td>{complaint.location}</td>
+
+                  <td>
+
+                    <span
+                      className={`${styles.statusBadge}
+                      ${
+                        complaint.status === "Pending"
+                          ? styles.pending
+                          : complaint.status === "In Progress"
+                          ? styles.progress
+                          : styles.resolved
+                      }`}
+                    >
+                      {complaint.status}
+                    </span>
+
+                  </td>
+
+                  <td>
+                    {formatDate(
+                      complaint.reportSubmittedAt
+                    )}
+                  </td>
+
+                  <td>
+
+                    <button
+                      className={styles.viewButton}
+                      onClick={() =>
+                        navigate(
+                          `/report-tracking/${complaint._id}`
+                        )
+                      }
+                    >
+                      View
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+
+            )}
 
           </tbody>
 

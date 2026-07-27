@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  text-align: left;
+  padding: 16px;
+  font-weight: 600;
+}
+
+.table tbody td {
+  padding: 16px;
+}
+
+.table tbody tr:hover {
+  background: rgba(0,0,0,.03);
+}

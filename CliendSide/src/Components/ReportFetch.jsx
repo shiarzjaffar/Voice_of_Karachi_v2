@@ -12,9 +12,7 @@ const swalTheme = {
 export const ReportFetch = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
   const [addressMap, setAddressMap] = useState({});
-  const [previewImage, setPreviewImage] = useState(null);
   const [previewImages, setPreviewImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [search, setSearch] = useState("");
@@ -30,60 +28,42 @@ export const ReportFetch = () => {
     setCurrentIndex(0);
   };
 
-  const navigate = useNavigate();
-  const handleViewDetails = (report) => {
+const navigate = useNavigate();
+
+const handleViewDetails = (report) => {
   navigate(`/report-tracking/${report._id}`);
 };
 
-  useEffect(() => {
-    const fetchUserSession = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/check-session",
-          { withCredentials: true }
-        );
-
-        if (response.data.loggedIn) {
-          setUser({ _id: response.data.userId });
-        } else {
-          Swal.fire({
-            icon: "warning",
-            title: "Login Required",
-            text: "You need to login to view your reports.",
-            ...swalTheme,
-            timer: 3000,
-            showConfirmButton: false,
-          });
-          navigate("/login");
+useEffect(() => {
+  const fetchReports = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/report/user/reports",
+        {
+          withCredentials: true,
         }
-      } catch (err) {
-        Swal.fire({
-          icon: "error",
-          title: "Session Error",
-          text: "Please login again.",
-          ...swalTheme,
-          timer: 3000,
-          showConfirmButton: false,
-        });
-        navigate("/login");
-      }
-    };
+      );
 
-    fetchUserSession();
-  }, [navigate]);
+      setReports(res.data);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!previewImages.length) return;
+    } catch (error) {
 
-      if (e.key === "Escape") closePreview();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
-    };
+      console.error(error);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [previewImages, currentIndex]);
+      navigate("/login");
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
+  fetchReports();
+
+}, [navigate]);
+
+
 
   const nextImage = () => {
     setCurrentIndex((prev) =>
@@ -111,25 +91,7 @@ export const ReportFetch = () => {
     if (diff < -50) prevImage();
   };
 
-  useEffect(() => {
-    if (!user?._id) return;
 
-    const fetchReports = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/api/report/user/${user._id}`,
-          { withCredentials: true }
-        );
-        setReports(res.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchReports();
-  }, [user?._id]);
 
   const getAddressFromCoords = async (lat, lng) => {
     const key = `${lat},${lng}`;
@@ -198,20 +160,12 @@ const filteredReports = reports.filter((report) => {
 
 });
 
-const assignedReports = reports.filter(
-  (r) => r.status === "Assigned"
-).length;
-
 const progressReports = reports.filter(
-  (r) =>
-    r.status === "In Progress" ||
-    r.status === "Under Review"
+    (r) => r.status === "In Progress"
 ).length;
 
-const resolvedReports = reports.filter(
-  (r) =>
-    r.status === "Resolved" ||
-    r.status === "Closed"
+const closedReports = reports.filter(
+    (r) => r.status === "Closed"
 ).length;
 
   if (loading) {
@@ -248,10 +202,6 @@ const resolvedReports = reports.filter(
     <p>Pending</p>
   </div>
 
-  <div className={ReportFetchcss.statCard}>
-    <h2>{assignedReports}</h2>
-    <p>Assigned</p>
-  </div>
 
   <div className={ReportFetchcss.statCard}>
     <h2>{progressReports}</h2>
@@ -259,8 +209,8 @@ const resolvedReports = reports.filter(
   </div>
 
   <div className={ReportFetchcss.statCard}>
-    <h2>{resolvedReports}</h2>
-    <p>Resolved</p>
+    <h2>{closedReports}</h2>
+    <p>Closed</p>
   </div>
 
 </div>
@@ -280,12 +230,10 @@ const resolvedReports = reports.filter(
 <div className={ReportFetchcss.filterBar}>
 
   {[
-    "All",
-    "Pending",
-    "Assigned",
-    "In Progress",
-    "Resolved",
-    "Closed",
+  "All",
+  "Pending",
+  "In Progress",
+  "Closed",
   ].map((status) => (
 
     <button
@@ -305,7 +253,7 @@ const resolvedReports = reports.filter(
 
 </div>
 
-      {reports.length === 0 ? (
+      {filteredReports.length === 0 ? (
 <div className={ReportFetchcss.emptyState}>
 
   <h2>No Reports Found</h2>
@@ -344,12 +292,10 @@ const resolvedReports = reports.filter(
           ${
             report.status === "Pending"
               ? ReportFetchcss.pending
-              : report.status === "Assigned"
-              ? ReportFetchcss.assigned
               : report.status === "In Progress"
               ? ReportFetchcss.inProgress
-              : report.status === "Resolved"
-              ? ReportFetchcss.resolved
+              : report.status === "Closed"
+              ? ReportFetchcss.closed
               : ReportFetchcss.closed
           }`}
         >

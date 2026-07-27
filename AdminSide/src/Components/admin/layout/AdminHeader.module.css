@@ -1,0 +1,203 @@
+:root {
+  --primary: #114232;
+  --secondary: #006a4e;
+
+  --background: #ffffff;
+  --border: #e5e7eb;
+
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --hover: #f3f4f6;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.header {
+  height: 80px;
+
+  background: var(--background);
+
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 28px;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 50;
+}
+
+/* ==========================
+   Left
+========================== */
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ==========================
+   Menu Button
+========================== */
+
+.menuButton {
+  width: 44px;
+  height: 44px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: var(--hover);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.menuButton:hover {
+  background: #e5e7eb;
+}
+
+.menuButton svg {
+  color: var(--primary);
+}
+
+/* ==========================
+   Title
+========================== */
+
+.title {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 28px;
+
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 4px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+}
+
+/* ==========================
+   Right
+========================== */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ==========================
+   Notification
+========================== */
+
+.iconButton {
+  width: 46px;
+  height: 46px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: var(--hover);
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: .25s;
+}
+
+.iconButton:hover {
+  background: #e5e7eb;
+}
+
+.iconButton svg {
+  color: var(--primary);
+}
+
+/* ==========================
+   Profile
+========================== */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile svg {
+  color: var(--primary);
+}
+
+.name {
+  display: block;
+
+  font-weight: 700;
+
+  color: var(--text);
+}
+
+.profile small {
+  color: var(--muted);
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 18px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .profile small {
+    display: none;
+  }
+}
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .profile div {
+    display: none;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+}

@@ -1,0 +1,745 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.welcomeSection {
+  background: linear-gradient(135deg, #0f766e, #16a34a);
+  color: #fff;
+  padding: 30px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.welcomeText h2 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.welcomeText p {
+  opacity: 0.9;
+  font-size: 15px;
+}
+
+.date {
+  text-align: right;
+  font-size: 14px;
+  opacity: .95;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.05);
+  transition: .25s;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+}
+
+.statTitle {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.statValue {
+  font-size: 34px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.05);
+}
+
+.card h3 {
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 14px;
+  background: #f3f4f6;
+}
+
+.table td {
+  padding: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quickActions button {
+  border: none;
+  background: #16a34a;
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.quickActions button:hover {
+  background: #15803d;
+}
+
+@media (max-width:1100px){
+
+.statsGrid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.bottomGrid{
+    grid-template-columns:1fr;
+}
+
+}
+
+@media (max-width:650px){
+
+.statsGrid{
+    grid-template-columns:1fr;
+}
+
+.welcomeSection{
+    gap:20px;
+}
+
+.date{
+    text-align:left;
+}
+
+}
+
+/* ==========================================
+   ENHANCED DASHBOARD HEADER
+========================================== */
+
+.welcomeLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.greeting {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .4px;
+  backdrop-filter: blur(8px);
+}
+
+.welcomeLeft h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.welcomeLeft p {
+  margin: 0;
+  opacity: .95;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.employeeInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.employeeInfo span {
+  background: rgba(255, 255, 255, .14);
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  backdrop-filter: blur(8px);
+}
+
+.employeeInfo strong {
+  color: #fff;
+}
+
+/* ==========================================
+   DATE CARD
+========================================== */
+
+.dateCard {
+  min-width: 280px;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 18px;
+  padding: 22px;
+  text-align: right;
+  backdrop-filter: blur(10px);
+}
+
+.dateCard h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dateCard p {
+  margin: 10px 0;
+  font-size: 16px;
+  opacity: .95;
+}
+
+.dateCard span {
+  display: block;
+  font-size: 13px;
+  opacity: .85;
+  margin-bottom: 18px;
+}
+
+/* ==========================================
+   REFRESH BUTTON
+========================================== */
+
+.refreshButton {
+  width: 100%;
+  border: none;
+  background: #ffffff;
+  color: #15803d;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all .25s ease;
+}
+
+.refreshButton:hover {
+  transform: translateY(-2px);
+  background: #f3f4f6;
+}
+
+/* ==========================================
+   LOADING BAR
+========================================== */
+
+.loadingBar {
+  background: #ecfdf5;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loadingBar::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 3px solid #bbf7d0;
+  border-top-color: #16a34a;
+  border-radius: 50%;
+  animation: dashboardSpin .8s linear infinite;
+}
+
+/* ==========================================
+   HEADER RESPONSIVE
+========================================== */
+
+@media (max-width: 992px) {
+
+  .welcomeSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dateCard {
+    width: 100%;
+    text-align: left;
+    min-width: unset;
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .welcomeLeft h1 {
+    font-size: 28px;
+  }
+
+  .employeeInfo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes dashboardSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+/* ==========================================
+   ENHANCED STATISTICS CARDS
+========================================== */
+
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, #16a34a, #0f766e);
+}
+
+.statCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.10);
+}
+
+.statIcon {
+  width: 70px;
+  height: 70px;
+  min-width: 70px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ecfdf5, #dcfce7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  transition: all .3s ease;
+}
+
+.statCard:hover .statIcon {
+  transform: scale(1.08) rotate(-5deg);
+}
+
+.statContent {
+  flex: 1;
+}
+
+.statTitle {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.statValue {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+.statDescription {
+  display: block;
+  margin-top: 10px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* ==========================================
+   CARD HEADER
+========================================== */
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.cardCount {
+  background: #ecfdf5;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================
+   CARD HOVER
+========================================== */
+
+.card {
+  transition: all .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .08);
+}
+
+/* ==========================================
+   GRID RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+
+  .statCard {
+    padding: 22px;
+  }
+
+  .statValue {
+    font-size: 30px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .statCard {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .statIcon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    font-size: 26px;
+  }
+
+  .statValue {
+    font-size: 28px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .statCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statIcon {
+    margin-bottom: 5px;
+  }
+
+}
+
+/* ==========================================
+   RIGHT COLUMN
+========================================== */
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead tr {
+  background: #f8fafc;
+}
+
+.table th {
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid #edf2f7;
+  color: #374151;
+  transition: background .25s ease;
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ==========================================
+   COMPLAINT ID BADGE
+========================================== */
+
+.idBadge {
+  display: inline-block;
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 95px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.assigned {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.emptyState {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 56px;
+  margin-bottom: 18px;
+}
+
+.emptyState h4 {
+  margin: 0;
+  color: #111827;
+  font-size: 22px;
+}
+
+.emptyState p {
+  margin-top: 10px;
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   QUICK ACTIONS
+========================================== */
+
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quickActions button {
+  border: none;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.quickActions button:hover {
+  transform: translateX(5px);
+  box-shadow: 0 10px 20px rgba(22, 163, 74, .18);
+}
+
+/* ==========================================
+   DEPARTMENT INFO
+========================================== */
+
+.departmentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoRow span:first-child {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.infoRow strong {
+  color: #111827;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ==========================================
+   INFO BADGES
+========================================== */
+
+.successBadge,
+.warningBadge,
+.dangerBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.successBadge {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.warningBadge {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.dangerBadge {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 992px) {
+
+  .rightColumn {
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .infoRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .infoRow strong {
+    text-align: left;
+  }
+
+  .quickActions button {
+    text-align: center;
+  }
+
+}

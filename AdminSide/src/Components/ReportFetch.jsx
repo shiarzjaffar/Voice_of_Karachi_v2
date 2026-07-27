@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PageHeader from "./admin/ui/PageHeader/PageHeader";
+import DataCard from "./admin/ui/DataCard/DataCard";
+import StatusBadge from "./admin/common/StatusBadge";
+
+import {
+  FileText,
+  Search,
+} from "lucide-react";
 import axios from "axios";
 import ReportFetchcss from "./ReportFetch.module.css";
 
@@ -50,6 +58,7 @@ export const ReportFetch = () => {
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentItems = filteredReports.slice(indexOfFirst, indexOfLast);
+  const totalReports = reports.length;
 
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
@@ -87,24 +96,52 @@ export const ReportFetch = () => {
     );
   }
 
+
   return (
-    <div className={ReportFetchcss.userContainer}>
-      <h2 className={ReportFetchcss.h2}>User Reports</h2>
+  <div className={ReportFetchcss.container}>
 
-      {/* Search Input */}
-      <input
-        type="text"
-        className={ReportFetchcss.searchInput}
-        placeholder="Search by category, description, or user…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+    <PageHeader
+      title="Report Management"
+      subtitle="View and manage all citizen reports"
+    />
 
-      {/* Table */}
-      <div className={ReportFetchcss.tableContainer}>
-        <table className={ReportFetchcss.userTable}>
+    <div className={ReportFetchcss.statsCard}>
+
+      <div className={ReportFetchcss.statsIcon}>
+        <FileText size={30} />
+      </div>
+
+      <div>
+        <span>Total Reports</span>
+        <h2>{totalReports}</h2>
+      </div>
+
+    </div>
+
+    <DataCard>
+
+      <div className={ReportFetchcss.searchWrapper}>
+
+        <Search size={18} />
+
+        <input
+          type="text"
+          className={ReportFetchcss.searchInput}
+          placeholder="Search by category, description or user..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+      </div>
+
+      <div className={ReportFetchcss.tableWrapper}>
+
+        <table className={ReportFetchcss.reportTable}>
+
           <thead>
+
             <tr>
+
               <th>User</th>
               <th>Email</th>
               <th>Phone</th>
@@ -113,12 +150,19 @@ export const ReportFetch = () => {
               <th>Location</th>
               <th>Status</th>
               <th>Feedback</th>
-              <th>Submit Date</th>
-              <th>Closed Date</th>
-              <th>Image</th>
+              <th>Submitted</th>
+              <th>Closed</th>
+              <th>Images</th>
+
             </tr>
+
           </thead>
+
+        
+
           <tbody>
+
+
             {currentItems.length === 0 ? (
               <tr>
                 <td colSpan="10" style={{ textAlign: "center", padding: "20px" }}>
@@ -128,35 +172,59 @@ export const ReportFetch = () => {
             ) : (
               currentItems.map((item) => (
                 <tr key={item._id}>
-                  <td>{item.userId?.fullname || "Unknown"}</td>
-                  <td>{item.userId?.email || "N/A"}</td>
+                  <td>
+  <div className={ReportFetchcss.userCell}>
+    <strong>{item.userId?.fullname || "Unknown"}</strong>
+  </div>
+</td>
+                  <td className={ReportFetchcss.emailCell}>
+  {item.userId?.email || "N/A"}
+</td>
                   <td>{item.userId?.phone || "N/A"}</td>
-                  <td>{item.category || "N/A"}</td>
-                  <td>{item.description || "N/A"}</td>
-                  <td>{item.location || "N/A"}</td>
-                  <td>{item.status || "N/A"}</td>
-                  <td>{item.feedback || "N/A"}</td>
-                  <td>{new Date(item.createdAt).toLocaleString()}</td>
                   <td>
-                    {item.status === "Closed" && item.reportClosedAt
-                      ? new Date(item.reportClosedAt).toLocaleString()
-                      : "N/A"}
-                  </td>
-                  <td>
-                    {item.photos?.length > 0 && (
-                      <div className={ReportFetchcss.photosContainer}>
-                        {item.photos.map((photo, index) => (
-                          <img
-                            key={index}
-                            src={`http://localhost:5000/uploads/${photo}`}
-                            alt={`Report Photo ${index + 1}`}
-                            className={ReportFetchcss.image}
-                            onClick={() => openLightbox(item.photos, index)}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </td>
+  <span className={ReportFetchcss.categoryBadge}>
+    {item.category || "N/A"}
+  </span>
+</td>
+                  <td className={ReportFetchcss.descriptionCell}>
+  {item.description || "N/A"}
+</td>
+                  <td className={ReportFetchcss.locationCell}>
+  {item.location || "N/A"}
+</td>
+<td>
+  <StatusBadge status={item.status || "Pending"} />
+</td>
+                  <td className={ReportFetchcss.feedbackCell}>
+  {item.feedback || "N/A"}
+</td>
+                  <td className={ReportFetchcss.dateCell}>
+  {new Date(item.createdAt).toLocaleString()}
+</td>
+<td className={ReportFetchcss.dateCell}>
+  {item.status === "Closed" && item.reportClosedAt
+    ? new Date(item.reportClosedAt).toLocaleString()
+    : "N/A"}
+</td>
+<td>
+  {item.photos?.length > 0 ? (
+    <div className={ReportFetchcss.photosContainer}>
+      {item.photos.map((photo, index) => (
+        <img
+          key={index}
+          src={`http://localhost:5000/uploads/${photo}`}
+          alt={`Report ${index + 1}`}
+          className={ReportFetchcss.thumbnail}
+          onClick={() => openLightbox(item.photos, index)}
+        />
+      ))}
+    </div>
+  ) : (
+    <span className={ReportFetchcss.noImage}>
+      No Image
+    </span>
+  )}
+</td>
                 </tr>
               ))
             )}
@@ -176,6 +244,8 @@ export const ReportFetch = () => {
           </button>
         </div>
       )}
+
+      </DataCard>
 
       {/* Lightbox */}
       {lightboxOpen && (

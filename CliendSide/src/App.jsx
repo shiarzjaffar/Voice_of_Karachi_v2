@@ -1,9 +1,8 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Navbar } from "./Components/Navbar";
+import Navbar from "./Components/Navbar/Navbar";
 import { Footer } from "./Components/Footer";
 import "./app.css";
-import ReportTracking from "./Components/ReportTracking";
 import ReportTimeline from "./Components/ReportTimeline/ReportTimeline";
 
 // Lazy-loaded Components
@@ -20,15 +19,15 @@ const ChangePassword = lazy(() => import("./Components/ChangePassword").then(m =
 const Aboutus = lazy(() => import("./Components/Aboutus").then(m => ({ default: m.Aboutus })));
 const Services = lazy(() => import("./Components/Services").then(m => ({ default: m.Services })));
 const HelpCenter = lazy(() => import("./Components/HelpCenter").then(m => ({ default: m.HelpCenter })));
-const Dashboard = lazy(() =>
-  import("./Components/Dashboard/Dashboard")
-);
+const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard"));
+const NGO = lazy(() => import("./Components/NGO").then((m) => ({ default: m.NGO, })));
 
-const Loader = () => (
-  <div className="loader-container">
-    <div className="loader"></div>
-  </div>
-);
+
+const Loader = () => ( 
+<div className="loader-container"> 
+    <div className="loader">
+    </div> 
+  </div>);
 
 const App = () => {
   const location = useLocation();
@@ -70,8 +69,8 @@ const App = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/report-tracking" element={<ReportTracking />} />
           <Route path="/report-tracking/:id" element={<ReportTimeline />} />
+          <Route path="/ngo" element={<NGO />} />
         </Routes>
       </Suspense>
 

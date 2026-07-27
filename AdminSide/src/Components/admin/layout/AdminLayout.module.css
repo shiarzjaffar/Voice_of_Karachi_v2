@@ -1,0 +1,191 @@
+:root {
+    --sidebar-expanded: 270px;
+    --sidebar-collapsed: 80px;
+
+    --header-height: 80px;
+
+    --background: #F5F7FA;
+    --surface: #FFFFFF;
+
+    --border: #E5E7EB;
+
+    --transition: .30s cubic-bezier(.4,0,.2,1);
+}
+
+/* ==========================================
+   Layout
+========================================== */
+
+.layout{
+    display:flex;
+
+    min-height:100vh;
+
+    background:var(--background);
+}
+
+/* ==========================================
+   Main Area
+========================================== */
+
+.main{
+
+    display:flex;
+    flex-direction:column;
+
+    min-height:100vh;
+
+    flex:1;
+
+    transition:
+        margin-left var(--transition),
+        width var(--transition);
+}
+
+/* ==========================================
+   Desktop
+========================================== */
+
+.mainExpanded{
+
+    margin-left:var(--sidebar-expanded);
+
+    width:calc(100% - var(--sidebar-expanded));
+}
+
+.mainCollapsed{
+
+    margin-left:var(--sidebar-collapsed);
+
+    width:calc(100% - var(--sidebar-collapsed));
+}
+
+/* ==========================================
+   Content
+========================================== */
+
+.content{
+
+    flex:1;
+
+    padding:28px;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    background:var(--background);
+
+    display:flex;
+    flex-direction:column;
+
+    min-width:0;
+}
+
+/* every page fills width */
+
+.content>*{
+
+    width:100%;
+}
+
+/* ==========================================
+   Footer Push
+========================================== */
+
+.content::after{
+
+    content:"";
+
+    flex:1;
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+.content::-webkit-scrollbar{
+
+    width:8px;
+}
+
+.content::-webkit-scrollbar-thumb{
+
+    background:#D5D9DF;
+
+    border-radius:30px;
+}
+
+.content::-webkit-scrollbar-track{
+
+    background:transparent;
+}
+
+/* ==========================================
+   Large Desktop
+========================================== */
+
+@media(min-width:1600px){
+
+.content{
+
+    padding:36px;
+}
+
+}
+
+/* ==========================================
+   Laptop
+========================================== */
+
+@media(max-width:1200px){
+
+.content{
+
+    padding:24px;
+}
+
+}
+
+/* ==========================================
+   Tablet / Mobile
+========================================== */
+
+@media(max-width:992px){
+
+.mainExpanded,
+.mainCollapsed{
+
+    margin-left:0;
+
+    width:100%;
+}
+
+.content{
+
+    padding:
+
+        96px
+        20px
+        20px
+        20px;
+}
+
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media(max-width:576px){
+
+.content{
+
+    padding:
+
+        90px
+        16px
+        16px
+        16px;
+}
+
+}

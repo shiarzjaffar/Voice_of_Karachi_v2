@@ -1,37 +1,53 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
+import { useNavigate } from "react-router-dom";
+import api from "../Services/api";
 import styles from "./ReportTracking.module.css";
 
-const dummyComplaints = [
-  {
-    id: "UF-2026-000145",
-    title: "Road Damage",
-    status: "In Progress",
-    department: "Road Maintenance",
-    submitted: "15 Jul 2026",
-  },
-  {
-    id: "UF-2026-000138",
-    title: "Street Light Not Working",
-    status: "Pending",
-    department: "Electrical Maintenance",
-    submitted: "13 Jul 2026",
-  },
-  {
-    id: "UF-2026-000126",
-    title: "Garbage Collection",
-    status: "Resolved",
-    department: "Solid Waste Management",
-    submitted: "09 Jul 2026",
-  },
-];
+
 
 const ReportTracking = () => {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
 
-  const filtered = dummyComplaints.filter(
+  const [complaints, setComplaints] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+  fetchReports();
+
+}, []);
+
+const fetchReports = async () => {
+
+  try {
+
+    const res = await api.get("/report/user/reports");
+
+    setComplaints(res.data);
+
+  } catch (err) {
+
+    console.error(err);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+
+};
+
+  const filtered = complaints.filter(
     (item) =>
       item.title.toLowerCase().includes(search.toLowerCase()) ||
-      item.id.toLowerCase().includes(search.toLowerCase())
+      item._id.toLowerCase().includes(search.toLowerCase())
   );
 
   const getStatusClass = (status) => {
@@ -40,7 +56,7 @@ const ReportTracking = () => {
         return styles.pending;
       case "In Progress":
         return styles.progress;
-      case "Resolved":
+      case "Closed":
         return styles.resolved;
       default:
         return "";
@@ -82,45 +98,30 @@ const ReportTracking = () => {
 
       {/* Complaint List */}
 
+      {loading ? (
+
+        <p>Loading complaints...</p>
+
+      ) : (
+
       <div className={styles.grid}>
 
-        {filtered.map((item) => (
+        filtered.length === 0 ? (
 
-          <div className={styles.card} key={item.id}>
+<div className={styles.card}>
+    No complaints found.
+</div>
 
-            <div className={styles.cardTop}>
+) : (
 
-              <h3>{item.title}</h3>
+filtered.map(...)
 
-              <span className={`${styles.badge} ${getStatusClass(item.status)}`}>
-                {item.status}
-              </span>
-
-            </div>
-
-            <p>
-              <strong>Tracking ID:</strong> {item.id}
-            </p>
-
-            <p>
-              <strong>Department:</strong> {item.department}
-            </p>
-
-            <p>
-              <strong>Submitted:</strong> {item.submitted}
-            </p>
-
-            <button className={styles.button}>
-              View Details →
-            </button>
-
-          </div>
-
-        ))}
+)
 
       </div>
-
+      )}
     </div>
+    
   );
 };
 

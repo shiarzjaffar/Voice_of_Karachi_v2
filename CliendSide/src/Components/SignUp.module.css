@@ -33,12 +33,12 @@
 
 .signUpForm {
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #dbe7df;
-  padding: 40px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  box-shadow:0 10px 25px rgba(15,23,42,.05);
 }
 
 .inputGroup {

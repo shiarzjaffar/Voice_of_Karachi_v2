@@ -56,6 +56,77 @@ authRouter.post("/signup", async (req, res) => {
   }
 });
 
+
+authRouter.post("/employee/register", async (req, res) => {
+  try {
+    const {
+      fullname,
+      email,
+      phone,
+      password,
+      department,
+    } = req.body;
+
+    // Check duplicate email or phone
+    const existingUser = await User.findOne({
+      $or: [{ email }, { phone }],
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        error:
+          existingUser.email === email
+            ? "Email already taken!"
+            : "Phone number already taken!",
+      });
+    }
+
+    const lastEmployee = await User.findOne({
+  role: "Employee",
+}).sort({ employeeId: -1 });
+
+let nextNumber = 1;
+
+if (lastEmployee?.employeeId) {
+  nextNumber =
+    parseInt(lastEmployee.employeeId.replace("EMP-", "")) + 1;
+}
+
+const employeeId = `EMP-${String(nextNumber).padStart(6, "0")}`;
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const employee = await User.create({
+      fullname,
+      email,
+      phone,
+      password: hashedPassword,
+
+      role: "Employee",
+      department,
+      employeeId,
+
+      approved: false,
+      userstatus: 1,
+    });
+
+    res.status(201).json({
+      message: "Employee registration submitted successfully.",
+      employeeId: employee._id,
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Server error.",
+    });
+  }
+});
+
+
 authRouter.post("/login", async (req, res) => {
   try {
     let { email, password } = req.body;
@@ -97,13 +168,26 @@ authRouter.post("/login", async (req, res) => {
       return res.status(403).json({ error: "Account deactivated." });
     }
 
-    req.session.userId = user._id;
+req.session.userId = user._id;
+req.session.department = user.department;
 
-    res.json({
-      message: "Login successful!",
-      userId: user._id,
-      email: user.email,
-    });
+res.json({
+  message: "Login successful!",
+
+  user: {
+    _id: user._id,
+    fullname: user.fullname,
+    email: user.email,
+    phone: user.phone,
+
+    role: user.role,
+    department: user.department,
+    employeeId: user.employeeId,
+
+    approved: user.approved,
+    userstatus: user.userstatus,
+  },
+});
 
   } catch (error) {
     console.error("Login Error:", error);
@@ -111,17 +195,127 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.get("/check-session", (req, res) => {
-  res.json({ loggedIn: !!req.session.userId, userId: req.session.userId });
+authRouter.get("/check-session", async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.json({ loggedIn: false });
+    }
+
+    const user = await User.findById(req.session.userId).select(
+      "_id fullname email phone role department employeeId approved userstatus"
+    );
+
+    if (!user) {
+      return res.json({ loggedIn: false });
+    }
+
+    res.json({
+      loggedIn: true,
+      user,
+    });
+  } catch (error) {
+    console.error("Check Session Error:", error);
+    res.status(500).json({
+      loggedIn: false,
+      error: "Server error",
+    });
+  }
 });
 
-authRouter.post("/logout", (req, res) => {
-  req.session.destroy(err => {
-    if (err) return res.status(500).send("Logout failed.");
-    res.clearCookie("connect.sid");
-    res.send("Logged out successfully.");
+  
+authRouter.post("/employee/login", async (req, res) => {
+  try {
+    let { email, password } = req.body;
+
+    email = email.trim().toLowerCase();
+    password = password.trim();
+
+    // Find employee
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) {
+      return res.status(400).json({
+        error: "Invalid email or password!",
+      });
+    }
+
+    // Check password
+    let isMatch = false;
+
+    const isHashed =
+      user.password.startsWith("$2a$") ||
+      user.password.startsWith("$2b$") ||
+      user.password.startsWith("$2y$") ||
+      user.password.startsWith("$2");
+
+    if (isHashed) {
+      isMatch = await bcrypt.compare(password, user.password);
+    } else {
+      if (password === user.password) {
+        isMatch = true;
+
+        // Convert old plaintext password to bcrypt
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
+      }
+    }
+
+    if (!isMatch) {
+      return res.status(400).json({
+        error: "Invalid email or password!",
+      });
+    }
+
+    // Check if account is active
+if (user.userstatus === 0) {
+  return res.status(403).json({
+    error: "Account deactivated.",
   });
+}
+
+// Only employees can login here
+if (user.role !== "Employee") {
+  return res.status(403).json({
+    error: "Only employees can access the Employee Portal.",
+  });
+}
+
+// Employee must be approved by admin
+if (!user.approved) {
+  return res.status(403).json({
+    error: "Your employee account is awaiting admin approval.",
+  });
+}
+
+// Create session
+req.session.userId = user._id;
+req.session.department = user.department;
+
+// Send response
+res.json({
+  message: "Employee login successful!",
+  user: {
+    _id: user._id,
+    fullname: user.fullname,
+    email: user.email,
+    phone: user.phone,
+    role: user.role,
+    department: user.department,
+    employeeId: user.employeeId,
+    approved: user.approved,
+    userstatus: user.userstatus,
+  },
 });
+
+  } catch (error) {
+    console.error("Employee Login Error:", error);
+    res.status(500).json({
+      error: "Server error during login.",
+    });
+  }
+});
+
 
 authRouter.post("/check-email", async (req, res) => {
   const exists = await User.exists({ email: req.body.email });
@@ -249,13 +443,7 @@ authRouter.post("/forgot-password/reset", async (req, res) => {
 });
 
 // server.js or routes/auth.js (wherever you handle auth)
-authRouter.get('/check-session', (req, res) => {
-  if (req.session && req.session.userId) {
-    res.json({ loggedIn: true, userId: req.session.userId });
-  } else {
-    res.json({ loggedIn: false });
-  }
-});
+
 
 authRouter.post('/logout', (req, res) => {
   if (req.session) {
@@ -295,6 +483,8 @@ authRouter.put("/profile/update/:id", async (req, res) => {
       $or: [{ email }, { phone }],
       _id: { $ne: userId },
     });
+
+    console.log("Existing email/phone:", existingUser);
 
     if (existingUser) {
       if (existingUser.email === email)
@@ -375,3 +565,4 @@ authRouter.put("/password/update", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+

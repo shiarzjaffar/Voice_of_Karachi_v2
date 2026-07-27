@@ -1,241 +1,198 @@
-/* 🎨 UrbanFix Official Color Palette */
-:root {
-  --light-gray-blue: #C4D0D6;     /* Light Gray-Blue (outer ring) */
-  --dark-navy-blue: #0E2A43;      /* Dark Navy Blue (shadows) */
-  --bright-sky-blue: #5BA0BC;     /* Bright Sky Blue (accents) */
-  --white-light: #F4F8F9;         /* White / Very Light Gray */
-  --medium-blue-gray: #3D6582;    /* Medium Blue-Gray */
+/* ==========================================
+   VOICE OF KARACHI
+   CITIZEN PROFILE
+========================================== */
+
+.profileContainer{
+    min-height:calc(100vh - 88px);
+    background:#F5F8F6;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:50px 20px;
 }
 
-/* 🌌 Main Container */
-.profileContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  min-height: 100vh;
-  background: radial-gradient(circle, var(--medium-blue-gray), var(--dark-navy-blue));
-  animation: fadeIn 1.2s ease-in-out forwards;
-  text-align: center;
-  padding: 30px 0 50px;
-  color: var(--white-light);
-  position: relative;
-  overflow: hidden;
-  margin: 15px 0 0 0;
+.badge{
+    color:#006A4E;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    text-transform:uppercase;
 }
 
-/* 🌟 Floating Glow */
-.profileContainer::before {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(91, 160, 188, 0.25); /* sky blue */
-  filter: blur(120px);
-  border-radius: 50%;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: floatingGlow 6s infinite alternate ease-in-out;
-  z-index: -1;
+.profileHeading{
+    font-size:48px;
+    font-weight:800;
+    color:#111827;
+    margin:0;
 }
 
-/* 🌟 Heading */
-.profileHeading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--white-light);
-  text-shadow: 0 0 15px rgba(91, 160, 188, 0.9);
-  margin-bottom: 20px;
-  animation: fadeInUp 1s ease-in-out 0.5s forwards;
-  opacity: 1;
+.subtitle{
+    margin-top:14px;
+    margin-bottom:40px;
+    max-width:650px;
+    text-align:center;
+    color:#64748B;
+    line-height:1.8;
 }
 
-/* ✨ Profile Card */
-.profileCard {
-  position: relative;
-  width: 380px;
-  padding: 35px;
-  margin-bottom: 50px;
-  text-align: center;
-  background: rgba(196, 208, 214, 0.1); /* Light gray-blue translucent */
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  border: 2px solid var(--bright-sky-blue);
-  box-shadow: 0 10px 30px rgba(61, 101, 130, 0.4);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+.profileCard{
+    width:100%;
+    max-width:560px;
+    background:#FFFFFF;
+    border:1px solid #DDE8E2;
+    border-radius:20px;
+    padding:36px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
+    text-align:center;
 }
 
-.profileCard:hover {
-  transform: scale(1.07) translateY(-5px);
-  box-shadow: 0 15px 40px rgba(91, 160, 188, 0.65);
+.profileImage{
+    width:110px;
+    height:110px;
+    object-fit:contain;
+    margin-bottom:18px;
 }
 
-/* Card Glow */
-.profileCard::before {
-  content: "";
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  background: rgba(91, 160, 188, 0.15);
-  filter: blur(80px);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
-  animation: floatingGlow 5s infinite alternate ease-in-out;
+.profileImage{
+    display:block;
+    margin:0 auto 18px;
 }
 
-/* Profile Image */
-.profileImage {
-  width: 130px;
-  height: 130px;
-  margin-bottom: 15px;
-  border-radius: 50%;
-  border: 4px solid var(--bright-sky-blue);
-  box-shadow: 0 0 20px rgba(91, 160, 188, 0.5);
+.profileRole{
+    display:inline-block;
+    background:#ECFDF5;
+    color:#006A4E;
+    border:1px solid #BBF7D0;
+    border-radius:999px;
+    padding:8px 18px;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:28px;
 }
 
-/* Name + Role */
-.profileName {
-  font-size: 1.9rem;
-  color: var(--white-light);
-  text-shadow: 0 0 12px var(--bright-sky-blue);
-  margin-bottom: 5px;
-  animation: fadeInUp 1s ease-in-out 0.5s forwards;
+.profileDetail{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:30px;
 }
 
-.profileRole {
-  font-size: 1.3rem;
-  color: var(--light-gray-blue);
-  margin-bottom: 10px;
-  animation: fadeInUp 1s ease-in-out 0.7s forwards;
+.profileDetail p{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0;
+    padding:15px 18px;
+    background:#F8FAFC;
+    border:1px solid #E5E7EB;
+    border-radius:12px;
+    color:#374151;
+    font-size:15px;
 }
 
-/* Details */
-.profileDetail {
-  font-size: 1.1rem;
-  color: var(--white-light);
-  text-align: left;
-  margin: 15px 0;
-  padding: 15px;
-  border-radius: 12px;
-  border: 3px solid var(--bright-sky-blue);
-  background: rgba(255, 255, 255, 0.05);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+.profileDetail strong{
+    color:#006A4E;
+    display:flex;
+    align-items:center;
+    font-size:17px;
 }
 
-.profileDetail p {
-  color: var(--light-gray-blue);
-  margin: 20px 5px;
+.phone{
+    transform:rotate(90deg);
 }
 
-/* Error Messages */
-.errorText {
-  color: #ff4d4d;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid #ff4d4d;
-  padding: 12px;
-  border-radius: 12px;
-  font-weight: bold;
-  box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
-  animation: fadeIn 0.5s ease-in-out;
-  margin-top: 15px;
+.iconButtonRow{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
 }
 
-.phone {
-  transform: rotate(90deg);
+.iconButton{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    height:54px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#006A4E;
+    color:#FFFFFF;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.25s;
 }
 
-/* Animations */
-@keyframes floatingGlow {
-  from { transform: translateX(-50%) translateY(0); }
-  to { transform: translateX(-50%) translateY(30px); }
+.iconButton:hover{
+    background:#004B36;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+
+.loading{
+    min-height:60vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#64748B;
+    font-size:18px;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+.error{
+    min-height:60vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#DC2626;
+    font-size:18px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .profileCard { width: 80%; padding: 25px; }
-  .profileHeading { font-size: 2rem; }
-  .profileName { font-size: 1.6rem; }
-  .profileRole { font-size: 1.1rem; }
-  .profileDetail { font-size: 1rem; }
-  .buttonContainer { flex-direction: column; align-items: center; gap: 10px; }
+@media(max-width:768px){
+
+.profileContainer{
+    padding:35px 16px;
 }
 
-/* Cursor Disable */
-:global(.no-cursor-button) {
-  cursor: none !important;
+.profileHeading{
+    font-size:36px;
 }
 
-/* Icon Button Row */
-.iconButtonRow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  margin-top: 25px;
+.profileCard{
+    padding:28px 22px;
 }
 
-/* Shared Icon Button Style */
-.iconButton {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  border: 2px solid var(--bright-sky-blue);
-  background: rgba(196, 208, 214, 0.08);
-  color: var(--white-light);
-  font-size: 1.4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: none;
-  transition: all 0.35s ease;
-  box-shadow: 0 0 12px rgba(91, 160, 188, 0.4);
-  position: relative;      /* Needed for tooltip */
+.iconButtonRow{
+    grid-template-columns:1fr;
 }
 
-/* Hover Glow */
-.iconButton:hover {
-  background: var(--bright-sky-blue);
-  color: var(--dark-navy-blue);
-  box-shadow: 0 0 20px rgba(91, 160, 188, 0.9);
-  transform: scale(1.12);
+.profileImage{
+    width:90px;
+    height:90px;
 }
 
-/* ---------------------- */
-/* Tooltip Style (NEW)    */
-/* ---------------------- */
-.iconButton::after {
-  content: attr(data-tip);
-  position: absolute;
-  bottom: -35px;               /* Position below the button */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
 }
 
-.iconButton:hover::after {
-  opacity: 1;
+@media(max-width:480px){
+
+.profileHeading{
+    font-size:30px;
+}
+
+.subtitle{
+    font-size:15px;
+}
+
+.profileDetail p{
+    font-size:14px;
+}
+
+}
+
+.profileCard{
+    margin-bottom:40px;
 }

@@ -83,20 +83,33 @@ useEffect(() => {
 
           {results.map((place) => (
 
-            <div
-              key={place.place_id}
-              className={styles.searchItem}
-            >
+<div
+  key={place.place_id}
+  className={styles.searchItem}
+  onClick={() => {
 
-              <div className={styles.searchTitle}>
-                📍 {place.display_name.split(",")[0]}
-              </div>
+    setFormData((prev) => ({
+      ...prev,
+      latitude: Number(place.lat),
+      longitude: Number(place.lon),
+      location: place.display_name,
+      area: place.display_name.split(",")[1]?.trim() || "",
+    }));
 
-              <div className={styles.searchSubtitle}>
-                {place.display_name}
-              </div>
+    setSearch(place.display_name);
 
-            </div>
+    setResults([]);
+
+  }}
+>
+  <div className={styles.searchTitle}>
+    📍 {place.display_name.split(",")[0]}
+  </div>
+
+  <div className={styles.searchSubtitle}>
+    {place.display_name}
+  </div>
+</div>
 
           ))}
 

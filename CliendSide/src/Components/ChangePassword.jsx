@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ChangePasswordcss from "./ChangePassword.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import swalTheme from "../utils/swalTheme";
 
 export const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -132,7 +133,17 @@ const swalTheme = {
 
   return (
     <div className={ChangePasswordcss.container}>
-      <h2 className={ChangePasswordcss.title}>Change Password</h2>
+      <p className={ChangePasswordcss.badge}>
+    VOICE OF KARACHI
+</p>
+
+<h1 className={ChangePasswordcss.title}>
+    Change Password
+</h1>
+
+<p className={ChangePasswordcss.subtitle}>
+    Update your account password securely.
+</p>
 
       <form className={ChangePasswordcss.form} onSubmit={handleSubmit}>
         
@@ -200,9 +211,12 @@ const swalTheme = {
           Update Password
         </button>
 
-        <p className={ChangePasswordcss.backLink} onClick={() => navigate("/profile")}>
-          ← Go Back
-        </p>
+<Link
+    to="/profile"
+    className={ChangePasswordcss.backLink}
+>
+    ← Back to Profile
+</Link>
       </form>
     </div>
   );

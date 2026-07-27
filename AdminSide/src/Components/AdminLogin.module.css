@@ -1,287 +1,192 @@
-/* 🌌 Root Color Variables */
-:root {
-  --light-gray-blue: #C4D0D6;
-  --dark-navy-blue: #0E2A43;
-  --bright-sky-blue: #5BA0BC;
-  --white-light: #F4F8F9;
-  --medium-blue-gray: #3D6582;
+/* ==========================================
+   VOICE OF KARACHI
+   ADMIN LOGIN
+========================================== */
+
+.loginAdmin{
+    min-height:calc(100vh - 88px);
+    background:#F5F8F6;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:50px 20px;
 }
 
-/* 🌌 Main Container */
-.loginAdmin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: radial-gradient(circle, var(--medium-blue-gray), var(--dark-navy-blue));
-  color: var(--white-light);
-  text-align: center;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 1.2s ease-in-out;
+.badge{
+    color:#006A4E;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:10px;
 }
 
-/* 🌟 Floating Background Glow */
-.loginAdmin::before {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(14, 42, 67, 0.25);
-  filter: blur(120px);
-  border-radius: 50%;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: floatingGlow 6s infinite alternate ease-in-out;
-  z-index: 0;
+.title{
+    margin:0;
+    font-size:42px;
+    font-weight:800;
+    color:#111827;
+    text-align:center;
 }
 
-/* 🏷 Title */
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: var(--bright-sky-blue);
-  margin-bottom: 10px;
-  z-index: 1;
-  position: relative;
-  animation: fadeInUp 1s ease-in-out 0.5s forwards;
+.subtitle{
+    margin:16px 0 36px;
+    max-width:620px;
+    text-align:center;
+    color:#64748B;
+    line-height:1.8;
 }
 
-p {
-  font-size: 1.2rem;
-  color: var(--light-gray-blue);
-  margin-bottom: 20px;
-  z-index: 1;
-  position: relative;
-  animation: fadeInUp 1s ease-in-out 0.7s forwards;
+.loginForm{
+    width:100%;
+    max-width:500px;
+    background:#FFFFFF;
+    border:1px solid #DDE8E2;
+    border-radius:18px;
+    padding:32px;
+    box-shadow:0 10px 25px rgba(15,23,42,.05);
 }
 
-/* 🧊 Form Container (Glassmorphic) */
-.loginForm {
-  background: rgba(14, 42, 67, 0.45);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 0 15px var(--bright-sky-blue);
-  position: relative;
-  z-index: 1;
-  animation: fadeInUp 1s ease-in-out 1s forwards;
-  transition: all 0.3s ease;
+.inputGroup{
+    display:flex;
+    align-items:center;
+    height:58px;
+    border:1px solid #D6E2DC;
+    border-radius:12px;
+    padding:0 18px;
+    margin-bottom:18px;
+    background:#FFFFFF;
+    transition:.25s;
 }
 
-.loginForm:hover {
-  box-shadow: 0 0 25px var(--bright-sky-blue);
+.inputGroup:focus-within{
+    border-color:#006A4E;
+    box-shadow:0 0 0 4px rgba(0,106,78,.08);
 }
 
-/* 🔳 Input Group */
-.inputGroup {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
+.icon{
+    color:#006A4E;
+    font-size:17px;
 }
 
-.inputGroup:hover {
-  border: 1px solid var(--bright-sky-blue);
+.inputGroup input{
+    flex:1;
+    margin-left:14px;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:#111827;
+    font-size:15px;
 }
 
-/* ✏️ Input Field */
-.inputGroup input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--white-light);
-  font-size: 1rem;
-  padding-left: 8px;
+.inputGroup input::placeholder{
+    color:#9CA3AF;
 }
 
-.inputGroup input::placeholder {
-  color: var(--light-gray-blue);
+.toggleButton{
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:#6B7280;
+    font-size:17px;
+    transition:.2s;
 }
 
-/* 🌟 Icons */
-.icon {
-  font-size: 1.2rem;
-  color: var(--bright-sky-blue);
+.toggleButton:hover{
+    color:#006A4E;
 }
 
-/* 👁 Toggle Password Button */
-.toggleButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: var(--white-light);
-  transition: transform 0.2s ease-in-out;
+.submitButton{
+    width:100%;
+    height:54px;
+    border:none;
+    border-radius:12px;
+    background:#006A4E;
+    color:#FFFFFF;
+    font-size:15px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+    transition:.25s;
 }
 
-.toggleButton:hover {
-  transform: scale(1.1);
-  color: var(--bright-sky-blue);
+.submitButton:hover{
+    background:#004B36;
 }
 
-/* 🚀 Submit Button */
-.submitButton {
-  background: linear-gradient(135deg, var(--bright-sky-blue), var(--medium-blue-gray));
-  color: var(--white-light);
-  border: none;
-  padding: 12px;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  width: 100%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+.submitButton:disabled{
+    opacity:.7;
+    cursor:not-allowed;
 }
 
-.submitButton:hover {
-  background: linear-gradient(135deg, var(--light-gray-blue), var(--dark-navy-blue));
-  box-shadow: 0 0 15px rgba(91, 160, 188, 0.7);
+.errorText,
+.emailError{
+    background:#FEF2F2;
+    color:#DC2626;
+    border:1px solid #FECACA;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:16px;
+    text-align:center;
+    font-size:14px;
 }
 
-.submitButton:active {
-  transform: scale(0.95);
+.successText,
+.emailValid{
+    background:#ECFDF5;
+    color:#15803D;
+    border:1px solid #BBF7D0;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:16px;
+    text-align:center;
+    font-size:14px;
 }
 
-.submitButton::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+.forgotWrapper{
+    margin-top:18px;
+    text-align:center;
 }
 
-.submitButton:active::after {
-  opacity: 1;
-  animation: ripple 0.6s ease-out;
+.forgotLink{
+    color:#006A4E;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
 }
 
-/* ❌ Error & Success */
-.errorText {
-  font-size: 0.95rem;
-  color: #ffb3b3;
-  text-align: center;
-  margin: -10px 0 10px 8px;
+.forgotLink:hover{
+    color:#004B36;
 }
 
-.successText {
-  font-size: 0.95rem;
-  color: #a3ffb3;
-  text-align: center;
-  margin: -10px 0 10px 8px;
+@media(max-width:768px){
+
+.loginAdmin{
+    padding:35px 16px;
 }
 
-/* ✔ Email Valid */
-.emailValid {
-  font-size: 0.95rem;
-  color: #a3ffb3;
-  text-align: center;
-  margin: -10px 0 10px 8px;
+.title{
+    font-size:34px;
 }
 
-/* ❌ Email Error */
-.emailError {
-  font-size: 0.95rem;
-  color: #ffb3b3;
-  text-align: center;
-  margin: -10px 0 10px 8px;
+.loginForm{
+    padding:26px 22px;
 }
 
-/* 🔑 Forgot Password Link */
-.forgotWrapper {
-  text-align: right;
 }
 
-.forgotLink {
-  color: var(--light-gray-blue);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
+@media(max-width:480px){
+
+.title{
+    font-size:30px;
 }
 
-.forgotLink:hover {
-  color: var(--white-light);
-  text-decoration: underline;
+.subtitle{
+    font-size:15px;
 }
 
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .loginForm {
-    padding: 20px;
-  }
-  .title {
-    font-size: 2rem;
-  }
-  .inputGroup input {
-    font-size: 0.95rem;
-  }
-  .submitButton {
-    font-size: 1rem;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.6rem;
-  }
-  .loginForm {
-    padding: 18px;
-  }
-  .submitButton {
-    font-size: 0.95rem;
-    padding: 8px;
-  }
-}
-
-/* ✨ Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatingGlow {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(30px);
-  }
-}
-
-@keyframes ripple {
-  from {
-    transform: scale(0);
-    opacity: 1;
-  }
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
 }

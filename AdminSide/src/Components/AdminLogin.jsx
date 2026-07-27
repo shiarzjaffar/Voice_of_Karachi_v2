@@ -112,8 +112,17 @@ export const AdminLogin = () => {
 
   return (
     <div className={adminloginstyles.loginAdmin}>
-      <h1>Admin Login</h1>
-      <p>Sign in to access the admin panel</p>
+<p className={adminloginstyles.badge}>
+    VOICE OF KARACHI
+</p>
+
+<h1 className={adminloginstyles.title}>
+    Administrator Login
+</h1>
+
+<p className={adminloginstyles.subtitle}>
+    Sign in to manage complaints and oversee the civic reporting system.
+</p>
 
       <form
         className={adminloginstyles.loginForm}

@@ -229,6 +229,7 @@ const estimatedResponse =
       fd.append("userId", user._id);
       fd.append("title", formData.title);
       fd.append("category", formData.category);
+      fd.append("department", assignedDepartment);
       fd.append("description", formData.description);
       fd.append("location", formData.location);
       fd.append("latitude", formData.latitude);

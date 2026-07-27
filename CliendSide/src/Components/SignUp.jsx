@@ -4,6 +4,7 @@ import { FaUser, FaEnvelope, FaLock, FaPhone, FaPaperPlane, FaEye, FaEyeSlash } 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 export const SignUp = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const SignUp = () => {
   const emailTimer = useRef(null);
   const phoneTimer = useRef(null);
 
-  // 🌌 Urban Navy + Orange Glow SweetAlert Theme
+  // Voice of Karachi SweetAlert Theme
 const swalTheme = {
   background: "#FFFFFF",
   color: "#111827",
@@ -119,7 +120,7 @@ const swalTheme = {
       await Swal.fire({
         icon: "success",
         title: "🎉 Success!",
-        text: response.message || "You have signed up successfully!",
+        text: response.data.message || "You have signed up successfully!",
         confirmButtonText: "Continue",
         timer: 2000,
         timerProgressBar: true,
@@ -152,11 +153,10 @@ const swalTheme = {
   return (
   <div className={`${signupcss.signUpContainer} ${animate ? signupcss.fadeIn : ""}`}>
 
-    <h1 className={signupcss.title}>VOICE OF KARACHI</h1>
+    <h1 className={signupcss.title}>Citizen Registration</h1>
 
 <p className={signupcss.subtitle}>
-  Create your citizen account to report civic issues and
-  track complaint progress.
+  Register for a citizen account to submit complaints, track progress, and access Voice of Karachi services.
 </p>
 
     <form
@@ -236,7 +236,7 @@ const swalTheme = {
 
 <div className={signupcss.loginLink}>
   Already have an account?
-  <a href="/login"> Sign In</a>
+  <Link to="/login"> Sign In</Link>
 </div>
 
 </div>

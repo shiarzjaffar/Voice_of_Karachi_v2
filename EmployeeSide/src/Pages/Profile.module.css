@@ -1,0 +1,497 @@
+.page {
+  padding: 30px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+/* ===========================
+   PAGE HEADER
+=========================== */
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.pageHeader p {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.primaryButton {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.primaryButton:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.primaryButton:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.secondaryButton {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.secondaryButton:hover {
+  background: #f9fafb;
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+/* ===========================
+   PROFILE CARD
+=========================== */
+
+.profileCard {
+  background: white;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+  border: 1px solid #edf1f5;
+}
+
+/* ===========================
+   TOP SECTION
+=========================== */
+
+.profileTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 35px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eceff3;
+}
+
+/* ===========================
+   LOADING
+=========================== */
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  font-size: 20px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* ===========================
+   ERROR
+=========================== */
+
+.error {
+  margin: 40px auto;
+  max-width: 700px;
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ===========================
+   AVATAR
+=========================== */
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.25);
+}
+
+/* ===========================
+   PROFILE INFORMATION
+=========================== */
+
+.profileInfo {
+  flex: 1;
+}
+
+.profileInfo h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.profileInfo p {
+  margin: 8px 0;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.employeeId {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 14px;
+  background: #ecfdf5;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===========================
+   STATUS
+=========================== */
+
+.statusArea {
+  display: flex;
+  align-items: flex-start;
+}
+
+.activeBadge,
+.inactiveBadge {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+
+.activeBadge {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.inactiveBadge {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+/* ===========================
+   INFORMATION GRID
+=========================== */
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* ===========================
+   INFORMATION CARD
+=========================== */
+
+.infoCard {
+  background: #fafbfc;
+  border: 1px solid #edf1f5;
+  border-radius: 14px;
+  padding: 20px;
+  transition: all .25s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, .08);
+  border-color: #16a34a;
+}
+
+.infoCard label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+
+.infoCard h4 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+
+  .profileTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusArea {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .page {
+    padding: 20px;
+  }
+
+  .profileCard {
+    padding: 25px;
+  }
+
+  .profileInfo h2 {
+    font-size: 24px;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerButtons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .avatar {
+    width: 75px;
+    height: 75px;
+    font-size: 24px;
+  }
+
+  .profileInfo h2 {
+    font-size: 21px;
+  }
+
+}
+
+/* ===========================
+   MODAL OVERLAY
+=========================== */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease;
+}
+
+/* ===========================
+   MODAL
+=========================== */
+
+.modal {
+  width: 100%;
+  max-width: 550px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+  animation: scaleIn 0.25s ease;
+}
+
+.modal h2 {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  border-bottom: 1px solid #edf1f5;
+  padding-bottom: 16px;
+}
+
+/* ===========================
+   FORM
+=========================== */
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.formGroup label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  background: #ffffff;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.formGroup input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   MODAL BUTTONS
+=========================== */
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.cancelButton {
+  padding: 12px 22px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #374151;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cancelButton:hover {
+  background: #f3f4f6;
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 640px) {
+
+  .modal {
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .modal h2 {
+    font-size: 20px;
+  }
+
+  .modalButtons {
+    flex-direction: column;
+  }
+
+  .modalButtons button,
+  .cancelButton,
+  .primaryButton {
+    width: 100%;
+  }
+
+}

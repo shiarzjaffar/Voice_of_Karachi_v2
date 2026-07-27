@@ -1,0 +1,17 @@
+.list{
+
+    margin:0;
+
+    padding-left:18px;
+
+}
+
+.list li{
+
+    margin-bottom:14px;
+
+    color:var(--muted);
+
+    line-height:1.6;
+
+}

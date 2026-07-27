@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../Services/api";
 import styles from "./Dashboard.module.css";
 
 import WelcomeSection from "./WelcomeSection";
@@ -6,40 +7,59 @@ import StatsCards from "./StatsCards";
 import ChartsSection from "./ChartsSection";
 import QuickActions from "./QuickActions";
 import RecentComplaints from "./RecentComplaints";
-import CityUpdates from "./CityUpdates";
 
 const Dashboard = () => {
-  // Placeholder data (will come from API later)
-  const [stats] = useState({
-    total: 12,
-    pending: 4,
-    inProgress: 3,
-    resolved: 5,
-  });
+ 
+const [stats, setStats] = useState({
+  total: 0,
+  pending: 0,
+  inProgress: 0,
+  closed: 0,
+});
 
-  const [recentComplaints] = useState([
-    {
-      id: "VOK-1001",
-      department: "Solid Waste",
-      location: "Clifton",
-      status: "Pending",
-      date: "09 Jul 2026",
-    },
-    {
-      id: "VOK-1002",
-      department: "Road Maintenance",
-      location: "DHA",
-      status: "Resolved",
-      date: "07 Jul 2026",
-    },
-    {
-      id: "VOK-1003",
-      department: "Street Lights",
-      location: "Gulshan",
-      status: "In Progress",
-      date: "05 Jul 2026",
-    },
-  ]);
+const [loading, setLoading] = useState(true);
+
+const [recentComplaints, setRecentComplaints] = useState([]);
+
+const [monthlyData, setMonthlyData] = useState([]);
+
+useEffect(() => {
+  fetchDashboard();
+}, []);
+
+const fetchDashboard = async () => {
+  try {
+
+    const res = await api.get("/report/user/dashboard");
+
+    setStats({
+      total: res.data.total,
+      pending: res.data.pending,
+      inProgress: res.data.inProgress,
+      resolved: res.data.closed,
+    });
+
+    setRecentComplaints(res.data.recent);
+    setMonthlyData(res.data.monthly);
+
+  } catch (error) {
+
+    console.error(error);
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
+
+if (loading) {
+  return (
+    <main className={styles.dashboard}>
+      <h2>Loading Dashboard...</h2>
+    </main>
+  );
+}
 
   return (
     <main className={styles.dashboard}>
@@ -48,13 +68,14 @@ const Dashboard = () => {
 
       <StatsCards stats={stats} />
 
-      <ChartsSection stats={stats} />
+      <ChartsSection
+  stats={stats}
+  monthlyData={monthlyData}
+/>
 
       <QuickActions />
 
       <RecentComplaints complaints={recentComplaints} />
-
-      <CityUpdates />
 
     </main>
   );

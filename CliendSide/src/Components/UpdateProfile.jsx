@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import UpdateProfilecss from "./UpdateProfile.module.css";
 import { FaUser, FaEnvelope, FaPhone, FaRegUser } from "react-icons/fa";
 import axios from "axios";
 import Swal from "sweetalert2";
+import swalTheme from "../utils/swalTheme";
 
 export const UpdateProfile = () => {
   const navigate = useNavigate();
@@ -131,9 +132,8 @@ export const UpdateProfile = () => {
         icon: "success",
         title: "Profile Updated!",
         text: res.data.message,
-        background: "rgba(15, 29, 45, 0.85)",
         color: "#FFFFFF",
-        confirmButtonColor: "#E87722",
+        ...swalTheme,
         backdrop: `
           rgba(0,0,0,0.6)
           left top
@@ -161,12 +161,21 @@ export const UpdateProfile = () => {
     setTimeout(() => setShake(false), 500);
   };
 
-  if (loading) return <p>⏳ Loading profile...</p>;
+  if (loading) return <div className={UpdateProfilecss.loading}>
+    Loading Profile...
+</div>;
 
   return (
     <div className={`${UpdateProfilecss.updateContainer} ${animate ? UpdateProfilecss.fadeIn : ""}`}>
-      <h1>Update Profile</h1>
-      <p>Keep your information up to date!</p>
+      <p className={UpdateProfilecss.badge}>
+    VOICE OF KARACHI
+</p>
+
+<h1>Update Profile</h1>
+
+<p className={UpdateProfilecss.subtitle}>
+    Keep your personal information up to date.
+</p>
 
       <form className={`${UpdateProfilecss.updateForm} ${shake ? UpdateProfilecss.shake : ""}`} onSubmit={handleSubmit}>
         <div className={UpdateProfilecss.inputGroup}>
@@ -189,13 +198,18 @@ export const UpdateProfile = () => {
         {error && <p className={UpdateProfilecss.errorText}>{error}</p>}
 
         <button type="submit" className={UpdateProfilecss.submitButton} disabled={loading}>
-          <FaRegUser /> {loading ? "⏳ Processing..." : "Update"}
+          <>
+    <FaRegUser />
+    Update Profile
+</>
         </button>
       </form>
 
-      <p className={UpdateProfilecss.backButton} onClick={() => navigate("/profile")}>
+      <Link
+      to="/profile"
+      className={UpdateProfilecss.backButton}>
         ← Back to Profile
-      </p>
+      </Link>
     </div>
   );
 };

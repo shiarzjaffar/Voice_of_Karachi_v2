@@ -15,23 +15,27 @@ import {
   YAxis,
 } from "recharts";
 
-const ChartsSection = ({ stats }) => {
+const ChartsSection = ({
+  stats,
+  monthlyData = [],
+}) => {
 
-  const statusData = [
-    { name: "Pending", value: stats.pending },
-    { name: "In Progress", value: stats.inProgress },
-    { name: "Resolved", value: stats.resolved },
-  ];
+const statusData = [
+  {
+    name: "Pending",
+    value: stats.pending,
+  },
+  {
+    name: "In Progress",
+    value: stats.inProgress,
+  },
+  {
+    name: "Closed",
+    value: stats.resolved,
+  },
+].filter((item) => item.value > 0);
 
-  const monthlyData = [
-    { month: "Jan", complaints: 4 },
-    { month: "Feb", complaints: 7 },
-    { month: "Mar", complaints: 5 },
-    { month: "Apr", complaints: 9 },
-    { month: "May", complaints: 11 },
-    { month: "Jun", complaints: 8 },
-    { month: "Jul", complaints: stats.total },
-  ];
+
 
   const COLORS = [
     "#F59E0B",

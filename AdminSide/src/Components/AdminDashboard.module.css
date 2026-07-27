@@ -1,115 +1,19 @@
-:root {
-  --light-gray-blue: #C4D0D6;
-  --dark-navy-blue: #0E2A43;
-  --bright-sky-blue: #5BA0BC;
-  --white-light: #F4F8F9;
-  --medium-blue-gray: #3D6582;
+.dashboard{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
 }
 
-.dashboardContainer {
-  padding: 40px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--dark-navy-blue);
-  min-height: 100vh;
+.contentGrid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:24px;
 }
 
-.title {
-  color: var(--bright-sky-blue);
-  font-size: 2.8rem;
-  margin-bottom: 30px;
-  text-align: center;
+@media (max-width:992px){
+
+.contentGrid{
+    grid-template-columns:1fr;
 }
 
-/* Grid layout */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  width: 90%;
-}
-
-/* Remove link underline */
-.link {
-  text-decoration: none;
-}
-
-/* Dashboard cards */
-.card {
-  background: rgba(91, 160, 188, 0.12); /* bright-sky-blue low opacity */
-  border: 1px solid var(--bright-sky-blue);
-  border-radius: 16px;
-  padding: 20px;
-  color: var(--white-light);
-  text-align: center;
-  transition: 0.3s;
-  box-shadow: 0 0 12px rgba(91, 160, 188, 0.5);
-}
-
-.card:hover {
-  box-shadow: 0 0 20px rgba(91, 160, 188, 0.7);
-}
-
-.card h2 {
-  margin: 10px 0 5px;
-  font-size: 2rem;
-  color: var(--bright-sky-blue);
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--light-gray-blue);
-}
-
-/* Chart container */
-.chartContainer {
-  background: rgba(91, 160, 188, 0.12);
-  border: 1px solid var(--bright-sky-blue);
-  border-radius: 16px;
-  padding: 25px;
-  width: 90%;
-  margin-top: 40px;
-  box-shadow: 0 0 12px rgba(91, 160, 188, 0.5);
-}
-
-.chartContainer h3 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-  color: var(--bright-sky-blue);
-}
-
-.DemoName {
-  color: var(--white-light);
-}
-
-/* Recharts custom styles */
-.recharts-cartesian-axis-tick-value {
-  fill: var(--white-light); /* axis text */
-}
-
-.recharts-tooltip-label,
-.recharts-tooltip-item {
-  color: var(--dark-navy-blue); /* tooltip text */
-}
-
-.recharts-cartesian-grid line {
-  stroke: rgba(91, 160, 188, 0.3); /* sky-blue grid */
-}
-
-/* Mobile tweaks */
-@media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .card {
-    padding: 15px;
-  }
-
-  .chartContainer {
-    padding: 15px;
-  }
 }

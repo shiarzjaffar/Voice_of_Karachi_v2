@@ -1,0 +1,668 @@
+:root{
+
+    --sidebar-expanded:270px;
+    --sidebar-collapsed:80px;
+
+    --primary:#114232;
+    --secondary:#006A4E;
+
+    --sidebar-bg:#FFFFFF;
+    --sidebar-border:#E5E7EB;
+
+    --text:#1F2937;
+    --text-muted:#6B7280;
+
+    --hover:#F3F8F5;
+    --active:#114232;
+
+    --active-text:#FFFFFF;
+
+    --shadow:0 10px 30px rgba(0,0,0,.06);
+
+    --transition:.30s cubic-bezier(.4,0,.2,1);
+
+}
+
+/* ===================================================
+   Sidebar
+=================================================== */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    bottom:0;
+
+    width:var(--sidebar-expanded);
+
+    background:var(--sidebar-bg);
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+
+    border-right:1px solid var(--sidebar-border);
+    box-shadow:var(--shadow);
+
+    transition:
+        width var(--transition),
+        transform var(--transition);
+
+    z-index:1000;
+
+}
+
+/* ===================================================
+   Desktop Collapse
+=================================================== */
+
+.collapsed{
+
+    width:var(--sidebar-collapsed);
+
+}
+
+/* ===================================================
+   Mobile
+=================================================== */
+
+.mobileOpen{
+
+    transform:translateX(0);
+
+}
+
+.mobileClosed{
+
+    transform:translateX(-100%);
+
+}
+
+/* ===================================================
+   Overlay
+=================================================== */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    backdrop-filter:blur(3px);
+
+    z-index:999;
+
+}
+
+/* ===================================================
+   Scrollbar
+=================================================== */
+
+.sidebar::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+}
+
+/* ===================================================
+   Brand
+=================================================== */
+
+.brand{
+
+    height:72px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 20px;
+
+    border-bottom:1px solid #EEF2F7;
+
+}
+
+.brand img{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#F8FAFC;
+
+    object-fit:cover;
+
+    flex-shrink:0;
+
+}
+
+.brandText{
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition);
+
+}
+
+.brandText h2{
+
+    margin:0;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    letter-spacing:.3px;
+
+    text-transform:uppercase;
+
+    color:#114232;
+
+}
+
+.brandText p{
+
+    margin-top:4px;
+
+    font-size:12px;
+
+    color:#6B7280;
+
+}
+
+/* ===================================================
+   Brand (Collapsed)
+=================================================== */
+
+.collapsed .brand{
+
+    justify-content:center;
+
+    padding:0;
+
+}
+
+.collapsed .brandText{
+
+    opacity:0;
+
+    width:0;
+
+    transform:translateX(-20px);
+
+    overflow:hidden;
+
+}
+
+/* ===================================================
+   Navigation Wrapper
+=================================================== */
+
+.nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:18px 12px;
+
+}
+
+/* ===================================================
+   Bottom Section
+=================================================== */
+
+.bottom{
+
+    margin-top:auto;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--border);
+
+}
+
+/* ===================================================
+   Responsive
+=================================================== */
+
+@media(max-width:992px){
+
+.sidebar{
+
+    width:var(--sidebar-expanded);
+
+}
+
+.collapsed{
+
+    width:var(--sidebar-expanded);
+
+}
+
+}
+
+@media(min-width:993px){
+
+.mobileOpen{
+
+    transform:none;
+
+}
+
+.mobileClosed{
+
+    transform:none;
+
+}
+
+}
+
+/* ===================================================
+   Navigation Links
+=================================================== */
+
+.link,
+.active,
+.dropdown,
+.logout{
+
+    width:100%;
+
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:14px;
+
+padding:0 18px;
+
+    margin-bottom:10px;
+
+    border:none;
+    outline:none;
+
+    border-radius:12px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:
+        background var(--transition),
+        color var(--transition);
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.link:hover,
+.dropdown:hover,
+.logout:hover{
+
+    background:#F3F8F5;
+
+}
+
+.active{
+
+    background:#114232;
+
+    color:white;
+
+    box-shadow:0 8px 18px rgba(17,66,50,.22);
+
+}
+
+/* ===================================================
+   Icons
+=================================================== */
+
+.link svg,
+.active svg,
+.dropdown svg,
+.logout svg{
+
+    flex-shrink:0;
+
+}
+
+.active svg{
+
+    color:white;
+
+}
+
+.link svg,
+.dropdown svg,
+.logout svg{
+
+    color:#6B7280;
+
+    transition:.25s;
+
+}
+
+.link:hover svg,
+.dropdown:hover svg{
+
+    color:#114232;
+
+}
+
+/* ===================================================
+   Dropdown
+=================================================== */
+
+.dropdown{
+
+    justify-content:space-between;
+
+}
+
+.dropdown span:first-child{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.rotate{
+
+    transform:rotate(180deg);
+
+    transition:transform var(--transition);
+
+}
+
+/* ===================================================
+   Submenu
+=================================================== */
+
+.submenu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-left:20px;
+
+    margin-bottom:12px;
+
+    animation:submenuFade .25s ease;
+
+}
+
+.submenu a{
+
+    display:flex;
+
+    align-items:center;
+
+    height:40px;
+
+    padding:0 14px;
+
+    border-radius:10px;
+
+    color:#4B5563;
+
+    text-decoration:none;
+
+    transition:background var(--transition);
+
+    font-size:14px;
+
+}
+
+.submenu a:hover{
+
+    background:#F3F8F5;
+
+}
+
+.submenu a.active{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+/* ===================================================
+   Logout
+=================================================== */
+
+.logout{
+
+    color:#DC2626;
+
+}
+
+/* ===================================================
+   Collapsed Sidebar
+=================================================== */
+
+.collapsed .link,
+.collapsed .active,
+.collapsed .dropdown,
+.collapsed .logout{
+
+    justify-content:center;
+
+    padding:0;
+
+}
+
+.collapsed .link span,
+.collapsed .active span,
+.collapsed .logout span{
+
+    display:none;
+
+}
+
+.collapsed .dropdown span:first-child span{
+
+    display:none;
+
+}
+
+.collapsed .dropdown{
+
+    justify-content:center;
+
+}
+
+.collapsed .dropdown .rotate{
+
+    display:none;
+
+}
+
+.collapsed .submenu{
+
+    display:none;
+
+}
+
+/* ===================================================
+   Tooltip Support
+=================================================== */
+
+.collapsed .link,
+.collapsed .dropdown,
+.collapsed .logout{
+
+    position:relative;
+
+}
+
+/* ===================================================
+   Bottom Area
+=================================================== */
+
+.bottom{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* ===================================================
+   Animation
+=================================================== */
+
+@keyframes submenuFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-6px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===================================================
+   Mobile
+=================================================== */
+
+@media(max-width:992px){
+
+.sidebar{
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.30);
+
+}
+
+.nav{
+
+    padding:18px;
+
+}
+
+.link,
+.active,
+.dropdown,
+.logout{
+
+    justify-content:flex-start;
+
+padding:0 18px;
+
+}
+
+.link span,
+.active span,
+.logout span{
+
+    display:inline;
+
+}
+
+.dropdown span:first-child span{
+
+    display:inline;
+
+}
+
+.submenu{
+
+    display:flex;
+
+}
+
+}
+
+/* ===================================================
+   Desktop
+=================================================== */
+
+@media(min-width:993px){
+
+.sidebar{
+
+    transform:translateX(0);
+
+}
+
+}
+
+.sectionTitle {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    margin: 18px 16px 10px;
+}
+
+.collapsed .sectionTitle {
+    display: none;
+}
+
+.bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
+}
+
+.logout {
+    margin-top: 12px;
+}
+
+.logout:hover {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+.logout:hover svg {
+    color: #DC2626;
+}

@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+import PageHeader from "./admin/ui/PageHeader/PageHeader";
+import DataCard from "./admin/ui/DataCard/DataCard";
+
+import {
+  Mail,
+  User,
+  MessageSquare,
+} from "lucide-react";
+
 import ViewMessageCSS from "./ViewMessage.module.css";
 
 export const ViewMessage = () => {
@@ -7,6 +17,7 @@ export const ViewMessage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const messagesPerPage = 10;
+  const totalMessages = messages.length;
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -45,52 +56,128 @@ export const ViewMessage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  return (
-    <div className={ViewMessageCSS.container}>
-      <h2 className={ViewMessageCSS.h2}>📨 User Messages</h2>
+ return (
+  <div className={ViewMessageCSS.container}>
+
+    <PageHeader
+      title="User Messages"
+      subtitle="View all contact messages submitted by citizens."
+    />
+
+    <div className={ViewMessageCSS.statsCard}>
+      <div className={ViewMessageCSS.statsIcon}>
+        <Mail size={26} />
+      </div>
+
+      <div>
+        <span>Total Messages</span>
+        <h2>{totalMessages}</h2>
+      </div>
+    </div>
+
+    <DataCard
+      title="Search Messages"
+      subtitle="Filter by ID, Name, Email or Message"
+    >
 
       <input
         type="text"
-        placeholder="Search by Id, Name, Email, or Message..."
+        placeholder="Search messages..."
         value={searchQuery}
         onChange={handleSearchChange}
         className={ViewMessageCSS.searchInput}
       />
 
+    </DataCard>
+
+    <DataCard
+      title="Messages"
+      subtitle={`${filteredMessages.length} Result(s)`}
+    >
+
       <div className={ViewMessageCSS.tableWrapper}>
+
         <table className={ViewMessageCSS.messageTable}>
+
           <thead>
+
             <tr>
-              <th>#</th>
+              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Message</th>
             </tr>
+
           </thead>
+
           <tbody>
-            {paginatedMessages.length > 0 ? (
-              paginatedMessages.map((msg) => (
-                <tr key={msg._id}>
-                  <td>{msg._id}</td>
-                  <td>{msg.name}</td>
-                  <td>{msg.email}</td>
-                  <td>{msg.message}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No messages found</td>
-              </tr>
-            )}
+{paginatedMessages.length > 0 ? (
+  paginatedMessages.map((msg) => (
+    <tr key={msg._id}>
+      <td>{msg._id}</td>
+
+      <td>
+        <div className={ViewMessageCSS.userCell}>
+          <User size={16} />
+          <span>{msg.name}</span>
+        </div>
+      </td>
+
+      <td>
+        <div className={ViewMessageCSS.emailCell}>
+          <Mail size={16} />
+          <span>{msg.email}</span>
+        </div>
+      </td>
+
+      <td>
+        <div className={ViewMessageCSS.messageCell}>
+          <MessageSquare size={16} />
+          <span>{msg.message}</span>
+        </div>
+      </td>
+    </tr>
+  ))
+) : (
+  <tr>
+    <td
+      colSpan="4"
+      className={ViewMessageCSS.emptyState}
+    >
+      No messages found.
+    </td>
+  </tr>
+)}
+
           </tbody>
         </table>
       </div>
 
       <div className={ViewMessageCSS.pagination}>
-        <button onClick={prevPage} disabled={currentPage === 1}>⬅ Previous</button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>Next ➡</button>
+
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+        >
+          ← Previous
+        </button>
+
+        <div className={ViewMessageCSS.pageInfo}>
+          Page {currentPage} of {totalPages}
+        </div>
+
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          Next →
+        </button>
+
       </div>
-    </div>
-  );
+
+    </DataCard>
+
+  </div>
+);
+
 };
