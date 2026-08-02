@@ -1,0 +1,293 @@
+/* ==========================================================
+   Transparency Page
+========================================================== */
+
+.container{
+    min-height:100vh;
+    background:#f4f7fb;
+}
+
+
+/* ==========================================================
+   Hero
+========================================================== */
+
+.hero{
+    position:relative;
+
+    width:100%;
+
+    height:calc(700px - 64px);
+
+    min-height:720px;
+
+    overflow:hidden;
+
+    background:#0f172a;
+}
+
+
+/* HeroMap fills hero */
+
+.hero > *:first-child{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+
+/* Floating stats stays above map */
+
+.hero > *:last-child{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:48px;
+
+    z-index:20;
+
+}
+
+
+/* ==========================================================
+   Analytics
+========================================================== */
+
+.analytics{
+
+    max-width:1400px;
+
+    margin:20px auto 30px;
+
+    padding:0 24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+
+/* ==========================================================
+   Large Screens
+========================================================== */
+
+@media (min-width:1600px){
+
+.analytics{
+
+    max-width:1500px;
+
+}
+
+}
+
+
+/* ==========================================================
+   Laptop
+========================================================== */
+
+@media (max-width:1200px){
+
+.analytics{
+
+    padding:0 20px;
+
+    gap:24px;
+
+}
+
+}
+
+
+/* ==========================================================
+   Tablet
+========================================================== */
+
+@media (max-width:992px){
+
+.hero{
+
+    height:75vh;
+
+    min-height:620px;
+
+}
+
+.analytics{
+
+    margin:36px auto 60px;
+
+    padding:0 18px;
+
+    gap:22px;
+
+}
+
+}
+
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media (max-width:768px){
+
+.hero{
+
+    height:70vh;
+
+    min-height:520px;
+
+}
+
+.analytics{
+
+    margin:24px auto 50px;
+
+    padding:0 14px;
+
+    gap:20px;
+
+}
+
+}
+
+
+/* ==========================================================
+   Small Mobile
+========================================================== */
+
+@media (max-width:480px){
+
+.hero{
+
+    min-height:430px;
+
+}
+
+.analytics{
+
+    padding:0 12px;
+
+    gap:18px;
+
+}
+
+}
+
+/* ==========================================================
+   Dashboard Grid Layout
+========================================================== */
+
+.gridTwo{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:28px;
+
+    align-items:start;
+
+}
+
+/* Wider layout for Department + Hotspots */
+
+.gridTwoLarge{
+
+    display:grid;
+
+    grid-template-columns:40% 60%;
+
+    gap:28px;
+
+    align-items:start;
+
+}
+
+.gridTwo > *,
+.gridTwoLarge > *{
+
+    height:100%;
+
+}
+
+@media (max-width:992px){
+
+.gridTwo,
+.gridTwoLarge{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+/* Make both cards in a row equal height */
+
+.gridTwo > *{
+
+    height:100%;
+
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+.gridTwo{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+/* ==========================================================
+   Dashboard Grid Layout
+========================================================== */
+
+.gridTwo{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:28px;
+
+    align-items:start;
+
+}
+
+/* Make both cards in a row equal height */
+
+.gridTwo > *{
+
+    height:100%;
+
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+.gridTwo{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+.dashboardSection {
+
+    margin-top: 24px;
+
+}

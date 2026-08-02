@@ -76,16 +76,14 @@ const handleLogout = async () => {
   }, []);
 
 
-  const guestLinks = [
-    { title: "Home", id: "home" },
+const guestLinks = [
+    { title: "Home", path: "/" },
     { title: "Transparency", path: "/transparency" },
-    { title: "Departments", id: "departments" },
-    { title: "About", id: "about" },
     { title: "NGO", path: "/ngo" },
-  ];
+];
 
   const userLinks = [
-    { title: "Home", id: "home" },
+    { title: "Home", path: "/" },
     { title: "Dashboard", path: "/dashboard" },
     { title: "Report Issue", path: "/report-submit" },
     { title: "My Complaints", path: "/report-tracking" },

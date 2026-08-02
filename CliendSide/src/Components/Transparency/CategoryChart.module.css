@@ -1,0 +1,183 @@
+/* ==========================================================
+   Section Container
+========================================================== */
+
+.container {
+    margin: 40px 0;
+    padding: 32px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    margin: 0 0 10px;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.header p {
+    margin: 0;
+
+    max-width: 700px;
+
+    font-size: 1rem;
+
+    line-height: 1.7;
+
+    color: #6b7280;
+}
+
+/* ==========================================================
+   Chart
+========================================================== */
+
+.chart {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ==========================================================
+   Category Row
+========================================================== */
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    transition: transform .25s ease;
+}
+
+.row:hover {
+    transform: translateX(6px);
+}
+
+/* ==========================================================
+   Category Info
+========================================================== */
+
+.info {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+.info span {
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.info strong {
+    font-size: .95rem;
+
+    color: #111827;
+}
+
+/* ==========================================================
+   Progress Track
+========================================================== */
+
+.progress {
+    width: 100%;
+
+    height: 14px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #e5e7eb;
+}
+
+/* ==========================================================
+   Progress Fill
+========================================================== */
+
+.bar {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #10b981,
+        #059669
+    );
+
+    border-radius: inherit;
+
+    transition:
+        width .6s ease,
+        filter .25s ease;
+}
+
+.row:hover .bar {
+    filter: brightness(1.1);
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width: 992px) {
+
+    .container {
+        padding: 24px;
+    }
+
+    .header h2 {
+        font-size: 1.7rem;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .container {
+        margin: 24px 0;
+        padding: 20px;
+    }
+
+    .info {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 6px;
+    }
+
+    .header h2 {
+        font-size: 1.5rem;
+    }
+
+    .header p {
+        font-size: .95rem;
+    }
+
+    .progress {
+        height: 12px;
+    }
+
+}

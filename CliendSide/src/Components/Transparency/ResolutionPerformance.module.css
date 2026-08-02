@@ -1,0 +1,154 @@
+/* ==========================================================
+   Section Container
+========================================================== */
+
+.container {
+    margin: 40px 0;
+    padding: 32px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    margin: 0 0 10px;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.header p {
+    margin: 0;
+
+    font-size: 1rem;
+    line-height: 1.7;
+
+    color: #6b7280;
+
+    max-width: 700px;
+}
+
+/* ==========================================================
+   Grid Layout
+========================================================== */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 24px;
+}
+
+/* ==========================================================
+   Metric Card
+========================================================== */
+
+.card {
+    padding: 28px 24px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+/* ==========================================================
+   Card Hover
+========================================================== */
+
+.card:hover {
+    transform: translateY(-6px);
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================================
+   Metric Value
+========================================================== */
+
+.card h3 {
+    margin: 0 0 12px;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    color: #111827;
+
+    line-height: 1.2;
+}
+
+/* ==========================================================
+   Metric Label
+========================================================== */
+
+.card p {
+    margin: 0;
+
+    font-size: .95rem;
+
+    color: #6b7280;
+
+    line-height: 1.5;
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width: 992px) {
+
+    .container {
+        padding: 24px;
+    }
+
+    .header h2 {
+        font-size: 1.7rem;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .container {
+        padding: 20px;
+        margin: 24px 0;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .card h3 {
+        font-size: 1.6rem;
+    }
+
+}

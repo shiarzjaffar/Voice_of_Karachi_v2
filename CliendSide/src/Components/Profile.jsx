@@ -32,7 +32,7 @@ const swalTheme = {
       try {
         const response = await axios.get("http://localhost:5000/api/auth/check-session", { withCredentials: true });
         if (response.data.loggedIn) {
-          const userId = response.data.userId;
+          const userId = response.data.user._id;
           fetchUser(userId);
         } else {
           await Swal.fire({

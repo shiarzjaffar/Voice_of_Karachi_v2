@@ -113,8 +113,10 @@ const estimatedResponse =
           withCredentials: true,
         });
         if (response.data.loggedIn) {
-          setUser({ _id: response.data.userId });
-        } else {
+    setUser({
+        _id: response.data.user._id,
+    });
+      } else {
           Swal.fire({
             icon: "warning",
             title: "⚠️ Login First",
@@ -240,9 +242,16 @@ const estimatedResponse =
         fd.append("photos", photo);
       });
 
-      const res = await axios.post("http://localhost:5000/api/report/create", fd, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+const res = await axios.post(
+    "http://localhost:5000/api/report/create",
+    fd,
+    {
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    }
+);
 
       Swal.fire({
         icon: "success",

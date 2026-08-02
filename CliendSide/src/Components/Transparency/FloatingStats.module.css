@@ -1,0 +1,219 @@
+/* ==========================================================
+   Floating Stats
+========================================================== */
+
+.container{
+
+    width:min(1400px, calc(100% - 48px));
+
+    margin:0 auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:22px;
+
+}
+
+
+/* ==========================================================
+   Card
+========================================================== */
+
+.card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    border:1px solid #e5e7eb;
+
+    border-top:4px solid transparent;
+
+    padding:18px 24px;
+
+    min-height:95px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.06);
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 16px 30px rgba(15,23,42,.12);
+
+}
+
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.topRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.card h4{
+
+    margin:0;
+
+    font-size:.9rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+
+    color:#64748b;
+
+    font-weight:700;
+
+}
+
+.percent{
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+    color:#64748b;
+
+}
+
+
+/* ==========================================================
+   Value
+========================================================== */
+
+.card h2{
+
+    margin:10px 0 2px;
+
+    font-size:2.25rem;
+
+    font-weight:800;
+
+    line-height:1;
+
+    color:#0f172a;
+
+}
+
+.subtitle{
+
+    margin:0;
+
+    font-size:.9rem;
+
+    color:#64748b;
+
+}
+
+
+/* ==========================================================
+   Status Accent
+========================================================== */
+
+.pending{
+
+    border-top-color:#f59e0b;
+
+}
+
+.pending .percent{
+
+    color:#f59e0b;
+
+}
+
+.inProgress{
+
+    border-top-color:#2563eb;
+
+}
+
+.inProgress .percent{
+
+    color:#2563eb;
+
+}
+
+.resolved{
+
+    border-top-color:#16a34a;
+
+}
+
+.resolved .percent{
+
+    color:#16a34a;
+
+}
+
+
+/* ==========================================================
+   Tablet
+========================================================== */
+
+@media (max-width:992px){
+
+.container{
+
+    grid-template-columns:1fr;
+
+    width:calc(100% - 36px);
+
+}
+
+.card{
+
+    min-height:90px;
+
+}
+
+}
+
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media (max-width:576px){
+
+.container{
+
+    width:calc(100% - 24px);
+
+    gap:16px;
+
+}
+
+.card{
+
+    padding:16px 18px;
+
+}
+
+.card h2{
+
+    font-size:2rem;
+
+}
+
+}

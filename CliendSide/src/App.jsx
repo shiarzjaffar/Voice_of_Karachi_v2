@@ -1,9 +1,12 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
+import useIdleLogout from "./hooks/useIdleLogout";
+import ProtectedRoute from "./Routes/ProtectedRoute";
 import { Footer } from "./Components/Footer";
 import "./app.css";
 import ReportTimeline from "./Components/ReportTimeline/ReportTimeline";
+
 
 // Lazy-loaded Components
 const Home = lazy(() => import("./Components/Home").then(m => ({ default: m.Home })));
@@ -21,6 +24,7 @@ const Services = lazy(() => import("./Components/Services").then(m => ({ default
 const HelpCenter = lazy(() => import("./Components/HelpCenter").then(m => ({ default: m.HelpCenter })));
 const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard"));
 const NGO = lazy(() => import("./Components/NGO").then((m) => ({ default: m.NGO, })));
+const Transparency = lazy(() => import("./Components/Transparency/Transparency"));
 
 
 const Loader = () => ( 
@@ -31,6 +35,7 @@ const Loader = () => (
 
 const App = () => {
   const location = useLocation();
+  useIdleLogout();
 
   // Hide Navbar only on password recovery pages
   const hideNavbarRoutes = [
@@ -68,9 +73,17 @@ const App = () => {
           <Route path="/about-us" element={<Aboutus />} />
           <Route path="/services" element={<Services />} />
           <Route path="/help-center" element={<HelpCenter />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+    path="/dashboard"
+    element={
+        <ProtectedRoute>
+            <Dashboard />
+        </ProtectedRoute>
+    }
+/>
           <Route path="/report-tracking/:id" element={<ReportTimeline />} />
           <Route path="/ngo" element={<NGO />} />
+          <Route path="/transparency" element={<Transparency />} />
         </Routes>
       </Suspense>
 

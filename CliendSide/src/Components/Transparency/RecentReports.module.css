@@ -1,0 +1,290 @@
+/* ==========================================================
+   Section Container
+========================================================== */
+
+.container {
+    margin: 40px 0;
+    padding: 32px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header h2 {
+    margin: 0 0 10px;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.header p {
+    margin: 0;
+
+    max-width: 700px;
+
+    font-size: 1rem;
+
+    line-height: 1.7;
+
+    color: #6b7280;
+}
+
+/* ==========================================================
+   Timeline
+========================================================== */
+
+.timeline {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.timeline::before {
+    content: "";
+
+    position: absolute;
+
+    left: 14px;
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    background: #d1d5db;
+}
+
+/* ==========================================================
+   Report Card
+========================================================== */
+
+.card {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+
+    border-radius: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.card:hover {
+    transform: translateX(6px);
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 16px 36px rgba(37,99,235,.15);
+}
+
+/* ==========================================================
+   Timeline Dot
+========================================================== */
+
+.timelineDot {
+    position: relative;
+
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+
+    margin-top: 6px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    border: 4px solid #ffffff;
+
+    box-shadow:
+        0 0 0 2px #2563eb;
+}
+
+/* ==========================================================
+   Content
+========================================================== */
+
+.content {
+    flex: 1;
+}
+
+.content h3 {
+    margin: 0 0 10px;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+/* ==========================================================
+   Meta Information
+========================================================== */
+
+.meta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 16px;
+}
+
+.meta span {
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    background: #e2e8f0;
+
+    color: #475569;
+
+    font-size: .85rem;
+
+    font-weight: 600;
+}
+
+/* ==========================================================
+   Footer
+========================================================== */
+
+.footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.footer small {
+    color: #6b7280;
+
+    font-size: .85rem;
+}
+
+/* ==========================================================
+   Status Badge
+========================================================== */
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 7px 14px;
+
+    border-radius: 999px;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+}
+
+/* Pending */
+
+.pending {
+    background: rgba(239,68,68,.12);
+
+    color: #dc2626;
+}
+
+/* In Progress */
+
+.inProgress {
+    background: rgba(245,158,11,.15);
+
+    color: #d97706;
+}
+
+/* Resolved */
+
+.resolved {
+    background: rgba(34,197,94,.15);
+
+    color: #15803d;
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 24px;
+    }
+
+    .header h2 {
+        font-size: 1.7rem;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .container {
+        margin: 24px 0;
+        padding: 20px;
+    }
+
+    .timeline::before {
+        left: 10px;
+    }
+
+    .timelineDot {
+        width: 14px;
+        height: 14px;
+    }
+
+    .content h3 {
+        font-size: 1rem;
+    }
+
+    .footer {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .meta {
+        gap: 8px;
+    }
+
+}

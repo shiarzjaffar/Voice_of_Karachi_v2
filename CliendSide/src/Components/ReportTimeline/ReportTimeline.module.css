@@ -357,3 +357,205 @@
     line-height:1.6;
 
 }
+
+/* ==========================================
+   FEEDBACK
+========================================== */
+
+.feedbackCard{
+
+    margin-top:30px;
+
+    background:#FFFFFF;
+
+    border:1px solid #E5E7EB;
+
+    border-radius:18px;
+
+    padding:28px;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.04);
+
+}
+
+.feedbackCard h2{
+
+    margin:0 0 18px;
+
+    font-size:22px;
+
+    color:#111827;
+
+}
+
+.feedbackText{
+
+    margin:0;
+
+    padding:18px 20px;
+
+    background:#F9FAFB;
+
+    border-left:4px solid #16A34A;
+
+    border-radius:12px;
+
+    color:#374151;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    font-style:italic;
+
+}
+
+/* ==========================================
+   FEEDBACK FORM
+========================================== */
+
+.feedbackLabel{
+
+    margin:0 0 16px;
+
+    color:#6B7280;
+
+    font-size:15px;
+
+}
+
+.ratingSelector{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-bottom:22px;
+
+}
+
+.star,
+
+.starActive{
+
+    font-size:34px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    user-select:none;
+
+}
+
+.star{
+
+    color:#D1D5DB;
+
+}
+
+.star:hover{
+
+    transform:scale(1.1);
+
+}
+
+.starActive{
+
+    color:#F59E0B;
+
+}
+
+.feedbackInput{
+
+    width:100%;
+
+    min-height:130px;
+
+    padding:16px;
+
+    border:1px solid #D1D5DB;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-family:inherit;
+
+    resize:vertical;
+
+    outline:none;
+
+    transition:.2s;
+
+    box-sizing:border-box;
+
+}
+
+.feedbackInput:focus{
+
+    border-color:#006A4E;
+
+    box-shadow:0 0 0 3px rgba(0,106,78,.12);
+
+}
+
+.submitButton{
+
+    margin-top:22px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#006A4E;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.submitButton:hover:not(:disabled){
+
+    background:#00553F;
+
+}
+
+.submitButton:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+}
+
+.ratingDisplay{
+
+    font-size:38px;
+
+    color:#F59E0B;
+
+    margin-bottom:18px;
+
+    letter-spacing:4px;
+
+}
+
+.thankYou{
+
+    margin-top:18px;
+
+    color:#16A34A;
+
+    font-weight:600;
+
+}
