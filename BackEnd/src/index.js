@@ -10,6 +10,7 @@ import { authRouter } from './Routes/authRoute.js';
 import { contactRouter } from './Routes/contactRoute.js';
 import { adminRouter } from './Routes/adminRoute.js';
 import { reportRouter } from './Routes/reportRoute.js';
+import { transparencyRouter } from "./Routes/transparency.routes.js";
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/report', reportRouter);
+app.use("/api/transparency", transparencyRouter);
 app.use("/uploads", express.static("uploads"));
 
 app.listen(PORT, () => {

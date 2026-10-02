@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import useIdleLogout from "./hooks/useIdleLogout";
+import SessionTimeoutModal from "./Components/SessionTimeoutModal/SessionTimeoutModal";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import { Footer } from "./Components/Footer";
 import "./app.css";
@@ -35,7 +36,13 @@ const Loader = () => (
 
 const App = () => {
   const location = useLocation();
-  useIdleLogout();
+
+  const {
+  showWarning,
+  countdown,
+  continueSession,
+  logoutNow,
+} = useIdleLogout();
 
   // Hide Navbar only on password recovery pages
   const hideNavbarRoutes = [
@@ -88,6 +95,15 @@ const App = () => {
       </Suspense>
 
       {!shouldHideFooter && <Footer />}
+      {showWarning && (
+        <SessionTimeoutModal
+            countdown={countdown}
+            onContinue={continueSession}
+            onLogout={logoutNow}
+        />
+)}
+
+
     </>
   );
 };

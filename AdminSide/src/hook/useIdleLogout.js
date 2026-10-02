@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
-const IDLE_TIMEOUT =  15 * 60 * 1000;
+const IDLE_TIMEOUT = 15 * 60 * 1000;
 const WARNING_TIME = 60;
 
 export default function useIdleLogout() {
   const navigate = useNavigate();
-  const { loggedIn, logout } = useAuth();
 
   const idleTimer = useRef(null);
   const countdownTimer = useRef(null);
@@ -30,9 +28,19 @@ export default function useIdleLogout() {
     warningRef.current = false;
     setShowWarning(false);
 
-    await logout();
+    try {
+      await fetch(
+        "http://localhost:5000/api/admin/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+    } catch (err) {
+      console.error("Admin logout error:", err);
+    }
 
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const startWarningCountdown = () => {
@@ -59,6 +67,7 @@ export default function useIdleLogout() {
 
     idleTimer.current = setTimeout(() => {
       warningRef.current = true;
+
       setShowWarning(true);
 
       startWarningCountdown();
@@ -66,8 +75,6 @@ export default function useIdleLogout() {
   };
 
   const resetIdleTimer = () => {
-    // Once the warning is visible, normal activity
-    // must NOT automatically continue the session.
     if (warningRef.current) {
       return;
     }
@@ -87,11 +94,6 @@ export default function useIdleLogout() {
   };
 
   useEffect(() => {
-    if (!loggedIn) {
-      clearTimers();
-      return;
-    }
-
     const events = [
       "mousemove",
       "mousedown",
@@ -104,17 +106,19 @@ export default function useIdleLogout() {
       window.addEventListener(event, resetIdleTimer);
     });
 
-    // Start initial 15-minute timer.
     startIdleTimer();
 
     return () => {
       clearTimers();
 
       events.forEach((event) => {
-        window.removeEventListener(event, resetIdleTimer);
+        window.removeEventListener(
+          event,
+          resetIdleTimer
+        );
       });
     };
-  }, [loggedIn]);
+  }, []);
 
   useEffect(() => {
     if (countdown === 0 && showWarning) {

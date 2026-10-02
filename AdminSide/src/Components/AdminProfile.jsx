@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "../services/api";
 import AdminProfilecss from "./AdminProfile.module.css";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";

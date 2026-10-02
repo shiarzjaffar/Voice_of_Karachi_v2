@@ -50,7 +50,7 @@ function Register() {
         email: formData.email,
         password: formData.password,
       };
-
+      console.log("Submitting registration...");
       await api.post("/auth/employee/register", payload);
 
       alert(

@@ -4,6 +4,9 @@ import { Outlet } from "react-router-dom";
 import EmployeeSidebar from "./EmployeeSidebar";
 import EmployeeHeader from "./EmployeeHeader";
 
+import useIdleLogout from "../hook/useIdleLogout";
+import SessionTimeoutModal from "../Components/SessionTimeoutModal/SessionTimeoutModal";
+
 import styles from "./EmployeeLayout.module.css";
 
 const DESKTOP_BREAKPOINT = 992;
@@ -27,6 +30,13 @@ function EmployeeLayout() {
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const {
+    showWarning,
+    countdown,
+    continueSession,
+    logoutNow,
+  } = useIdleLogout();
+
   useEffect(() => {
     localStorage.setItem(
       "employee-sidebar-collapsed",
@@ -47,8 +57,9 @@ function EmployeeLayout() {
 
     window.addEventListener("resize", handleResize);
 
-    return () =>
+    return () => {
       window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const toggleSidebar = () => {
@@ -64,35 +75,43 @@ function EmployeeLayout() {
   };
 
   return (
-    <div className={styles.layout}>
-      <EmployeeSidebar
-        isMobile={isMobile}
-        isMobileOpen={isMobileOpen}
-        isCollapsed={isCollapsed}
-        closeMobileSidebar={closeMobileSidebar}
-      />
-
-      <div
-        className={`${styles.main} ${
-          isCollapsed
-            ? styles.mainCollapsed
-            : styles.mainExpanded
-        }`}
-      >
-        <EmployeeHeader
-          isSidebarOpen={
-            isMobile ? isMobileOpen : !isCollapsed
-          }
-          toggleSidebar={toggleSidebar}
+    <>
+      <div className={styles.layout}>
+        <EmployeeSidebar
+          isMobile={isMobile}
+          isMobileOpen={isMobileOpen}
+          isCollapsed={isCollapsed}
+          closeMobileSidebar={closeMobileSidebar}
         />
 
-        <main className={styles.content}>
-          <Outlet />
-        </main>
+        <div
+          className={`${styles.main} ${
+            isCollapsed
+              ? styles.mainCollapsed
+              : styles.mainExpanded
+          }`}
+        >
+          <EmployeeHeader
+            isSidebarOpen={
+              isMobile ? isMobileOpen : !isCollapsed
+            }
+            toggleSidebar={toggleSidebar}
+          />
 
-
+          <main className={styles.content}>
+            <Outlet />
+          </main>
+        </div>
       </div>
-    </div>
+
+      {showWarning && (
+        <SessionTimeoutModal
+          countdown={countdown}
+          onContinue={continueSession}
+          onLogout={logoutNow}
+        />
+      )}
+    </>
   );
 }
 

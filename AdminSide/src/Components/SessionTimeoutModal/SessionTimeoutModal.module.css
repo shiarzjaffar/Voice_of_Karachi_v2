@@ -1,0 +1,213 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.38);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  animation: overlayIn 0.2s ease-out;
+}
+
+.modal {
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 34px 32px;
+
+  text-align: center;
+
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.22);
+
+  animation: modalIn 0.2s ease-out;
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff7ed;
+
+  font-size: 30px;
+}
+
+.modal h2 {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+.message {
+  margin: 14px 0 6px;
+
+  color: #374151;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.securityMessage {
+  margin: 0 auto;
+
+  max-width: 340px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.countdownLabel {
+  margin-top: 25px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.countdown {
+  margin-top: 4px;
+
+  font-size: 42px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  transition: color 0.2s ease;
+}
+
+.normal {
+  color: #006a4e;
+}
+
+.warning {
+  color: #f59e0b;
+}
+
+.danger {
+  color: #dc2626;
+}
+
+.divider {
+  height: 1px;
+
+  margin: 24px 0;
+
+  background: #e5e7eb;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.continueButton,
+.logoutButton {
+  width: 100%;
+
+  min-height: 46px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.continueButton {
+  border: 1px solid #006a4e;
+
+  background: #006a4e;
+
+  color: #ffffff;
+}
+
+.continueButton:hover {
+  background: #00563f;
+}
+
+.continueButton:active,
+.logoutButton:active {
+  transform: scale(0.98);
+}
+
+.logoutButton {
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+
+  color: #374151;
+}
+
+.logoutButton:hover {
+  background: #f9fafb;
+
+  border-color: #9ca3af;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 28px 22px;
+  }
+
+  .modal h2 {
+    font-size: 21px;
+  }
+
+  .countdown {
+    font-size: 36px;
+  }
+}

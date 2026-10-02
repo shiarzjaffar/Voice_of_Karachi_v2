@@ -102,7 +102,7 @@ export const AdminLogin = () => {
       if (!response.ok) throw new Error(data.error || "Login failed");
 
       setSuccess(data.message);
-      setTimeout(() => navigate("/user-fetch"), 1000);
+      setTimeout(() => navigate("/dashboard"), 1000);
     } catch (err) {
       setError(err.message);
     } finally {

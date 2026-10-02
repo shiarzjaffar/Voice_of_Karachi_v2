@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Dashboard.module.css";
-
+import api from "../../services/api";
 import PageHeader from "../../Components/admin/ui/PageHeader/PageHeader";
 
 import DashboardStats from "./components/DashboardStats";
@@ -16,11 +16,15 @@ export default function Dashboard() {
     contacts: 0,
   });
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
 
     const fetchStats = async () => {
 
       try {
+
+      setLoading(true);
 
         const res = await fetch(
           "http://localhost:5000/api/admin/stats/totals"
@@ -28,13 +32,20 @@ export default function Dashboard() {
 
         const data = await res.json();
 
-        setStats({
-          users: data.users || 0,
-          reports: data.reports || 0,
-          contacts: data.contacts || 0,
-        });
+setStats({
+    users: data.users || 0,
+    reports: data.reports || 0,
+    contacts: data.contacts || 0,
+    pending: data.pending || 0,
+    completed: data.completed || 0,
+    employees: data.employees || 0,
+});
+
+        setLoading(false);
 
       } catch (err) {
+
+        setLoading(false);
 
         console.error(err);
 
@@ -55,7 +66,10 @@ export default function Dashboard() {
         subtitle="Voice of Karachi Administration Portal"
       />
 
-      <DashboardStats stats={stats} />
+      <DashboardStats
+      stats={stats}
+      loading={loading}
+      />
 
       <div className={styles.contentGrid}>
 

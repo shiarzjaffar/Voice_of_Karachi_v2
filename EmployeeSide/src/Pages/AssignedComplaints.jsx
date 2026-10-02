@@ -43,10 +43,25 @@ const handleView = (complaint) => {
   setShowModal(true);
 };
 
-const filtered=complaints.filter(item=>
-(item._id || "").toLowerCase().includes(search.toLowerCase())||
-(item.category || "").toLowerCase().includes(search.toLowerCase())
-);
+const filtered = complaints.filter((item) => {
+
+    const text = search.toLowerCase();
+
+    return (
+
+        String(item._id ?? "").toLowerCase().includes(text) ||
+
+        String(item.category ?? "").toLowerCase().includes(text) ||
+
+        String(item.location ?? "").toLowerCase().includes(text) ||
+
+        String(item.userId?.fullname ?? "")
+            .toLowerCase()
+            .includes(text)
+
+    );
+
+});
 
 return(
 
@@ -77,6 +92,7 @@ onChange={(e)=>setSearch(e.target.value)}
 <tr>
 <th>ID</th>
 <th>Category</th>
+<th>Priority</th>
 <th>Status</th>
 <th>Date</th>
 <th>Actions</th>
@@ -86,13 +102,45 @@ onChange={(e)=>setSearch(e.target.value)}
 
 <tbody>
 
+  {filtered.length === 0 && (
+    <tr>
+        <td
+            colSpan="6"
+            style={{
+                textAlign: "center",
+                padding: "24px",
+                color: "#6b7280",
+            }}
+        >
+            No assigned complaints found.
+        </td>
+    </tr>
+)}
+
 {filtered.map(item=>(
 
 <tr key={item._id || item.id}>
 
-<td>{item._id.slice(-8).toUpperCase()}</td>
+<td>{item._id?.slice(-8).toUpperCase() ?? "-"}</td>
 
 <td>{item.category}</td>
+
+<td>
+
+    <span
+        className={`${styles.priority}
+        ${
+            item.priority === "High"
+                ? styles.high
+                : item.priority === "Medium"
+                ? styles.medium
+                : styles.low
+        }`}
+    >
+        {item.priority ?? "-"}
+    </span>
+
+</td>
 
 <td>
 
@@ -111,7 +159,11 @@ item.status==="In Progress"
 
 </td>
 
-<td>{new Date(item.assignedAt).toLocaleDateString()}</td>
+<td>
+    {item.assignedAt
+        ? new Date(item.assignedAt).toLocaleDateString()
+        : "-"}
+</td>
 
 <td>
 

@@ -11,6 +11,7 @@ import ProtectedRoute from "./Routes/ProtectedRoute";
 import EmployeeLayout from "./Layout/EmployeeLayout";
 
 function App() {
+ 
   return (
     <BrowserRouter>
       <Routes>

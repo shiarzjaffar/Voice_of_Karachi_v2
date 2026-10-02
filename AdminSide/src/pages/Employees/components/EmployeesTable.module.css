@@ -3,11 +3,11 @@
     overflow-x: auto;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    min-width: 1150px;
+.table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:auto;
+    min-width:1200px;
 }
 
 .table thead {
@@ -17,14 +17,17 @@
 .table th {
     padding: 18px 16px;
     text-align: left;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#64748B;
 }
 
 .table td {
-    padding: 18px 16px;
+    padding:22px 18px;
     font-size: 14px;
     color: var(--text);
     border-bottom: 1px solid var(--border);
@@ -35,46 +38,16 @@
     transition: background .2s ease;
 }
 
-.table tbody tr:hover {
-    background: rgba(17,66,50,.03);
-}
+table tbody tr:hover
 
 /* Column widths */
+.table th:last-child,
+.table td:last-child{
 
-.table th:nth-child(1),
-.table td:nth-child(1){
-    width:22%;
-    word-break:break-all;
-}
+    width:130px;
 
-.table th:nth-child(2),
-.table td:nth-child(2){
-    width:14%;
-}
+    text-align:center;
 
-.table th:nth-child(3),
-.table td:nth-child(3){
-    width:20%;
-}
-
-.table th:nth-child(4),
-.table td:nth-child(4){
-    width:14%;
-}
-
-.table th:nth-child(5),
-.table td:nth-child(5){
-    width:8%;
-}
-
-.table th:nth-child(6),
-.table td:nth-child(6){
-    width:10%;
-}
-
-.table th:nth-child(7),
-.table td:nth-child(7){
-    width:12%;
 }
 
 /* Email & phone */
@@ -92,13 +65,15 @@
 }
 
 .actionGroup{
+
     display:flex;
-    justify-content:flex-end;
-padding-top:20px;
-padding-right:8px;
-gap:12px;
+
+    justify-content:center;
+
     align-items:center;
-    gap:8px;
+
+    gap:10px;
+
 }
 
 /* Empty */
@@ -152,4 +127,16 @@ gap:12px;
 .pageButton:disabled{
     opacity:.45;
     cursor:not-allowed;
+}
+
+.center{
+    text-align:center;
+}
+
+.inlineIcon span{
+
+    overflow-wrap:anywhere;
+    white-space:nowrap;
+    line-height:1.5;
+
 }

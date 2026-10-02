@@ -15,19 +15,26 @@ export default function ComplaintTrend({ stats }) {
 
     const chartData = [
 
+    {
+        name: "Users",
+        value: stats.users || 0,
+    },
         {
-            name: "Users",
-            value: stats.users,
-        },
+        name: "Employees",
+        value: stats.employees || 0,
+    },
 
-        {
-            name: "Reports",
-            value: stats.reports,
-        },
+     {
+        name: "Pending Reports",
+        value: stats.pending || 0,
+    },
 
+    {
+        name: "Reports",
+        value: stats.reports || 0,
+    },
 
-    ];
-
+];
     return (
 
         <DataCard
@@ -44,19 +51,27 @@ export default function ComplaintTrend({ stats }) {
 
                     <BarChart data={chartData}>
 
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid
+    strokeDasharray="3 3"
+    vertical={false}
+/>
 
                         <XAxis dataKey="name" />
 
-                        <YAxis />
+                        <YAxis
+    allowDecimals={false}
+/>
 
-                        <Tooltip />
+                        <Tooltip
+    formatter={(value) => [value, "Count"]}
+/>
 
                         <Bar
-                            dataKey="value"
-                            fill="#114232"
-                            radius={[8,8,0,0]}
-                        />
+    dataKey="value"
+    fill="#114232"
+    radius={[8, 8, 0, 0]}
+    animationDuration={900}
+/>
 
                     </BarChart>
 

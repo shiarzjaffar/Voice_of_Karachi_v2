@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
-const IDLE_TIMEOUT =  15 * 60 * 1000;
+const IDLE_TIMEOUT = 15 * 60 * 1000;
 const WARNING_TIME = 60;
 
 export default function useIdleLogout() {
   const navigate = useNavigate();
-  const { loggedIn, logout } = useAuth();
 
   const idleTimer = useRef(null);
   const countdownTimer = useRef(null);
@@ -30,9 +28,18 @@ export default function useIdleLogout() {
     warningRef.current = false;
     setShowWarning(false);
 
-    await logout();
+    try {
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Employee logout error:", err);
+    }
 
-    navigate("/login", { replace: true });
+    localStorage.removeItem("employee");
+
+    navigate("/", { replace: true });
   };
 
   const startWarningCountdown = () => {
@@ -59,6 +66,7 @@ export default function useIdleLogout() {
 
     idleTimer.current = setTimeout(() => {
       warningRef.current = true;
+
       setShowWarning(true);
 
       startWarningCountdown();
@@ -66,8 +74,8 @@ export default function useIdleLogout() {
   };
 
   const resetIdleTimer = () => {
-    // Once the warning is visible, normal activity
-    // must NOT automatically continue the session.
+    // Once the warning is displayed,
+    // normal activity must NOT continue the session.
     if (warningRef.current) {
       return;
     }
@@ -87,8 +95,9 @@ export default function useIdleLogout() {
   };
 
   useEffect(() => {
-    if (!loggedIn) {
-      clearTimers();
+    const employee = localStorage.getItem("employee");
+
+    if (!employee) {
       return;
     }
 
@@ -104,7 +113,6 @@ export default function useIdleLogout() {
       window.addEventListener(event, resetIdleTimer);
     });
 
-    // Start initial 15-minute timer.
     startIdleTimer();
 
     return () => {
@@ -114,7 +122,7 @@ export default function useIdleLogout() {
         window.removeEventListener(event, resetIdleTimer);
       });
     };
-  }, [loggedIn]);
+  }, []);
 
   useEffect(() => {
     if (countdown === 0 && showWarning) {

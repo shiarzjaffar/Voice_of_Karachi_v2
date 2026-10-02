@@ -20,13 +20,6 @@ export const ChangePassword = () => {
 
   const navigate = useNavigate();
 
-  // 🎨 UrbanFix SweetAlert Theme
-const swalTheme = {
-  background: "#FFFFFF",
-  color: "#111827",
-  confirmButtonColor: "#006A4E",
-};
-
   // 🔐 Check user session
   const checkSession = async () => {
     try {
@@ -36,7 +29,7 @@ const swalTheme = {
       );
 
       if (response.data.loggedIn) {
-        setUserId(response.data.userId);
+      setUserId(response.data.user._id);
       } else {
         await Swal.fire({
           icon: "error",

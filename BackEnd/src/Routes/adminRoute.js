@@ -33,62 +33,320 @@ adminRouter.post("/forgot-password/send", async (req, res) => {
     auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
   });
 
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "🔐 Your OTP Code - Action Required",
-    text: `Your OTP is: ${otp}. It is valid for 10 minutes.`,
-    html: `
-    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0E2A43; padding: 30px;">
-      <div style="max-width: 550px; margin: auto; background: #3D6582; border-radius: 12px; padding: 35px; color: #F4F8F9; 
-                  box-shadow: 0 0 20px rgba(91, 160, 188, 0.3); border: 1px solid #C4D0D6;">
+await transporter.sendMail({
+  from: `"Voice of Karachi" <${process.env.EMAIL_USER}>`,
+  to: email,
+  subject: "Voice of Karachi - Password Reset OTP",
 
-        <div style="text-align: center; margin-bottom: 20px;">
-          <img src="cid:Logo" alt="Urban Fix Logo" style="height: 80px; margin-bottom: 10px;" />
-          <h1 style="margin: 0; font-size: 28px; color: #5BA0BC;">
-            🔐 Verify Your Email
-          </h1>
-        </div>
+  text: `Your Voice of Karachi password reset OTP is ${otp}. This code expires in 10 minutes. If you did not request a password reset, you can ignore this email.`,
 
-        <p style="font-size: 16px; line-height: 1.6; color: #F4F8F9;">
-          Hello there,
-        </p>
+  html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice of Karachi - Password Reset</title>
+</head>
 
-        <p style="font-size: 16px; line-height: 1.6; color: #C4D0D6;">
-          We're excited to help you verify your account. Please use the following One-Time Password (OTP) to complete your email verification:
-        </p>
+<body
+  style="
+    margin:0;
+    padding:0;
+    background-color:#f4f7f7;
+    font-family:Arial, Helvetica, sans-serif;
+  "
+>
 
-        <div style="text-align: center; margin: 35px 0;">
-          <span style="display: inline-block; font-size: 32px; font-weight: 600; 
-                       background: #5BA0BC; color: #0E2A43; padding: 14px 28px; 
-                       border-radius: 10px; letter-spacing: 3px; 
-                       box-shadow: 0 0 12px rgba(91, 160, 188, 0.7);">
-            ${otp}
-          </span>
-        </div>
+<table
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  bgcolor="#f4f7f7"
+  style="background-color:#f4f7f7;"
+>
+  <tr>
+    <td align="center" style="padding:40px 15px;">
 
-        <p style="font-size: 15px; color: #C4D0D6;">
-          ⚠️ This code will expire in <strong>10 minutes</strong>. Do not share this OTP with anyone, including our team.
-        </p>
+      <!-- MAIN CARD -->
+      <table
+        width="600"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        bgcolor="#ffffff"
+        style="
+          width:100%;
+          max-width:600px;
+          background-color:#ffffff;
+          border:1px solid #e5e7eb;
+        "
+      >
 
-        <p style="font-size: 15px; color: #C4D0D6;">
-          If you did not request this verification, feel free to ignore this email — no action is needed.
-        </p>
+        <!-- HEADER -->
+        <tr>
+          <td
+            align="center"
+            bgcolor="#075E54"
+            style="
+              background-color:#075E54;
+              padding:32px 20px;
+            "
+          >
 
-        <hr style="border: none; border-top: 1px solid #C4D0D6; margin: 35px 0;">
+            <div
+              style="
+                font-size:28px;
+                line-height:34px;
+                font-weight:bold;
+                color:#ffffff;
+              "
+            >
+              Voice of Karachi
+            </div>
 
-        <p style="font-size: 14px; text-align: center; color: #5BA0BC;">
-          Thanks for being with us!<br><strong>— Urban Fix Team</strong>
-        </p>
+            <div
+              style="
+                margin-top:6px;
+                font-size:14px;
+                line-height:20px;
+                color:#d9f5ef;
+              "
+            >
+              Government of Sindh
+            </div>
 
-      </div>
-    </div>`,
-    attachments: [{
-      filename: 'logo.png',
-      path: logoPath,
-      cid: 'Logo'
-    }]
-  });
+            <div
+              style="
+                margin-top:3px;
+                font-size:12px;
+                line-height:18px;
+                color:#c7ebe5;
+              "
+            >
+              Digital Civic Engagement Platform
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- CONTENT -->
+        <tr>
+          <td
+            style="
+              padding:40px 35px;
+              color:#1f2937;
+            "
+          >
+
+            <div
+              style="
+                font-size:24px;
+                line-height:30px;
+                font-weight:bold;
+                color:#111827;
+              "
+            >
+              Password Reset
+            </div>
+
+            <div
+              style="
+                margin-top:12px;
+                font-size:15px;
+                line-height:24px;
+                color:#4b5563;
+              "
+            >
+              We received a request to reset the password
+              for your Voice of Karachi account.
+            </div>
+
+
+            <!-- OTP SECTION -->
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              bgcolor="#f0fdfa"
+              style="
+                margin-top:30px;
+                background-color:#f0fdfa;
+                border:1px solid #99f6e4;
+              "
+            >
+              <tr>
+                <td
+                  align="center"
+                  style="padding:28px 20px;"
+                >
+
+                  <div
+                    style="
+                      font-size:12px;
+                      line-height:18px;
+                      font-weight:bold;
+                      color:#0f766e;
+                      letter-spacing:1px;
+                    "
+                  >
+                    YOUR VERIFICATION CODE
+                  </div>
+
+                  <div
+                    style="
+                      margin-top:15px;
+                      padding:14px 20px;
+                      background-color:#ffffff;
+                      border:1px solid #ccfbf1;
+                      font-size:36px;
+                      line-height:44px;
+                      font-weight:bold;
+                      letter-spacing:8px;
+                      color:#075E54;
+                    "
+                  >
+                    ${otp}
+                  </div>
+
+                  <div
+                    style="
+                      margin-top:14px;
+                      font-size:13px;
+                      line-height:20px;
+                      color:#64748b;
+                    "
+                  >
+                    This code expires in 10 minutes.
+                  </div>
+
+                </td>
+              </tr>
+            </table>
+
+
+            <!-- SECURITY NOTICE -->
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="margin-top:25px;"
+            >
+              <tr>
+
+                <td
+                  width="5"
+                  bgcolor="#0f766e"
+                  style="background-color:#0f766e;"
+                >
+                </td>
+
+                <td
+                  bgcolor="#f8fafc"
+                  style="
+                    padding:15px 18px;
+                    background-color:#f8fafc;
+                  "
+                >
+
+                  <div
+                    style="
+                      font-size:13px;
+                      line-height:20px;
+                      color:#475569;
+                    "
+                  >
+                    <strong>Security notice:</strong>
+                    Never share this verification code with anyone.
+                    Voice of Karachi will never ask you for your OTP
+                    by phone, message, or email.
+                  </div>
+
+                </td>
+
+              </tr>
+            </table>
+
+
+            <!-- IGNORE MESSAGE -->
+            <div
+              style="
+                margin-top:25px;
+                font-size:13px;
+                line-height:20px;
+                color:#64748b;
+              "
+            >
+              If you did not request a password reset,
+              you can safely ignore this email.
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- FOOTER -->
+        <tr>
+          <td
+            align="center"
+            bgcolor="#f8fafc"
+            style="
+              padding:25px 20px;
+              background-color:#f8fafc;
+              border-top:1px solid #e5e7eb;
+            "
+          >
+
+            <div
+              style="
+                font-size:15px;
+                line-height:20px;
+                font-weight:bold;
+                color:#334155;
+              "
+            >
+              Voice of Karachi
+            </div>
+
+            <div
+              style="
+                margin-top:5px;
+                font-size:12px;
+                line-height:18px;
+                color:#64748b;
+              "
+            >
+              Digital Civic Engagement Platform
+            </div>
+
+            <div
+              style="
+                margin-top:12px;
+                font-size:11px;
+                line-height:17px;
+                color:#94a3b8;
+              "
+            >
+              This is an automated email. Please do not reply.
+            </div>
+
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
+`
+});
   res.json({ message: "OTP sent" });
 });
 
@@ -131,20 +389,45 @@ adminRouter.post("/forgot-password/reset", async (req, res) => {
 // GET /api/admin/stats/totals
 adminRouter.get("/stats/totals", async (req, res) => {
   try {
+
     const userCount = await User.countDocuments();
+
     const reportCount = await Report.countDocuments();
+
     const contactCount = await Contact.countDocuments();
+
     const NGOCount = await NGO.countDocuments();
+
+    const employeeCount = await User.countDocuments({
+      role: "Employee",
+    });
+
+    const pendingCount = await Report.countDocuments({
+      status: "Pending",
+    });
+
+    const completedCount = await Report.countDocuments({
+      status: "Closed",
+    });
 
     res.json({
       users: userCount,
       reports: reportCount,
       contacts: contactCount,
-      NGO : NGOCount,
+      NGO: NGOCount,
+      employees: employeeCount,
+      pending: pendingCount,
+      completed: completedCount,
     });
+
   } catch (err) {
+
     console.error("Error fetching stats:", err);
-    res.status(500).json({ message: "Failed to fetch stats" });
+
+    res.status(500).json({
+      message: "Failed to fetch stats",
+    });
+
   }
 });
 
@@ -355,6 +638,27 @@ adminRouter.patch("/employees/:id/approve", async (req, res) => {
     res.status(500).json({
       error: "Server error.",
     });
+  }
+});
+
+adminRouter.get("/dashboard/recent-complaints", async (req, res) => {
+  try {
+
+    const complaints = await Report.find()
+      .select("category location status createdAt")
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.json(complaints);
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      error: "Failed to load recent complaints.",
+    });
+
   }
 });
 

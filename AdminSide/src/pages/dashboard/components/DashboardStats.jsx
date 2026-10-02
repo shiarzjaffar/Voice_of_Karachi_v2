@@ -3,14 +3,17 @@ import { motion } from "framer-motion";
 import {
     Users,
     FileText,
-    MessageSquare,
-    Building2,
+    Clock3,
+    UserCog,
 } from "lucide-react";
 
 import StatCard from "../../../components/admin/ui/StatCard/StatCard";
 import styles from "./DashboardStats.module.css";
 
-export default function DashboardStats({ stats = {} }) {
+export default function DashboardStats({
+    stats = {},
+    loading = false,
+}) {
 
     const cards = [
         {
@@ -29,6 +32,23 @@ export default function DashboardStats({ stats = {} }) {
             link: "/report-fetch",
             footer: "Citizen Complaints"
         },
+
+        {
+            title: "Pending Reports",
+            value: stats.pending,
+            icon: <Clock3 size={26} />,
+            color: "danger",
+            link: "/reports",
+            footer: "Awaiting Action"
+        },
+                {
+            title: "Employees",
+            value: stats.employees,
+            icon: <UserCog size={26} />,
+            color: "success",
+            link: "/employees",
+            footer: "Active Staff"
+        }
 
     ];
 
@@ -50,7 +70,7 @@ export default function DashboardStats({ stats = {} }) {
 
                         <StatCard
                             title={card.title}
-                            value={card.value}
+                            value={loading ? "..." : card.value}
                             icon={card.icon}
                             color={card.color}
                             footer={card.footer}

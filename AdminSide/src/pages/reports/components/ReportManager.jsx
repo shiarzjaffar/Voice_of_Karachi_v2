@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import {
+    updateReportStatus,
+    updateAdminNotes,
+} from "../services/reportsService";
 
 import styles from "./ReportManager.module.css";
-
-import {
-  updateReportStatus,
-  addFeedback,
-} from "../services/reportsService";
 
 export default function ReportManager({
   open,
@@ -15,13 +14,14 @@ export default function ReportManager({
   onRefresh,
 }) {
   const [status, setStatus] = useState("Pending");
-  const [feedback, setFeedback] = useState("");
+  const [adminNotes, setAdminNotes] = useState("");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (report) {
       setStatus(report.status || "Pending");
-      setFeedback(report.feedback || "");
+      setAdminNotes(
+report.adminNotes || "");
     }
   }, [report]);
 
@@ -39,7 +39,10 @@ export default function ReportManager({
 
       await updateReportStatus(report._id, status);
 
-      await addFeedback(report._id, feedback);
+      await updateAdminNotes(
+    report._id,
+    adminNotes
+);
 
       toast.success("Report updated successfully");
 
@@ -170,13 +173,54 @@ export default function ReportManager({
           </div>
 
           <div className={styles.section}>
-            <h3>Admin Feedback</h3>
+
+    <h3>Citizen Feedback</h3>
+
+    {report.rating ? (
+
+        <>
+
+            <div className={styles.ratingDisplay}>
+
+                {"★".repeat(report.rating)}
+                {"☆".repeat(5 - report.rating)}
+
+            </div>
+
+            <div className={styles.feedbackBox}>
+
+                {report.feedback
+                    ? `"${report.feedback}"`
+                    : "Citizen submitted a rating without comments."}
+
+            </div>
+
+        </>
+
+    ) : (
+
+        <div className={styles.noFeedback}>
+
+            No feedback has been submitted yet.
+
+        </div>
+
+    )}
+
+</div>
+
+          <div className={styles.section}>
+            <h3>Administrative Notes</h3>
+            <p className={styles.sectionHint}>
+    Visible to administrators and assigned employees only.
+</p>
 
             <textarea
-              className={styles.textarea}
-              placeholder="Write feedback for this report..."
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
+              className={styles.notesTextarea}
+    value={adminNotes}
+    onChange={(e) => setAdminNotes(e.target.value)}
+    placeholder="Add internal notes for this report..."
+
               disabled={saving}
               rows={5}
             />

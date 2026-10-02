@@ -21,10 +21,15 @@ const newReport = await Report.create({
 
   description: req.body.description,
 
-  location: req.body.location,
+location: req.body.location,
 
-  photos: photoPaths,
-});
+coordinates: {
+    lat: Number(req.body.latitude),
+    lng: Number(req.body.longitude),
+},
+
+photos: photoPaths,
+  });
 
       res.json({ msg: "Report created successfully", report: newReport });
     } catch (err) {
@@ -259,7 +264,7 @@ res.json({
 reportRouter.post("/feedback/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { feedback } = req.body;
+    const { feedback, rating } = req.body;
 
     const report = await Report.findById(id);
 
@@ -269,7 +274,22 @@ reportRouter.post("/feedback/:id", async (req, res) => {
       });
     }
 
+          // Only allow feedback after complaint is closed
+      if (report.status !== "Closed") {
+          return res.status(400).json({
+              error: "Feedback can only be submitted after the complaint is closed.",
+          });
+      }
+
+      // Prevent duplicate feedback
+      if (report.feedback || report.rating !== null) {
+          return res.status(400).json({
+              error: "Feedback has already been submitted.",
+          });
+      }
+
     report.feedback = feedback || "";
+    report.rating = rating ?? null;
 
     await report.save();
 
@@ -284,6 +304,42 @@ reportRouter.post("/feedback/:id", async (req, res) => {
       error: "Server error",
     });
   }
+});
+
+reportRouter.put("/admin-notes/:id", async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+        const { adminNotes } = req.body;
+
+        const report = await Report.findById(id);
+
+        if (!report) {
+            return res.status(404).json({
+                error: "Report not found",
+            });
+        }
+
+        report.adminNotes = adminNotes || "";
+
+        await report.save();
+
+        res.json({
+            message: "Administrative notes updated successfully",
+            report,
+        });
+
+    } catch (error) {
+
+        console.error("Admin notes error:", error);
+
+        res.status(500).json({
+            error: "Server error",
+        });
+
+    }
+
 });
 
 reportRouter.get("/employee/dashboard", async (req, res) => {

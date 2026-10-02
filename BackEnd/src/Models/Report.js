@@ -24,11 +24,43 @@ assignedAt: {
 
     description: { type: String, required: true,},
     photos: { type: [String], default: [] },
-    location: { type: String, required: true,},
+    location: {
+    type: String,
+    required: true,
+},
+
+coordinates: {
+
+    lat: {
+        type: Number,
+        required: true,
+    },
+
+    lng: {
+        type: Number,
+        required: true,
+    },
+
+},
     reportSubmittedAt: { type: Date, default: Date.now,},
     reportClosedAt: { type: Date, default: null,},
     status: { type: String, enum: ["Pending", "In Progress", "Closed"], default: "Pending",},
-    feedback: {type: String}
+    feedback: {
+    type: String,
+    default: "",
+},
+
+rating: {
+    type: Number,
+    min: 1,
+    max: 5,
+    default: null,
+},
+
+adminNotes: {
+    type: String,
+    default: "",
+},
   },
   { timestamps: true });
 

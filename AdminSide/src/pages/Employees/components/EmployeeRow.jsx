@@ -26,14 +26,20 @@ export default function EmployeeRow({
       <td>{employee.department}</td>
 
       <td>
-        <Mail size={15} /> {employee.email}
+          <div className={styles.inlineIcon}>
+              <Mail size={16} />
+              <span>{employee.email}</span>
+          </div>
       </td>
 
       <td>
-        <Phone size={15} /> {employee.phone}
+          <div className={styles.inlineIcon}>
+              <Phone size={16} />
+              <span>{employee.phone}</span>
+          </div>
       </td>
 
-      <td>
+      <td className={styles.center}>
         {employee.approved ? (
           <StatusBadge status="Approved" />
         ) : (
@@ -41,7 +47,7 @@ export default function EmployeeRow({
         )}
       </td>
 
-      <td>
+      <td className={styles.center}>
         <StatusBadge status={employee.userstatus} />
       </td>
 

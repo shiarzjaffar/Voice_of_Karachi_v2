@@ -5,7 +5,7 @@ import "./App.css";
 import { AdminLayout } from "./Components/admin/layout/AdminLayout";
 import { AdminLogin } from "./Components/AdminLogin";
 import Users from "./pages/users/Users";
-
+import ProtectedRoute from "./Routes/ProtectedRoute";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { AdminProfile } from "./Components/AdminProfile";
 import { AdminUpdate } from "./Components/AdminUpdate";
@@ -13,9 +13,6 @@ import { AdminChangePassword } from "./Components/AdminChangePassword";
 import { AdminForgetpwd } from "./Components/AdminForgetpwd";
 import { AdminVerifyOTP } from "./Components/AdminVerifyOTP";
 import { AdminResetPassword } from "./Components/AdminResetPassword";
-import { ReportFetch } from "./Components/ReportFetch";
-import { ReportClosed } from "./Components/ReportClosed";
-import { ReportStatus } from "./Components/ReportStatus";
 import Reports from "./pages/reports/Reports";
 import Employees from "./pages/Employees/Employees";
 
@@ -54,7 +51,13 @@ function App() {
   <Route path="/reset-password" element={<AdminResetPassword />} />
 
   {/* Admin Layout */}
-    <Route element={<AdminLayout />}>
+    <Route
+  element={
+    <ProtectedRoute>
+      <AdminLayout />
+    </ProtectedRoute>
+  }
+>
     <Route path="/dashboard" element={<Dashboard />} />
     <Route path="/users" element={<Users />} />
     <Route path="/employees" element={<Employees />} />
@@ -70,9 +73,18 @@ function App() {
 <Route path="/user-activedeactive" element={<Navigate to="/users" replace />} />
 
 
-    <Route path="/report-fetch" element={<ReportFetch />} />
-    <Route path="/report-closed" element={<ReportClosed />} />
-    <Route path="/report-update" element={<ReportStatus />} />
+    <Route
+    path="/report-fetch"
+    element={<Navigate to="/reports" replace />}
+/>
+    <Route
+    path="/report-closed"
+    element={<Navigate to="/reports" replace />}
+/>
+    <Route
+    path="/report-update"
+    element={<Navigate to="/reports" replace />}
+/>
     
 
     

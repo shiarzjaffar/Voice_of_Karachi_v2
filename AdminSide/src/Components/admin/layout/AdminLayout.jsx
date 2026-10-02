@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
+import useIdleLogout from "../../../hook/useIdleLogout";
+
 import { Sidebar } from "./Sidebar";
 import { AdminHeader } from "./AdminHeader";
 import { Footer } from "./Footer";
+
+import SessionTimeoutModal from "../../SessionTimeoutModal/SessionTimeoutModal";
 
 import styles from "./AdminLayout.module.css";
 
 const DESKTOP_BREAKPOINT = 992;
 
 export function AdminLayout() {
+  const {
+    showWarning,
+    countdown,
+    continueSession,
+    logoutNow,
+  } = useIdleLogout();
+
   const getInitialCollapsed = () => {
     const saved = localStorage.getItem("vok-sidebar-collapsed");
 
@@ -20,7 +31,9 @@ export function AdminLayout() {
     return false;
   };
 
-  const [isCollapsed, setIsCollapsed] = useState(getInitialCollapsed);
+  const [isCollapsed, setIsCollapsed] = useState(
+    getInitialCollapsed
+  );
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -37,7 +50,8 @@ export function AdminLayout() {
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= DESKTOP_BREAKPOINT;
+      const mobile =
+        window.innerWidth <= DESKTOP_BREAKPOINT;
 
       setIsMobile(mobile);
 
@@ -50,7 +64,11 @@ export function AdminLayout() {
 
     handleResize();
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () =>
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
   }, []);
 
   const toggleSidebar = () => {
@@ -67,34 +85,44 @@ export function AdminLayout() {
   };
 
   return (
-    <div className={styles.layout}>
-      <Sidebar
-        isMobile={isMobile}
-        isMobileOpen={isMobileOpen}
-        isCollapsed={isCollapsed}
-        closeMobileSidebar={closeMobileSidebar}
-      />
-
-      <div
-        className={`${styles.main} ${
-          isCollapsed
-            ? styles.mainCollapsed
-            : styles.mainExpanded
-        }`}
-      >
-        <AdminHeader
+    <>
+      <div className={styles.layout}>
+        <Sidebar
           isMobile={isMobile}
-          isCollapsed={isCollapsed}
           isMobileOpen={isMobileOpen}
-          toggleSidebar={toggleSidebar}
+          isCollapsed={isCollapsed}
+          closeMobileSidebar={closeMobileSidebar}
         />
 
-        <main className={styles.content}>
-          <Outlet />
-        </main>
+        <div
+          className={`${styles.main} ${
+            isCollapsed
+              ? styles.mainCollapsed
+              : styles.mainExpanded
+          }`}
+        >
+          <AdminHeader
+            isMobile={isMobile}
+            isCollapsed={isCollapsed}
+            isMobileOpen={isMobileOpen}
+            toggleSidebar={toggleSidebar}
+          />
 
-        <Footer />
+          <main className={styles.content}>
+            <Outlet />
+          </main>
+
+          <Footer />
+        </div>
       </div>
-    </div>
+
+      {showWarning && (
+        <SessionTimeoutModal
+          countdown={countdown}
+          onContinue={continueSession}
+          onLogout={logoutNow}
+        />
+      )}
+    </>
   );
 }

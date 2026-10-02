@@ -3,9 +3,9 @@ import api from "../Services/api";
 import styles from "./Profile.module.css";
 
 function Profile() {
-  const storedEmployee = JSON.parse(
-    localStorage.getItem("employee")
-  );
+const storedEmployee = JSON.parse(
+  localStorage.getItem("employee") || "{}"
+);
 
   const [employee, setEmployee] = useState(null);
 
@@ -42,9 +42,15 @@ function Profile() {
     fetchProfile();
   }, []);
 
-  const fetchProfile = async () => {
-    try {
-      setLoading(true);
+const fetchProfile = async () => {
+  try {
+    setLoading(true);
+
+    if (!storedEmployee?._id) {
+      setError("Employee not found.");
+      setLoading(false);
+      return;
+    }
 
       const res = await api.get(
         `/auth/Profile/${storedEmployee._id}`
@@ -110,7 +116,7 @@ function Profile() {
 
       setEditOpen(false);
 
-      alert("Password changed successfully.");
+      alert("Profile updated successfully.");
     } catch (err) {
       alert(
         err.response?.data?.message ||
@@ -128,6 +134,9 @@ function Profile() {
     ) {
       return alert("Passwords do not match.");
     }
+    if (passwordForm.newPassword.length < 6) {
+  return alert("Password must be at least 6 characters.");
+}
 
     try {
       setPasswordSaving(true);
@@ -458,20 +467,21 @@ function Profile() {
             </div>
 
             <div className={styles.modalButtons}>
-              <button
-                className={styles.cancelButton}
-                onClick={() => {
-                  setPasswordOpen(false);
+<button
+  className={styles.cancelButton}
+  onClick={() => {
+    setProfileForm({
+      fullname: employee.fullname || "",
+      email: employee.email || "",
+      phone: employee.phone || "",
+      department: employee.department || "",
+    });
 
-                  setPasswordForm({
-                    oldPassword: "",
-                    newPassword: "",
-                    confirmPassword: "",
-                  });
-                }}
-              >
-                Cancel
-              </button>
+    setEditOpen(false);
+  }}
+>
+  Cancel
+</button>
 
               <button
                 className={styles.primaryButton}

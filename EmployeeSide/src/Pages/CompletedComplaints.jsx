@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../Services/api";
-import styles from "./AssignedComplaints.module.css";
+import styles from "./CompletedComplaints.module.css";
 
-function AssignedComplaints() {
+function CompletedComplaints() {
 
 
 const [selectedComplaint, setSelectedComplaint] = useState(null);
@@ -43,10 +43,25 @@ const handleView = (complaint) => {
   setShowModal(true);
 };
 
-const filtered=complaints.filter(item=>
-(item._id || "").toLowerCase().includes(search.toLowerCase())||
-(item.category || "").toLowerCase().includes(search.toLowerCase())
-);
+const filtered = complaints.filter((item) => {
+
+    const text = search.toLowerCase();
+
+    return (
+
+        String(item._id ?? "").toLowerCase().includes(text) ||
+
+        String(item.category ?? "").toLowerCase().includes(text) ||
+
+        String(item.location ?? "").toLowerCase().includes(text) ||
+
+        String(item.userId?.fullname ?? "")
+            .toLowerCase()
+            .includes(text)
+
+    );
+
+});
 
 return(
 
@@ -90,9 +105,24 @@ onChange={(e)=>setSearch(e.target.value)}
 
 <tr key={item._id || item.id}>
 
-<td>{item._id.slice(-8).toUpperCase()}</td>
+<td>{item._id?.slice(-8).toUpperCase() ?? "-"}</td>
 
 <td>{item.category}</td>
+
+{filtered.length === 0 && (
+    <tr>
+        <td
+            colSpan="5"
+            style={{
+                textAlign: "center",
+                padding: "24px",
+                color: "#6b7280",
+            }}
+        >
+            No completed complaints found.
+        </td>
+    </tr>
+)}
 
 <td>
 
@@ -102,7 +132,11 @@ onChange={(e)=>setSearch(e.target.value)}
 
 </td>
 
-<td>{new Date(item.reportClosedAt).toLocaleDateString()}</td>
+<td>
+    {item.reportClosedAt
+        ? new Date(item.reportClosedAt).toLocaleDateString()
+        : "-"}
+</td>
 
 <td>
 
@@ -115,14 +149,6 @@ onChange={(e)=>setSearch(e.target.value)}
     View
 </button>
 
-
-{item.status==="In Progress"&&(
-
-<>
-
-</>
-
-)}
 
 </div>
 
@@ -188,6 +214,8 @@ onChange={(e)=>setSearch(e.target.value)}
 
       </div>
 
+
+
       <div className={styles.section}>
 
         <h3>Complaint Information</h3>
@@ -208,6 +236,15 @@ onChange={(e)=>setSearch(e.target.value)}
 
         </div>
 
+        <div>
+    <label>Completed On</label>
+    <p>
+        {selectedComplaint.reportClosedAt
+            ? new Date(selectedComplaint.reportClosedAt).toLocaleDateString()
+            : "-"}
+    </p>
+</div>
+
       </div>
 
       <div className={styles.section}>
@@ -219,6 +256,47 @@ onChange={(e)=>setSearch(e.target.value)}
         </div>
 
       </div>
+
+      {selectedComplaint.status === "Closed" && (
+
+    <div className={styles.section}>
+
+        <h3>Citizen Feedback</h3>
+
+        {selectedComplaint.rating ? (
+
+            <>
+
+                <div className={styles.ratingDisplay}>
+
+                    {"★".repeat(selectedComplaint.rating)}
+                    {"☆".repeat(5 - selectedComplaint.rating)}
+
+                </div>
+
+                <div className={styles.feedbackBox}>
+
+                    {selectedComplaint.feedback
+                        ? `"${selectedComplaint.feedback}"`
+                        : "Citizen submitted a rating without comments."}
+
+                </div>
+
+            </>
+
+        ) : (
+
+            <div className={styles.noFeedback}>
+
+                No feedback has been submitted by the citizen yet.
+
+            </div>
+
+        )}
+
+    </div>
+
+)}
 
       {selectedComplaint.photos?.length > 0 && (
 
@@ -268,4 +346,4 @@ onChange={(e)=>setSearch(e.target.value)}
 
 }
 
-export default AssignedComplaints;
+export default CompletedComplaints;

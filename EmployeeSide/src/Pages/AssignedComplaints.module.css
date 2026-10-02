@@ -297,3 +297,29 @@ font-weight:600;
 .closeBtn:hover{
 background:#111827;
 }
+
+.priority{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:80px;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.high{
+    background:#FEE2E2;
+    color:#DC2626;
+}
+
+.medium{
+    background:#FEF3C7;
+    color:#D97706;
+}
+
+.low{
+    background:#DCFCE7;
+    color:#16A34A;
+}

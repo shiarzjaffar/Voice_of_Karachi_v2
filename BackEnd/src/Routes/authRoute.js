@@ -81,18 +81,22 @@ authRouter.post("/employee/register", async (req, res) => {
       });
     }
 
-    const lastEmployee = await User.findOne({
-  role: "Employee",
-}).sort({ employeeId: -1 });
+const employees = await User.find(
+  { role: "Employee" },
+  "employeeId"
+);
 
-let nextNumber = 1;
+let highest = 0;
 
-if (lastEmployee?.employeeId) {
-  nextNumber =
-    parseInt(lastEmployee.employeeId.replace("EMP-", "")) + 1;
-}
+employees.forEach(emp => {
+  const match = emp.employeeId?.match(/\d+/);
 
-const employeeId = `EMP-${String(nextNumber).padStart(6, "0")}`;
+  if (match) {
+    highest = Math.max(highest, Number(match[0]));
+  }
+});
+
+const employeeId = `EMP${String(highest + 1).padStart(3, "0")}`;
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
@@ -112,18 +116,26 @@ const employeeId = `EMP-${String(nextNumber).padStart(6, "0")}`;
       userstatus: 1,
     });
 
-    res.status(201).json({
-      message: "Employee registration submitted successfully.",
-      employeeId: employee._id,
-    });
+res.status(201).json({
+  message: "Employee registration submitted successfully.",
+  employeeId: employee.employeeId,
+});
 
-  } catch (error) {
+} catch (error) {
+
+    console.error("====================================");
+    console.error("Employee Registration Error");
+    console.error("====================================");
+
     console.error(error);
 
+    console.error(error.stack);
+
     res.status(500).json({
-      error: "Server error.",
+        error: error.message,
     });
-  }
+
+}
 });
 
 
@@ -328,117 +340,204 @@ authRouter.post("/check-phone", async (req, res) => {
 });
 
 authRouter.post("/forgot-password/send", async (req, res) => {
-  const { email } = req.body;
-  const otp = generateOTP();
-  otpStore.set(email, { otp, expiresAt: Date.now() + 10 * 60 * 1000 });
+  try {
+    let { email } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-  });
+    email = email?.trim().toLowerCase();
 
-  await transporter.sendMail({
-  from: process.env.EMAIL_USER,
-  to: email,
-  subject: "🔐 Your OTP Code - Action Required",
-  text: `Your OTP is: ${otp}. It is valid for 10 minutes.`,
-  html: `
-    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0E2A43; padding: 30px;">
-      <div style="max-width: 550px; margin: auto; background: #3D6582; border-radius: 12px; padding: 35px; color: #F4F8F9; 
-                  box-shadow: 0 0 20px rgba(91, 160, 188, 0.3); border: 1px solid #C4D0D6;">
+    if (!email) {
+      return res.status(400).json({
+        error: "Email is required.",
+      });
+    }
 
-        <div style="text-align: center; margin-bottom: 20px;">
-          <img src="cid:Logo" alt="Urban Fixed Logo" style="height: 80px; margin-bottom: 10px;" />
-          <h1 style="margin: 0; font-size: 28px; color: #5BA0BC;">
-            🔐 Verify Your Email
-          </h1>
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "No account found with this email.",
+      });
+    }
+
+    const otp = generateOTP();
+
+    otpStore.set(email, {
+      otp,
+      expiresAt: Date.now() + 10 * 60 * 1000,
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Voice of Karachi - Password Reset OTP",
+
+      text: `Your Voice of Karachi password reset OTP is: ${otp}. It is valid for 10 minutes.`,
+
+      html: `
+        <div style="font-family: Arial, sans-serif; padding: 30px;">
+          <div style="max-width: 550px; margin: auto; padding: 30px; border-radius: 12px;">
+            
+            <h2 style="text-align:center;">
+              Voice of Karachi
+            </h2>
+
+            <h3>Password Reset</h3>
+
+            <p>
+              Use the following OTP to reset your password:
+            </p>
+
+            <div style="text-align:center; font-size:32px; font-weight:bold; margin:30px;">
+              ${otp}
+            </div>
+
+            <p>
+              This OTP will expire in 10 minutes.
+            </p>
+
+            <p>
+              If you did not request a password reset, you can ignore this email.
+            </p>
+
+          </div>
         </div>
+      `,
+    });
 
-        <p style="font-size: 16px; line-height: 1.6; color: #F4F8F9;">
-          Hello there,
-        </p>
+    res.json({
+      message: "OTP sent successfully.",
+    });
 
-        <p style="font-size: 16px; line-height: 1.6; color: #C4D0D6;">
-          We're excited to help you verify your account. Please use the following One-Time Password (OTP) to complete your email verification:
-        </p>
+  } catch (error) {
+    console.error("Forgot Password Send Error:", error);
 
-        <div style="text-align: center; margin: 35px 0;">
-          <span style="display: inline-block; font-size: 32px; font-weight: 600; 
-                       background: #5BA0BC; color: #0E2A43; padding: 14px 28px; 
-                       border-radius: 10px; letter-spacing: 3px; 
-                       box-shadow: 0 0 12px rgba(91, 160, 188, 0.7);">
-            ${otp}
-          </span>
-        </div>
-
-        <p style="font-size: 15px; color: #C4D0D6;">
-          ⚠️ This code will expire in <strong>10 minutes</strong>. Do not share this OTP with anyone, including our team.
-        </p>
-
-        <p style="font-size: 15px; color: #C4D0D6;">
-          If you did not request this verification, feel free to ignore this email — no action is needed.
-        </p>
-
-        <hr style="border: none; border-top: 1px solid #C4D0D6; margin: 35px 0;">
-
-        <p style="font-size: 14px; text-align: center; color: #5BA0BC;">
-          Thanks for being with us!<br><strong>— Urban Fix Team</strong>
-        </p>
-
-      </div>
-    </div>`,
-  attachments: [{
-    filename: 'logo.png',
-    path: logoPath,
-    cid: 'Logo'
-  }]
-});
-  res.json({ message: "OTP sent" });
+    res.status(500).json({
+      error: "Unable to send OTP.",
+    });
+  }
 });
 
 authRouter.post("/forgot-password/verify", (req, res) => {
-  const { email, otp } = req.body;
-  const stored = otpStore.get(email);
-  if (!stored || stored.otp !== otp || Date.now() > stored.expiresAt)
-    return res.status(400).json({ error: "Invalid or expired OTP" });
+  try {
+    let { email, otp } = req.body;
 
-  verifiedEmails.add(email);
-  otpStore.delete(email);
-  res.json({ message: "OTP verified successfully" });
+    email = email?.trim().toLowerCase();
+    otp = otp?.trim();
+
+    if (!email || !otp) {
+      return res.status(400).json({
+        error: "Email and OTP are required.",
+      });
+    }
+
+    const stored = otpStore.get(email);
+
+    if (!stored) {
+      return res.status(400).json({
+        error: "OTP not found or expired.",
+      });
+    }
+
+    if (Date.now() > stored.expiresAt) {
+      otpStore.delete(email);
+
+      return res.status(400).json({
+        error: "OTP has expired.",
+      });
+    }
+
+    if (stored.otp !== otp) {
+      return res.status(400).json({
+        error: "Invalid OTP.",
+      });
+    }
+
+    verifiedEmails.add(email);
+    otpStore.delete(email);
+
+    res.json({
+      message: "OTP verified successfully.",
+    });
+
+  } catch (error) {
+    console.error("OTP Verification Error:", error);
+
+    res.status(500).json({
+      error: "Server error while verifying OTP.",
+    });
+  }
 });
 
 authRouter.post("/forgot-password/reset", async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    let { email, newPassword } = req.body;
 
-    // Check if OTP verified
-    if (!verifiedEmails.has(email)) {
-      return res.status(403).json({ error: "OTP not verified or expired" });
+    email = email?.trim().toLowerCase();
+
+    if (!email || !newPassword) {
+      return res.status(400).json({
+        error: "Email and new password are required.",
+      });
     }
 
-    // Try to find user in User collection first, then Admin
-    let user = await User.findOne({ email });
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        error: "Password must be at least 8 characters long.",
+      });
+    }
+
+    if (!verifiedEmails.has(email)) {
+      return res.status(403).json({
+        error: "OTP not verified or expired.",
+      });
+    }
+
+    const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({
+        error: "User not found.",
+      });
     }
 
-    // Hash the new password before saving
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Save hashed password
-    user.password = hashedPassword;
-    await user.save();
+    // Update ONLY the password
+    const result = await User.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          password: hashedPassword,
+        },
+      }
+    );
 
-    // Remove email from verified set
+    if (result.modifiedCount !== 1) {
+      return res.status(500).json({
+        error: "Password was not updated.",
+      });
+    }
+
     verifiedEmails.delete(email);
 
-    res.json({ message: "Password reset successful" });
+    res.json({
+      message: "Password reset successful.",
+    });
 
   } catch (error) {
     console.error("Reset Password Error:", error);
-    res.status(500).json({ error: "Server error while resetting password" });
+
+    res.status(500).json({
+      error: "Server error while resetting password.",
+    });
   }
 });
 
@@ -546,23 +645,47 @@ authRouter.put("/password/update", async (req, res) => {
   try {
     const { userId, newPassword } = req.body;
 
-    const user = await User.findById(userId).select("+password");
-    if (!user) {
-      return res.status(404).json({ error: "User not found!" });
+    if (!userId || !newPassword) {
+      return res.status(400).json({
+        error: "User ID and new password are required.",
+      });
     }
 
-    // Hash new password
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        error: "Password must be at least 8 characters long.",
+      });
+    }
+
+    const user = await User.findById(userId).select("+password");
+
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found!",
+      });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    user.password = hashedPassword;
-    await user.save();
+    await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          password: hashedPassword,
+        },
+      }
+    );
 
-    res.json({ message: "Password updated successfully!" });
+    res.json({
+      message: "Password updated successfully!",
+    });
 
   } catch (error) {
     console.error("Password update error:", error);
-    res.status(500).json({ error: "Server error" });
+
+    res.status(500).json({
+      error: "Server error while updating password.",
+    });
   }
 });
-

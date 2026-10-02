@@ -53,3 +53,15 @@ export const addFeedback = async (id, feedback) => {
 
   return data;
 };
+
+export const updateAdminNotes = async (id, adminNotes) => {
+  const { data } = await axios.put(
+    `${API}/admin-notes/${id}`,
+    { adminNotes },
+    {
+      withCredentials: true,
+    }
+  );
+
+  return data;
+};
